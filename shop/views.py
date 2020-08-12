@@ -6,10 +6,10 @@ def shop(request):
 	context = {'products':products}
 	return render(request, 'shop.html', context)
 
-def tshirts(request):
+def product(request):
 	products = Product.objects.all()
 	context = {'products':products}
-	return render(request, 'tshirts.html', context)
+	return render(request, 'product.html', context)
 
 def cart(request):
     if request.user.is_authenticated:
@@ -44,7 +44,3 @@ def signup(request):
 def category(request):
     context = {}
     return render(request, 'category.html', context)
-
-def product(request):
-    context = {}
-    return render(request, 'product.html', context)
