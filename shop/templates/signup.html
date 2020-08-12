@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Sign Up</title>
+  <!-- MDB icon -->
+  <link rel="icon" href="../static/images/mdb-favicon.ico" type="image/x-icon">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+  <!-- Google Fonts Roboto -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+  <!-- Material Design Bootstrap -->
+  <link rel="stylesheet" href="../static/css/mdb.min.css">
+ 
+  <link rel="stylesheet" href="../static/css/main.css">
+</head>
+<body>
+    
+<div class="container mb-4">
+    <div class="container">
+        <div class="pyslogo py-2" >
+            <a href="{% url 'shop' %}" class="px-xl-5">
+          <i class="fab fa-3x site-logo" style="color: black;text-shadow: 0px 0px 40px purple;" alt="mdb logo">PYS</i>
+        </a>
+        </div>
+      </div>
+<!-- Default form register -->
+<div class="perform">
+<form class="myForm text-center border-light mb-5 p-5 form-border" action="#!">
+
+    <p class="h3 mb-4">Sign up</p>
+
+    <div class="form-row mb-4">
+        <div class="col">
+            <!-- First name -->
+            <input type="text" id="defaultRegisterFormFirstName" class="form-control" placeholder="First name">
+        </div>
+        <div class="col">
+            <!-- Last name -->
+            <input type="text" id="defaultRegisterFormLastName" class="form-control" placeholder="Last name">
+        </div>
+    </div>
+
+    <!-- E-mail -->
+    <input type="email" id="defaultRegisterFormEmail" class="form-control mb-4" placeholder="E-mail"/>
+
+    <!-- Password -->
+    <input type="password" id="defaultRegisterFormPassword" class="form-control" placeholder="Password" aria-describedby="defaultRegisterFormPasswordHelpBlock"/>
+    <small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
+        At least 8 characters and 1 digit
+    </small>
+
+    <!-- Phone number -->
+    <input type="text" id="defaultRegisterPhonePassword" class="form-control" placeholder="Phone number" aria-describedby="defaultRegisterFormPhoneHelpBlock"/>
+    <small id="defaultRegisterFormPhoneHelpBlock" class="form-text text-muted mb-4">
+        Optional - for two step authentication
+    </small>
+
+    <!-- Sign up button -->
+    <button class="btn btn-info my-4 btn-block" type="submit">Sign in</button>
+
+    <!-- Social register -->
+    <p>or Sign up with:</p>
+
+    <a type="button" class="btn-floating btn-fb btn-sm mr-1">
+      <i class="fab fa-facebook-f"></i>
+    </a>
+    <a type="button" class="btn-floating btn-tw btn-sm mr-1">
+      <i class="fab fa-twitter"></i>
+    </a>
+    <a type="button" class="btn-floating btn-li btn-sm mr-1">
+      <i class="fab fa-linkedin-in"></i>
+    </a>
+    <a type="button" class="btn-floating btn-git btn-sm">
+      <i class="fab fa-github"></i>
+    </a>
+
+    <hr>
+
+    <!-- Terms of service -->
+    <p>By clicking
+        <em>Sign up</em> you agree to our
+        <a href="" target="_blank">terms of service</a>
+    </p>
+    <hr>
+</form>
+</div>
+<!-- Default form register -->
+		<!-- Default form login -->
+	</div>
+  <!-- jQuery -->
+  <script type="text/javascript" src="../static/js/jquery.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="../static/js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="../static/js/mdb.min.js"></script>
+  <!-- Your custom scripts (optional) -->
+</body>
+
+</html>
