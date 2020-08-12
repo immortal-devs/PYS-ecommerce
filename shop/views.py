@@ -40,3 +40,11 @@ def login(request):
 def signup(request):
     context = {}
     return render(request, 'signup.html', context)
+
+def category(request):
+    context = {}
+    return render(request, 'category.html', context)
+
+def product(request):
+    context = {}
+    return render(request, 'product.html', context)
