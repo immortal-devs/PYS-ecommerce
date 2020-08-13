@@ -1,98 +1,151 @@
 <!DOCTYPE html>
+
 <html lang="en">
-{% load static %}
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Sign Up</title>
-  <!-- MDB icon -->
-  <link rel="icon" href="../static/images/mdb-favicon.ico" type="image/x-icon">
+  <title>E-Commerce</title>
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
-  <!-- Google Fonts Roboto -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
   <!-- Bootstrap core CSS -->
-  <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+  <link href="../static/css/bootstrap.min.css" rel="stylesheet">
   <!-- Material Design Bootstrap -->
-  <link rel="stylesheet" href="../static/css/mdb.min.css">
+  <link href="../static/css/mdb.min.css" rel="stylesheet">
  
-  <link rel="stylesheet" href="../static/css/main.css">
 </head>
+
 <body>
 
-<div class="perform">
-<form class="myForm text-center border-light mb-5 p-5 form-border" action="#!">
+  <!-- Navigation -->
 
-    <p class="h3 mb-4">Sign up</p>
+  <!-- Navigation -->
+<div class="container ">
+  <!-- Material form login -->
+<!-- Material form register -->
+<div class="card logform">
 
-    <div class="form-row mb-4">
-        <div class="col">
-            <!-- First name -->
-            <input type="text" id="defaultRegisterFormFirstName" class="form-control" placeholder="First name">
-        </div>
-        <div class="col">
-            <!-- Last name -->
-            <input type="text" id="defaultRegisterFormLastName" class="form-control" placeholder="Last name">
-        </div>
-    </div>
+  <h5 class="card-header info-color white-text text-center py-4">
+      <strong>Sign up</strong>
+  </h5>
 
-    <!-- E-mail -->
-    <input type="email" id="defaultRegisterFormEmail" class="form-control mb-4" placeholder="E-mail"/>
+  <!--Card content-->
+  <div class="card-body px-lg-5 pt-0">
 
-    <!-- Password -->
-    <input type="password" id="defaultRegisterFormPassword" class="form-control" placeholder="Password" aria-describedby="defaultRegisterFormPasswordHelpBlock"/>
-    <small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
-        At least 8 characters and 1 digit
-    </small>
+      <!-- Form -->
+      <form class="text-center" style="color: #757575;" action="#!">
 
-    <!-- Phone number -->
-    <input type="text" id="defaultRegisterPhonePassword" class="form-control" placeholder="Phone number" aria-describedby="defaultRegisterFormPhoneHelpBlock"/>
-    <small id="defaultRegisterFormPhoneHelpBlock" class="form-text text-muted mb-4">
-        Optional - for two step authentication
-    </small>
+          <div class="form-row">
+              <div class="col">
+                  <!-- First name -->
+                  <div class="md-form">
+                      <input type="text" id="materialRegisterFormFirstName" class="form-control">
+                      <label for="materialRegisterFormFirstName">First name</label>
+                  </div>
+              </div>
+              <div class="col">
+                  <!-- Last name -->
+                  <div class="md-form">
+                      <input type="email" id="materialRegisterFormLastName" class="form-control">
+                      <label for="materialRegisterFormLastName">Last name</label>
+                  </div>
+              </div>
+          </div>
 
-    <!-- Sign up button -->
-    <button class="btn btn-info my-4 btn-block" type="submit">Sign in</button>
+          <!-- E-mail -->
+          <div class="md-form mt-0">
+              <input type="email" id="materialRegisterFormEmail" class="form-control">
+              <label for="materialRegisterFormEmail">E-mail</label>
+          </div>
 
-    <!-- Social register -->
-    <p>or Sign up with:</p>
+          <!-- Password -->
+          <div class="md-form">
+              <input type="password" id="materialRegisterFormPassword" class="form-control" aria-describedby="materialRegisterFormPasswordHelpBlock">
+              <label for="materialRegisterFormPassword">Password</label>
+              <small id="materialRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
+                  At least 8 characters and 1 digit
+              </small>
+          </div>
 
-    <a type="button" class="btn-floating btn-fb btn-sm mr-1">
-      <i class="fab fa-facebook-f"></i>
-    </a>
-    <a type="button" class="btn-floating btn-tw btn-sm mr-1">
-      <i class="fab fa-twitter"></i>
-    </a>
-    <a type="button" class="btn-floating btn-li btn-sm mr-1">
-      <i class="fab fa-linkedin-in"></i>
-    </a>
-    <a type="button" class="btn-floating btn-git btn-sm">
-      <i class="fab fa-github"></i>
-    </a>
+          <!-- Phone number -->
+          <div class="md-form">
+              <input type="password" id="materialRegisterFormPhone" class="form-control" aria-describedby="materialRegisterFormPhoneHelpBlock">
+              <label for="materialRegisterFormPhone">Phone number</label>
+              <small id="materialRegisterFormPhoneHelpBlock" class="form-text text-muted mb-4">
+                  Optional - for two step authentication
+              </small>
+          </div>
 
-    <hr>
+          <!-- Newsletter -->
+          <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="materialRegisterFormNewsletter">
+              <label class="form-check-label" for="materialRegisterFormNewsletter">Subscribe to our newsletter</label>
+          </div>
 
-    <!-- Terms of service -->
-    <p>By clicking
-        <em>Sign up</em> you agree to our
-        <a href="" target="_blank">terms of service</a>
-    </p>
-    <hr>
-</form>
+          <!-- Sign up button -->
+          <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Sign in</button>
+
+          <!-- Social register -->
+          <p>or sign up with:</p>
+
+          <a type="button" class="btn-floating btn-fb btn-sm">
+              <i class="fab fa-facebook-f"></i>
+          </a>
+          <a type="button" class="btn-floating btn-tw btn-sm">
+              <i class="fab fa-twitter"></i>
+          </a>
+          <a type="button" class="btn-floating btn-li btn-sm">
+              <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a type="button" class="btn-floating btn-git btn-sm">
+              <i class="fab fa-github"></i>
+          </a>
+
+          <hr>
+
+          <!-- Terms of service -->
+          <p>By clicking
+              <em>Sign up</em> you agree to our
+              <a href="" target="_blank">terms of service</a>
+
+      </form>
+      <!-- Form -->
+
+  </div>
+
 </div>
-<!-- Default form register -->
-		<!-- Default form login -->
-	</div>
-  <!-- jQuery -->
-  <script type="text/javascript" src="../static/js/jquery.min.js"></script>
+<!-- Material form register -->
+<!-- Material form login -->
+</div>
+  <!-- SCRIPTS -->
+  <!-- JQuery -->
+  <script type="text/javascript" src="../static/js/jquery-3.4.1.min.js"></script>
   <!-- Bootstrap tooltips -->
   <script type="text/javascript" src="../static/js/popper.min.js"></script>
   <!-- Bootstrap core JavaScript -->
-  <script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="../static/js/bootstrap.min.js">
+  </script>
   <!-- MDB core JavaScript -->
   <script type="text/javascript" src="../static/js/mdb.min.js"></script>
-  <!-- Your custom scripts (optional) -->
+  <script type="text/javascript">
+    /* WOW.js init */
+    new WOW().init();
+    // Tooltips Initialization
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
+
+    // Material Select Initialization
+    $(document).ready(function () {
+      $('.mdb-select').material_select();
+    });
+
+    // SideNav Initialization
+    $(".button-collapse").sideNav();
+
+  </script>
+
 </body>
 
 </html>

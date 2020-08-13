@@ -1,84 +1,125 @@
 <!DOCTYPE html>
+
 <html lang="en">
-{% load static %}
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Login</title>
-  <!-- MDB icon -->
-  <link rel="icon" href="../static/images/mdb-favicon.ico" type="image/x-icon">
+  <title>E-Commerce</title>
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
-  <!-- Google Fonts Roboto -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
   <!-- Bootstrap core CSS -->
-  <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+  <link href="../static/css/bootstrap.min.css" rel="stylesheet">
   <!-- Material Design Bootstrap -->
-  <link rel="stylesheet" href="../static/css/mdb.min.css">
-  <!-- Your custom styles (optional) -->
-  <link rel="stylesheet" href="../static/css/login.css">
+  <link href="../static/css/mdb.min.css" rel="stylesheet">
   <link rel="stylesheet" href="../static/css/main.css">
+ 
 </head>
-<body> 
-    <div class="perform">
-		<form class="myForm text-center border-light mb-5 p-5 form-border" action="#!">
 
-		   <p class="h3 mb-4">Login</p>
+<body >
 
-		    <!-- Email -->
-		    <input type="email" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="E-mail">
+  <!-- Navigation -->
 
-		    <!-- Password -->
-		    <input type="password" id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Password">
+  <!-- Navigation -->
+<div class="container ">
+  <!-- Material form login -->
+<div class="card logform">
 
-		    <div class="d-flex justify-content-around">
-		        <div>
-		            <!-- Forgot password -->
-		            <a href="">Forgot password?</a>
-		        </div>
-		    </div>
+  <h5 class="card-header info-color white-text text-center py-4">
+    <strong>Sign in</strong>
+  </h5>
 
-		    <!-- Sign in button -->
-		    <button class="btn btn-info btn-block btn-rounded my-4" type="submit">Sign in</button>
+  <!--Card content-->
+  <div class="card-body px-lg-5 pt-0">
 
-		    <!-- Register -->
-		    <p>Not a member?
-		        <a href="{% url 'signup' %}">Register</a>
-		    </p>
+    <!-- Form -->
+    <form class="text-center" style="color: #757575;" action="#!">
 
-		    <!-- Social login -->
-		    <p>or Sign in with:</p>
+      <!-- Email -->
+      <div class="md-form">
+        <input type="email" id="materialLoginFormEmail" class="form-control">
+        <label for="materialLoginFormEmail">E-mail</label>
+      </div>
 
-		    <a type="button" class="btn-floating btn-fb btn-sm mr-1">
-          <i class="fab fa-facebook-f"></i>
-        </a>
-        <a type="button" class="btn-floating btn-tw btn-sm mr-1">
-          <i class="fab fa-twitter"></i>
-        </a>
-        <a type="button" class="btn-floating btn-li btn-sm mr-1">
-          <i class="fab fa-linkedin-in"></i>
-        </a>
-        <a type="button" class="btn-floating btn-git btn-sm">
-          <i class="fab fa-github"></i>
-        </a>
+      <!-- Password -->
+      <div class="md-form">
+        <input type="password" id="materialLoginFormPassword" class="form-control">
+        <label for="materialLoginFormPassword">Password</label>
+      </div>
 
-		</form>
-		<!-- Default form login -->
-    </div>
-    </div>
-    
-  <!-- jQuery -->
-  <script type="text/javascript" src="../static/js/jquery.min.js"></script>
+      <div class="d-flex justify-content-around">
+        <div>
+          <!-- Remember me -->
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="materialLoginFormRemember">
+            <label class="form-check-label" for="materialLoginFormRemember">Remember me</label>
+          </div>
+        </div>
+        <div>
+          <!-- Forgot password -->
+          <a href="">Forgot password?</a>
+        </div>
+      </div>
+
+      <!-- Sign in button -->
+      <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Sign in</button>
+
+      <!-- Register -->
+      <p>Not a member?
+        <a href="">Register</a>
+      </p>
+
+      <!-- Social login -->
+      <p>or sign in with:</p>
+      <a type="button" class="btn-floating btn-fb btn-sm">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a type="button" class="btn-floating btn-tw btn-sm">
+        <i class="fab fa-twitter"></i>
+      </a>
+      <a type="button" class="btn-floating btn-li btn-sm">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+      <a type="button" class="btn-floating btn-git btn-sm">
+        <i class="fab fa-github"></i>
+      </a>
+
+    </form>
+    <!-- Form -->
+
+  </div>
+
+</div>
+<!-- Material form login -->
+</div>
+  <!-- SCRIPTS -->
+  <!-- JQuery -->
+  <script type="text/javascript" src="../static/js/jquery-3.4.1.min.js"></script>
   <!-- Bootstrap tooltips -->
   <script type="text/javascript" src="../static/js/popper.min.js"></script>
   <!-- Bootstrap core JavaScript -->
-  <script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="../static/js/bootstrap.min.js">
+  </script>
   <!-- MDB core JavaScript -->
   <script type="text/javascript" src="../static/js/mdb.min.js"></script>
-  <!-- Your custom scripts (optional) -->
-  <script type="text/javascript" src="../static/js/observers.js"></script>
-  <script type="text/javascript" src="../static/js/main.js"></script>
+  <script type="text/javascript">
+    /* WOW.js init */
+    new WOW().init();
+    // Tooltips Initialization
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
+
+    // Material Select Initialization
+    $(document).ready(function () {
+      $('.mdb-select').material_select();
+    });
+
+    // SideNav Initialization
+    $(".button-collapse").sideNav();
+
+  </script>
 
 </body>
 
