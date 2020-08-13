@@ -13,17 +13,16 @@
   <link href="../static/css/bootstrap.min.css" rel="stylesheet">
   <!-- Material Design Bootstrap -->
   <link href="../static/css/mdb.min.css" rel="stylesheet">
+  <link href="../static/css/main.css" rel="stylesheet">
  
 </head>
 
-<body class="homepage-v1 hidden-sn white-skin animated">
+<body>
 
   <!-- Navigation -->
-  <header>
-
-  
-    <!-- Navbar -->
-    <nav class="navbar fixed-top navbar-expand-lg  navbar-light scrolling-navbar white">
+<header>
+    
+    <nav class="navbar fixed-top navbar-expand-lg scrolled-bar">
 
       <div class="container">
 
@@ -50,7 +49,7 @@
 
                 <span class="badge danger-color">4</span>
 
-                <i class="fas fa-shopping-cart blue-text"></i> Cart
+                <i class="fas fa-shopping-cart black-text"></i> Cart
 
               </a>
 
@@ -60,7 +59,7 @@
 
               <a class="nav-link waves-effect waves-light dark-grey-text font-weight-bold" href="#">
 
-                <i class="fas fa-envelope blue-text"></i> Contact
+                <i class="fas fa-envelope black-text"></i> Contact
 
               </a>
 
@@ -70,7 +69,7 @@
 
               <a class="nav-link waves-effect waves-light dark-grey-text font-weight-bold" href="#">
 
-                <i class="fas fa-cog blue-text"></i> Settings</a>
+                <i class="fas fa-cog black-text"></i> Settings</a>
 
             </li>
 
@@ -79,7 +78,7 @@
               <a class="nav-link dropdown-toggle waves-effect waves-light dark-grey-text font-weight-bold"
                 id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
-                <i class="fas fa-user blue-text"></i> Profile </a>
+                <i class="fas fa-user black-text"></i> Profile </a>
 
               <div class="dropdown-menu dropdown-menu-right dropdown-cyan" aria-labelledby="navbarDropdownMenuLink-4">
 
@@ -97,13 +96,12 @@
       </div>
 
     </nav>
-    <!-- Navbar -->
-
+    
   </header>
   <!-- Navigation -->
 
   <!-- Intro -->
-  <section>
+  <section class="home-intro">
 
     <!-- Carousel Wrapper -->
     <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
@@ -3629,7 +3627,7 @@
   </script>
   <!-- MDB core JavaScript -->
   <script type="text/javascript" src="../static/js/mdb.min.js"></script>
-  <script type="text/javascript">
+  <script type="text/javascript" src="../static/js/observers.js"></script>
     /* WOW.js init */
     new WOW().init();
     // Tooltips Initialization
