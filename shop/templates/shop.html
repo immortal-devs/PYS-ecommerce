@@ -17,85 +17,89 @@
  
 </head>
 
-<body>
+<body class="homepage-v1 hidden-sn white-skin animated">
 
   <!-- Navigation -->
 <header>
-    
-    <nav class="navbar fixed-top navbar-expand-lg">
+  
+  <nav class="navbar fixed-top navbar-expand-lg  navbar-light scrolling-navbar white">
 
-      <div class="container">
+    <div class="container">
 
-        <a class="navbar-brand font-weight-bold" href="#">
+      <a class="navbar-brand font-weight-bold" href="#">
 
-          <strong>SHOP</strong>
+        <strong>SHOP</strong>
 
-        </a>
+      </a>
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
-          aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
+        aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
 
-          <span class="navbar-toggler-icon"></span>
+        <span class="navbar-toggler-icon"></span>
 
-        </button>
+      </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
 
-          <ul class="navbar-nav ml-auto">
+        <ul class="navbar-nav ml-auto">
 
-            <li class="nav-item ml-3">
+          <li class="nav-item ml-3">
 
-              <a class="nav-link waves-effect waves-light dark-grey-text font-weight-bold" href="#">
+            <a class="nav-link waves-effect waves-light dark-grey-text font-weight-bold" href="#">
+        
+              <span class="badge danger-color">4</span>
+        
+              <i class="fas fa-shopping-cart blue-text"></i> Cart
+        
+            </a>
+        
+          </li>
 
-                <span class="badge danger-color">4</span>
+          <li class="nav-item">
 
-                <i class="fas fa-shopping-cart black-text"></i> Cart
+            <a class="nav-link waves-effect waves-light dark-grey-text font-weight-bold" href="#">
 
-              </a>
+              <i class="fas fa-envelope blue-text"></i> Contact
 
-            </li>
+              <span class="sr-only">(current)</span>
 
-            <li class="nav-item ml-3">
+            </a>
 
-              <a class="nav-link waves-effect waves-light dark-grey-text font-weight-bold" href="#">
+          </li>
 
-                <i class="fas fa-envelope black-text"></i> Contact
+          <li class="nav-item ml-3">
 
-              </a>
+            <a class="nav-link waves-effect waves-light dark-grey-text font-weight-bold" href="#">
 
-            </li>
+              <i class="fas fa-cog blue-text"></i> Settings</a>
 
-            <li class="nav-item ml-3">
+          </li>
 
-              <a class="nav-link waves-effect waves-light dark-grey-text font-weight-bold" href="#">
+          <li class="nav-item dropdown ml-3">
 
-                <i class="fas fa-cog black-text"></i> Settings</a>
+            <a class="nav-link dropdown-toggle waves-effect waves-light dark-grey-text font-weight-bold"
+              id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
-            </li>
+              <i class="fas fa-user blue-text"></i> Profile </a>
 
-            <li class="nav-item dropdown ml-3">
+            <div class="dropdown-menu dropdown-menu-right dropdown-cyan" aria-labelledby="navbarDropdownMenuLink-4">
 
-              <a class="nav-link dropdown-toggle waves-effect waves-light dark-grey-text font-weight-bold"
-                id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="dropdown-item waves-effect waves-light" href="#">My account</a>
 
-                <i class="fas fa-user black-text"></i> Profile </a>
+              <a class="dropdown-item waves-effect waves-light" href="#">Log out</a>
 
-              <div class="dropdown-menu dropdown-menu-right dropdown-cyan" aria-labelledby="navbarDropdownMenuLink-4">
+            </div>
 
-                <a class="dropdown-item waves-effect waves-light" href="#">My account</a>
+          </li>
 
-                <a class="dropdown-item waves-effect waves-light" href="{% url 'login' %}">Log out</a>
-
-              </div>
-
-            </li>
-          </ul>
-
-        </div>
+        </ul>
 
       </div>
 
-    </nav>
+    </div>
+
+  </nav>
+      
     
   </header>
   <!-- Navigation -->
@@ -3630,7 +3634,7 @@
   </script>
   <!-- MDB core JavaScript -->
   <script type="text/javascript" src="../static/js/mdb.min.js"></script>
-  <script type="text/javascript" src="../static/js/observers.js"></script>
+  <script type="text/javascript"></script>
     /* WOW.js init */
     new WOW().init();
     // Tooltips Initialization
