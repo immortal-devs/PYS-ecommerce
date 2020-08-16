@@ -1,14 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
-from dj.choices import Choice, Choices
-from dj.choices.fields import ChoiceField
-# Create your models here.
 
 
 class Address(models.Model):
 	# address_id = models.AutoField()
-	first_len = models.CharField(max_length=200,null=False)
-	second_len = models.CharField(max_length=200,null=False)
+	first_len = models.CharField(max_length=30,null=False)
+	second_len = models.CharField(max_length=30,null=False)
 	city = models.CharField(max_length=200)
 	state = models.CharField(max_length=30)
 	pincode = models.IntegerField()
