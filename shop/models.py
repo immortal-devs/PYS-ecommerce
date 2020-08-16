@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib.auth.models import User
 
 class Address(models.Model):
 	address_id = models.AutoField()
@@ -34,20 +33,25 @@ class Order(models.Model):
 	order_id = models.AutoField(primary_key=True)
 	customer_id = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
 	date_ordered = models.DateTimeField(auto_now_add=True)
-	quantity = models.IntegerField()
 	product_id = models.ForeignKey(Product, on_delete=models.SET_NULL, null=False, blank=True)
 	address_id = models.ForeignKey(Address, on_delete=models.SET_NULL, null=False, blank=True)
 
-class customer_search(models.Model):
+class OrderItem(models.Model):
+	product_id = models.ForeignKey(Product, on_delete=models.SET_NULL, null=False, blank=True)
+	order_id = models.ForeignKey(Order, on_delete=models.SET_NULL, null=False, blank=True)
+	quantity = models.IntegerField()
+	date_ordered = models.DateTimeField(auto_now_add=True)
+
+class Customer_search(models.Model):
 	customer_id = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
 	search = models.CharField()
 
-class shopping_cart(models.Model):
+class Shopping_cart(models.Model):
 	shopping_id = models.AutoField(primary_key=True)
 	product_id = models.ForeignKey(Product, on_delete=models.SET_NULL, null=False, blank=True)
 	quantity = models.IntegerField()
 	customer_id = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
 
-class admin_detail(models.Model):
+class Admin_detail(models.Model):
 	username = models.CharField(max_length=200)
 	password = models.CharField(max_length=15)
