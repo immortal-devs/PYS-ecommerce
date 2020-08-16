@@ -34,7 +34,7 @@ class Order(models.Model):
 	order_id = models.AutoField(primary_key=True)
 	customer_id = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
 	date_ordered = models.DateTimeField(auto_now_add=True)
-	total_amount = models.DecimalField()
+	quantity = models.IntegerField()
 	product_id = models.ForeignKey(Product, on_delete=models.SET_NULL, null=False, blank=True)
 	address_id = models.ForeignKey(Address, on_delete=models.SET_NULL, null=False, blank=True)
 
