@@ -6,8 +6,8 @@ from dj.choices.fields import ChoiceField
 
 class Address(models.Model):
 	# address_id = models.AutoField()
-	first_len = models.TextField(null=False)
-	second_len = models.TextField(null=False)
+	first_len = models.CharField(max_length=30, null=False)
+	second_len = models.CharField(max_length=30, null=False)
 	city = models.CharField(max_length=20)
 	state = models.CharField(max_length=20)
 	pincode = models.IntegerField()
