@@ -4,15 +4,11 @@ from dj.choices import Choice, Choices
 from dj.choices.fields import ChoiceField
 # Create your models here.
 
-class Gender(Choices):
-	male = Choice("male")
-	female = Choice("female")
-	not_spacified = Choice("not specified")
 
 class Address(models.Model):
 	address_id = models.AutoField()
 	first_len = models.CharField(max_length=200,null=False)
-	second_len = models.CharField(max_length=200,null=True)
+	second_len = models.CharField(max_length=200,null=False)
 	city = models.CharField(max_length=200)
 	state = models.CharField(max_length=30)
 	pincode = models.IntegerField(max_length=6)
@@ -24,10 +20,11 @@ class Customer(models.Model):
 	lastname = models.CharField(max_length=200,null=False)
 	email = models.CharField(max_length=200,null=False)
 	password = models.CharField(max_length=15,null=False)
-	gender = models.Choices(choices=Gender,default=Gender.not_spacified)
+	gender = models.CharField(max_length=20)
 	address_id = models.ForeignKey(Address, on_delete=models.CASCADE, null=False, blank=True)
 	birthdate = models.DateField()
 	mobile_no = models.IntegerField(max_length=10)
+	search = models.CharField(max_length=1000,null=True)
 
 class Product(models.Model):
 	product_id = models.AutoField(primary_key=True)
@@ -41,19 +38,23 @@ class Order(models.Model):
 	order_id = models.AutoField(primary_key=True)
 	customer_id = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
 	date_ordered = models.DateTimeField(auto_now_add=True)
-	total_amount = models.DecimalField()
-	product_id = models.ForeignKey(Product, on_delete=models.SET_NULL, null=False, blank=True)
 	address_id = models.ForeignKey(Address, on_delete=models.SET_NULL, null=False, blank=True)
+	complete = models.BooleanField(default=False,null=True,blank=False)
+	transaction_id=models.CharField(max_length=200,null=True)
 
-class customer_search(models.Model):
-	customer_id = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
-	search = models.CharField()
+class OrderItem(models.Model):
+	product_id = models.ForeignKey(Product, on_delete=models.SET_NULL, null=False, blank=True)
+	order_id = models.ForeignKey(Order, on_delete=models.SET_NULL, null=False, blank=True)
+	quantity = models.IntegerField()
+	date_added = models.DateTimeField(auto_now_add=True)
 
 class shopping_cart(models.Model):
 	product_id = models.ForeignKey(Product, on_delete=models.SET_NULL, null=False, blank=True)
 	quantity = models.IntegerField()
 	customer_id = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
 
-class admin_detail(models.Model):
+
+
+class Admin_detail(models.Model):
 	username = models.CharField(max_length=200)
 	password = models.CharField(max_length=15)

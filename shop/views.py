@@ -1,6 +1,10 @@
-from django.shortcuts import render
-from .models import *
+from django.shortcuts import render, render_to_response
+from .models import Customer,Product,OrderItem,Order
+from django.http import HttpResponse, HttpResponseRedirect
+from django.template.context_processors import csrf
+
 # Create your views here.
+
 def shop(request):
 	products = Product.objects.all()
 	context = {'products':products}
@@ -35,7 +39,19 @@ def checkout(request):
 
 def login(request):
     context = {}
-    return render(request, 'login.html', context)
+    context.update(csrf(request))
+    return render_to_response(request, 'login.html', context)
+
+def verification(request):
+    email = request.POST.get('materialLoginFormEmail')
+    password = request.POST.get('materialLoginFormPassword')
+    for i in Customer.objects.all():
+        if email == i.email and password == i.password:
+            request.session['name'] = i.firstname
+            request.session['email'] = i.email
+            return HttpResponseRedirect('/shop/')
+    else:
+        return render(request, 'login.html', {'error': 'Enter a correct information'})
 
 def signup(request):
     context = {}
