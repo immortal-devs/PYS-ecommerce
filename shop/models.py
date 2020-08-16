@@ -6,7 +6,7 @@ from dj.choices.fields import ChoiceField
 
 
 class Address(models.Model):
-	address_id = models.AutoField()
+	# address_id = models.AutoField()
 	first_len = models.CharField(max_length=200,null=False)
 	second_len = models.CharField(max_length=200,null=False)
 	city = models.CharField(max_length=200)
@@ -15,19 +15,19 @@ class Address(models.Model):
 	primary_address = models.BooleanField(default=False)
 
 class Customer(models.Model):
-	customer_id = models.AutoField(primary_key=True)
+	# customer_id = models.AutoField(primary_key=True)
 	firstname = models.CharField(max_length=200,null=False)
 	lastname = models.CharField(max_length=200,null=False)
 	email = models.CharField(max_length=200,null=False)
 	password = models.CharField(max_length=15,null=False)
 	gender = models.CharField(max_length=20)
-	address_id = models.ForeignKey(Address, on_delete=models.CASCADE, null=False, blank=True)
+	address = models.ForeignKey(Address, on_delete=models.CASCADE, null=False, blank=True)
 	birthdate = models.DateField()
 	mobile_no = models.IntegerField(max_length=10)
 	search = models.CharField(max_length=1000,null=True)
 
 class Product(models.Model):
-	product_id = models.AutoField(primary_key=True)
+	# product_id = models.AutoField(primary_key=True)
 	name = models.CharField(max_length=200,null=True)
 	price = models.DecimalField()
 	image = models.ImageField(null=True, blank=True)
@@ -35,23 +35,23 @@ class Product(models.Model):
 	stock = models.IntegerField()
 
 class Order(models.Model):
-	order_id = models.AutoField(primary_key=True)
-	customer_id = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
+	# order_id = models.AutoField(primary_key=True)
+	customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
 	date_ordered = models.DateTimeField(auto_now_add=True)
-	address_id = models.ForeignKey(Address, on_delete=models.SET_NULL, null=False, blank=True)
+	address = models.ForeignKey(Address, on_delete=models.SET_NULL, null=False, blank=True)
 	complete = models.BooleanField(default=False,null=True,blank=False)
 	transaction_id=models.CharField(max_length=200,null=True)
 
 class OrderItem(models.Model):
-	product_id = models.ForeignKey(Product, on_delete=models.SET_NULL, null=False, blank=True)
-	order_id = models.ForeignKey(Order, on_delete=models.SET_NULL, null=False, blank=True)
+	product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=False, blank=True)
+	order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=False, blank=True)
 	quantity = models.IntegerField()
 	date_added = models.DateTimeField(auto_now_add=True)
 
 class shopping_cart(models.Model):
-	product_id = models.ForeignKey(Product, on_delete=models.SET_NULL, null=False, blank=True)
+	product= models.ForeignKey(Product, on_delete=models.SET_NULL, null=False, blank=True)
 	quantity = models.IntegerField()
-	customer_id = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
+	customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
 
 
 
