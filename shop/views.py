@@ -51,7 +51,7 @@ def verification(request):
             request.session['email'] = i.email
             return HttpResponseRedirect('/shop/')
     else:
-        return render(request, 'login.html', {'error': 'Enter a correct information'})
+        return render(request, 'login.html', {'error': 'Email Or Password is incorrect.'})
 
 def signup(request):
     context = {}

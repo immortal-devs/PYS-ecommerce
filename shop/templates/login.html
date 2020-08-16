@@ -8,16 +8,17 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <title>Sign In</title>
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+  <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
   <!-- Bootstrap core CSS -->
-  <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../static/css/bootstrap.min.css" type="text/css" rel="stylesheet">
   <!-- Material Design Bootstrap -->
-  <link href="../static/css/mdb.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="../static/css/main.css">
+  <link href="../static/css/mdb.min.css" type="text/css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="../static/css/main.css">
  
 </head>
 
 <body style="background-image: url(../static/images/wallpaper.jpg);">
+  
   <!-- Navigation -->
 <div class="container">
   <!-- Material form login -->
@@ -29,9 +30,12 @@
 
   <!--Card content-->
   <div class="card-body px-lg-5 pt-0">
-
+    {% if error %}
+       <div> <span onclick="this.parentElement.style.display='none'">&times;</span>
+        <strong>{{ error }} </strong></div>
+    {% endif %}
     <!-- Form -->
-    <form class="text-center" style="color: #757575;" action="/login/verification" method="POST">
+    <form class="text-center" style="color: #757575;" action="/shop/verification/" method="POST">
       {% csrf_token %}
       <!-- Email -->
       <div class="md-form">
@@ -44,15 +48,8 @@
         <input type="password" id="materialLoginFormPassword" name="password" class="form-control">
         <label for="materialLoginFormPassword">Password</label>
       </div>
-
+      
       <div class="d-flex justify-content-around">
-        <div>
-          <!-- Remember me -->
-          <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="materialLoginFormRemember">
-            <label class="form-check-label" for="materialLoginFormRemember">Remember me</label>
-          </div>
-        </div>
         <div>
           <!-- Forgot password -->
           <a href="">Forgot password?</a>
