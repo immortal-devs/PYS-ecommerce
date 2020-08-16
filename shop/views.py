@@ -1,4 +1,4 @@
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render
 from .models import Customer,Product,OrderItem,Order
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template.context_processors import csrf
@@ -40,11 +40,11 @@ def checkout(request):
 def login(request):
     context = {}
     context.update(csrf(request))
-    return render_to_response(request, 'login.html', context)
+    return render(request, 'login.html', context)
 
 def verification(request):
-    email = request.POST.get('materialLoginFormEmail')
-    password = request.POST.get('materialLoginFormPassword')
+    email = request.POST.get('email')
+    password = request.POST.get('password')
     for i in Customer.objects.all():
         if email == i.email and password == i.password:
             request.session['name'] = i.firstname

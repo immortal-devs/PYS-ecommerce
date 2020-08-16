@@ -11,7 +11,7 @@ class Address(models.Model):
 	second_len = models.CharField(max_length=200,null=False)
 	city = models.CharField(max_length=200)
 	state = models.CharField(max_length=30)
-	pincode = models.IntegerField(max_length=6)
+	pincode = models.IntegerField()
 	primary_address = models.BooleanField(default=False)
 
 class Customer(models.Model):
@@ -23,35 +23,35 @@ class Customer(models.Model):
 	gender = models.CharField(max_length=20)
 	address = models.ForeignKey(Address, on_delete=models.CASCADE, null=False, blank=True)
 	birthdate = models.DateField()
-	mobile_no = models.IntegerField(max_length=10)
+	mobile_no = models.IntegerField()
 	search = models.CharField(max_length=1000,null=True)
 
 class Product(models.Model):
 	# product_id = models.AutoField(primary_key=True)
 	name = models.CharField(max_length=200,null=True)
-	price = models.DecimalField()
+	price = models.DecimalField(max_digits=5,decimal_places=2)
 	image = models.ImageField(null=True, blank=True)
 	category = models.CharField(max_length=30)
 	stock = models.IntegerField()
 
 class Order(models.Model):
 	# order_id = models.AutoField(primary_key=True)
-	customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
+	customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=False, blank=True)
 	date_ordered = models.DateTimeField(auto_now_add=True)
-	address = models.ForeignKey(Address, on_delete=models.SET_NULL, null=False, blank=True)
+	address = models.ForeignKey(Address, on_delete=models.CASCADE, null=False, blank=True)
 	complete = models.BooleanField(default=False,null=True,blank=False)
 	transaction_id=models.CharField(max_length=200,null=True)
 
 class OrderItem(models.Model):
-	product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=False, blank=True)
-	order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=False, blank=True)
+	product = models.ForeignKey(Product, on_delete=models.CASCADE, null=False, blank=True)
+	order = models.ForeignKey(Order, on_delete=models.CASCADE, null=False, blank=True)
 	quantity = models.IntegerField()
 	date_added = models.DateTimeField(auto_now_add=True)
 
 class shopping_cart(models.Model):
-	product= models.ForeignKey(Product, on_delete=models.SET_NULL, null=False, blank=True)
+	product= models.ForeignKey(Product, on_delete=models.CASCADE, null=False, blank=True)
 	quantity = models.IntegerField()
-	customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
+	customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=False, blank=True)
 
 
 
