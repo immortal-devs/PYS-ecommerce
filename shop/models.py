@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
-# from dj.choices import Choice, Choices
-# from dj.choices.fields import ChoiceField
+from dj.choices import Choice, Choices
+from dj.choices.fields import ChoiceField
 # Create your models here.
 
 
