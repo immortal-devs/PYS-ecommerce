@@ -2,6 +2,8 @@ from django.shortcuts import render
 from .models import Customer,Product,OrderItem,Order
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template.context_processors import csrf
+from django.conf import settings
+from django.db import IntegrityError
 
 # Create your views here.
 
@@ -55,7 +57,27 @@ def verification(request):
 
 def signup(request):
     context = {}
+    context.update(csrf(request))
     return render(request, 'signup.html', context)
+
+def registrationdata(request):
+    firstname = request.POST.get('firstname')
+    lastname = request.POST.get('lastname')
+    email = request.POST.get('email')
+    mobileno = request.POST.get('mobileno')
+    pass1 = request.POST.get('password')
+    pass2 = request.POST.get('confirmpassword')
+    for i in Customer.objects.all():
+        if email == i.email:
+            return render(request, 'registration.html', {'error': 'This email is already in use!!'})
+    if pass1 == pass2:
+        s = Customer(firstname=firstname, lastname=lastname, email=email,password=pass1,mobile_no=mobileno)
+        s.save()
+        request.session['name'] = firstname
+        request.session['email'] = email
+        return HttpResponseRedirect('/shop/')
+    else:
+        return render(request, 'registration.html', {'error': 'Re Enter same password!!'})
 
 def category(request):
     context = {}
