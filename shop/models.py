@@ -23,7 +23,7 @@ class Address(models.Model):
 	primary_address = models.BooleanField(default=False)
 
 	def __str__(self): 
-         return ("first_len+' '+second_len")
+         return self.first_len+" "+self.second_len
 
 class Customer(models.Model):
 	# customer_id = models.AutoField(primary_key=True)
