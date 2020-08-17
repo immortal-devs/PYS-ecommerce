@@ -1,5 +1,11 @@
 from django.db import models,migrations
-from django.contrib.auth.models import User
+
+class UserProfile(models.Model):
+	firstname = models.CharField(max_length=200,null=False)
+	lastname = models.CharField(max_length=200,null=False)
+	email = models.CharField(max_length=200,null=False)
+	password = models.CharField(max_length=15,null=False)
+	mobile_no = models.BigIntegerField()
 
 
 class Address(models.Model):
@@ -13,15 +19,11 @@ class Address(models.Model):
 
 class Customer(models.Model):
 	# customer_id = models.AutoField(primary_key=True)
-	firstname = models.CharField(max_length=200,null=False)
-	lastname = models.CharField(max_length=200,null=False)
-	email = models.CharField(max_length=200,null=False)
-	password = models.CharField(max_length=15,null=False)
 	gender = models.CharField(max_length=20)
-	address = models.ForeignKey(Address, on_delete=models.CASCADE, null=False, blank=True)
 	birthdate = models.DateField()
-	mobile_no = models.IntegerField()
 	search = models.CharField(max_length=1000,null=True)
+	address = models.ForeignKey(Address, on_delete=models.CASCADE, null=False, blank=True)
+	user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=False, blank=True)
 
 class Product(models.Model):
 	# product_id = models.AutoField(primary_key=True)
@@ -49,8 +51,6 @@ class shopping_cart(models.Model):
 	product= models.ForeignKey(Product, on_delete=models.CASCADE, null=False, blank=True)
 	quantity = models.IntegerField()
 	customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=False, blank=True)
-
-
 
 class Admin_detail(models.Model):
 	username = models.CharField(max_length=200)

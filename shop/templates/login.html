@@ -31,8 +31,12 @@
   <!--Card content-->
   <div class="card-body px-lg-5 pt-0">
     {% if error %}
-       <div> <span onclick="this.parentElement.style.display='none'">&times;</span>
-        <strong>{{ error }} </strong></div>
+    <div class="form-row">
+      <div class="col"> 
+        <span onclick="this.parentElement.style.display='none'">&times;</span>
+        <strong>{{ error }} </strong>
+      </div>
+    </div>
     {% endif %}
     <!-- Form -->
     <form class="text-center" style="color: #757575;" action="/verification/" method="POST">
