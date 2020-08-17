@@ -9,11 +9,6 @@ import math, random
 # Create your views here.
 from .models import Address, Admin_detail, Customer, Order, OrderItem, Product, shopping_cart, UserProfile
 
-def shop(request):
-	products = Product.objects.all()
-	context = {'products':products}
-	return render(request, 'shop.html', context)
-
 def product(request):
 	products = Product.objects.all()
 	context = {'products':products}
@@ -72,9 +67,6 @@ def registrationdata(request):
     for i in UserProfile.objects.all():
         if email == i.email:
             return render(request, 'signup.html', {'error': 'This email is already in use!!'})
-    if len(mobileno) != 10:
-        print("lessthen 10 number")
-        return render(request, 'signup.html', {'error': 'Enter correct mobile number!!'})
     if type(mobileno) == str:
         print("string phone")
         return render(request, 'signup.html', {'error': 'Enter correct mobile number!!'})
@@ -86,6 +78,20 @@ def registrationdata(request):
         return HttpResponseRedirect('/login/')
     else:
         return render(request, 'signup.html', {'error': 'Re Enter same password!!'})
+
+def shop(request):
+    if request.session.get('name'):
+        name = request.session.get('name')
+        context = {'name': name}
+        return render(request, 'shop.html', context)
+    else:
+        context = {}
+        return render(request, 'shop.html', context)
+
+def logout(request):
+    del request.session['name']
+    del request.session['email']
+    return HttpResponseRedirect('/shop/')
 
 def forgotpassword(request):
     context = {}
