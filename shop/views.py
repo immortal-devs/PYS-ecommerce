@@ -51,7 +51,7 @@ def verification(request):
         if email == i.email and password == i.password:
             request.session['name'] = i.firstname
             request.session['email'] = i.email
-            return HttpResponseRedirect('/shop/')
+            return HttpResponseRedirect('/shop')
     else:
         return render(request, 'login.html', {'error': 'Email Or Password is incorrect.'})
 
@@ -69,7 +69,7 @@ def registrationdata(request):
     pass2 = request.POST.get('confirmpassword')
     for i in Customer.objects.all():
         if email == i.email:
-            return render(request, 'registration.html', {'error': 'This email is already in use!!'})
+            return render(request, 'signup.html', {'error': 'This email is already in use!!'})
     if pass1 == pass2:
         s = Customer(firstname=firstname, lastname=lastname, email=email,password=pass1,mobile_no=mobileno)
         s.save()
@@ -77,7 +77,7 @@ def registrationdata(request):
         request.session['email'] = email
         return HttpResponseRedirect('/shop/')
     else:
-        return render(request, 'registration.html', {'error': 'Re Enter same password!!'})
+        return render(request, 'signup.html', {'error': 'Re Enter same password!!'})
 
 def category(request):
     context = {}
