@@ -45,12 +45,16 @@ class Product(models.Model):
 		return self.name
 
 class Order(models.Model):
+	STATUS = (
+		('Pending','Pending'),
+		('Out for delivery','Out for delivery'),
+		('Delivered','Delivered'),
+	)
 	# order_id = models.AutoField(primary_key=True)
 	customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=False, blank=True)
 	date_ordered = models.DateTimeField(auto_now_add=True)
-	address = models.ForeignKey(Address, on_delete=models.CASCADE, null=False, blank=True)
-	complete = models.BooleanField(default=False)
-	transaction_id=models.CharField(max_length=200,null=True,blank=True,default="00000000")
+	status = models.CharField(max_length=40, null=True, choices=STATUS)
+	transaction_id = models.CharField(max_length=200,null=True,blank=True,default="00000000")
 
 	def __str__(self):
 		return self.transaction_id
