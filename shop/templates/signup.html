@@ -15,10 +15,92 @@
   <link type="text/css" href="../static/css/mdb.min.css" rel="stylesheet">
   <link href="../static/css/main.css" type="text/css" rel="stylesheet">
  
+        <style>
+        .header {
+	  overflow: hidden;
+	  width:100%;
+	  background-color: #dbd7d9;
+	  padding: 20px 10px;
+	}
+	
+	.header div{
+	  display: inline-block;
+	}
+
+	.header a {
+	  float: left;
+	  color: black;
+	  text-align: center;
+	  padding: 12px;
+	  text-decoration: none;
+	  font-size: 18px; 
+	  line-height: 25px;
+	  border-radius: 4px;
+	}
+
+	.header a.logo {
+	  font-size: 25px;
+	  font-weight: bold;
+	}
+
+	.header a:hover {
+	  background-color: #ddd;
+	  color: black;
+	}
+
+	.header a.active {
+	  background-color: dodgerblue;
+	  color: white;
+	}
+
+	.header-right {
+	  float: right;
+	  padding: 15px;
+	}
+	
+	.header-font{
+		padding-bottom:5%;
+		font-size:40px;
+	} 
+	@media screen and (max-width: 500px) {
+	  .header a {
+		float: none;
+		display: block;
+		text-align: left;
+	  }
+	  
+	  .header-right {
+		float: none;
+	  }
+	}
+		.alert {
+          padding: 20px;
+          background-color: #f44336;
+          color: white;
+        }
+
+        .closebtn {
+          margin-left: 15px;
+          color: white;
+          font-weight: bold;
+          float: right;
+          font-size: 22px;
+          line-height: 20px;
+          cursor: pointer;
+          transition: 0.3s;
+        }
+
+        .closebtn:hover {
+          color: black;
+        }
+        </style>
 </head>
 
 <body style="background-image: url(../static/images/dresses/pexels-yogendra-singh-3971647.jpg);">
-
+	{% if error %}
+				<div class=alert><span class=closebtn onclick="this.parentElement.style.display='none'">&times;</span>
+                                   <strong>{{ error }} </strong></div>'
+				{% endif %}
   <!-- Navigation -->
 
   <!-- Navigation -->
@@ -68,14 +150,14 @@
           </div>
 
           <!-- Password -->
-          <div class="md-form">
-              <input type="password" name="password" id="materialRegisterFormPassword" class="form-control" aria-describedby="materialRegisterFormPasswordHelpBlock">
+          <div class="md-form"> 
+              <input type="password" name="password" id="materialRegisterFormPassword" class="form-control" required pattern="(?=.\d)(?=.[a-z])(?=.*[A-Z]).{8,}" aria-describedby="materialRegisterFormPasswordHelpBlock">
               <label for="materialRegisterFormPassword">Password</label>
               <small id="materialRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
                   At least 8 characters and 1 digit
               </small>
           </div>
-
+<input type="password" name="pass" title="Password must be 8 characters including 1 uppercase letter, 1 lowercase letter and numeric characters" required pattern="(?=.\d)(?=.[a-z])(?=.*[A-Z]).{8,}" >
           <!-- confirm password -->
           <div class="md-form">
             <input type="password" name="confirmpassword" id="materialRegisterFormPassword" class="form-control" aria-describedby="materialRegisterFormPasswordHelpBlock">
@@ -84,11 +166,9 @@
 
           <!-- Phone number -->
           <div class="md-form">
-              <input type="text" name="mobileno" id="materialRegisterFormPhone" class="form-control" aria-describedby="materialRegisterFormPhoneHelpBlock">
+              <input type="number" name="mobileno" id="materialRegisterFormPhone" class="form-control" aria-describedby="materialRegisterFormPhoneHelpBlock">
               <label for="materialRegisterFormPhone">Phone number</label>
-              <small id="materialRegisterFormPhoneHelpBlock" class="form-text text-muted mb-4">
-                  Optional - for two step authentication
-              </small>
+            
           </div>
 
           <!-- Sign up button -->
@@ -136,6 +216,8 @@
   </script>
   <!-- MDB core JavaScript -->
   <script type="text/javascript" src="../static/js/mdb.min.js"></script>
+  	<link rel="stylesheet" type="text/css" href="/static/css/main.css">
+
   <script type="text/javascript">
     /* WOW.js init */
     new WOW().init();
