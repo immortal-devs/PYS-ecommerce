@@ -51,7 +51,7 @@ def verification(request):
         if email == i.email and password == i.password:
             request.session['name'] = i.firstname
             request.session['email'] = i.email
-            return HttpResponseRedirect('/shop/')
+            return HttpResponseRedirect('/shop')
     else:
         return render(request, 'login.html', {'error': 'Email Or Password is incorrect.'})
 
