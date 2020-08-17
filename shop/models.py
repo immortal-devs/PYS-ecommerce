@@ -9,9 +9,6 @@ class UserProfile(models.Model):
 
 	def __str__(self):
 		return self.firstname
-	
-
-
 
 class Address(models.Model):
 	# address_id = models.AutoField()
