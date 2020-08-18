@@ -152,7 +152,9 @@
           <!-- Password -->
           <div class="md-form">
               <input type="password" name="password" id="materialRegisterFormPassword" class="form-control" aria-describedby="materialRegisterFormPasswordHelpBlock" 
-              required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" oninvalid="alert(' At least 8 characters and 1 digit');">
+              required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+              {% comment %} oninvalid="alert(' At least 8 characters and 1 digit');" {% endcomment %}
+              >
               <label for="materialRegisterFormPassword">Password</label>
               <small id="materialRegisterFormPasswordHelpBlock"  class="form-text text-muted mb-4">
                   At least 8 characters and 1 digit
@@ -176,20 +178,21 @@
 
           <!-- Social register -->
           <p>or sign up with:</p>
-
-          <a type="button" class="btn-floating btn-fb btn-sm">
-              <i class="fab fa-facebook-f"></i>
+<a href="https://www.facebook.com/">
+        <div >
+            <img src="../static/images/svg/facebook-round-color.svg"class="ml-3" alt="cart_svg" style="height: 33px;"> 
+      </a>
+        <a href="https://www.instagram.com/">
+        <img src="../static/images/svg/instagram-round-color.svg"class="ml-3" alt="cart_svg" style="height: 33px;"> 
           </a>
-          <a type="button" class="btn-floating btn-tw btn-sm">
-              <i class="fab fa-twitter"></i>
-          </a>
-          <a type="button" class="btn-floating btn-li btn-sm">
-              <i class="fab fa-linkedin-in"></i>
-          </a>
-          <a type="button" class="btn-floating btn-git btn-sm">
-              <i class="fab fa-github"></i>
-          </a>
-
+      
+      <a href="https://www.linkedin.com/">
+         <img src="../static/images/svg/linkedin-round-color.svg"class="ml-3" alt="cart_svg" style="height: 33px;"> 
+      </a>
+    
+      <a href="https://www.twitter.com/">
+      <img src="../static/images/svg/twitter-round-color.svg" class="ml-3"alt="cart_svg" style="height: 33px;"> 
+      </a>
           <hr>
 
           <!-- Terms of service -->
@@ -230,15 +233,15 @@
     $(document).ready(function () {
       $('.mdb-select').material_select();
     });
-InvalidInputHelper(document.getElementById("email"), {
-  {% comment %} defaultText: "Please enter an email address!", {% endcomment %}
+{% comment %} InvalidInputHelper(document.getElementById("email"), {
+  defaultText: "Please enter an email address!",
 
   emptyText: "Please enter an email address!",
 
   invalidText: function (input) {
     return 'The email address "' + input.value + '" is invalid!';
   }
-});
+}); {% endcomment %}
     // SideNav Initialization
     $(".button-collapse").sideNav();
 
