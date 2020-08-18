@@ -15,6 +15,28 @@
   <link type="text/css" href="../static/css/mdb.min.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="../static/css/main.css">
  
+  <style>
+		.alert {
+          background-color: #f44336;
+          color: white;
+        }
+
+        .closebtn {
+          margin-left: 15px;
+          color: white;
+          font-weight: bold;
+          float: right;
+          font-size: 22px;
+          line-height: 20px;
+          cursor: pointer;
+          transition: 0.3s;
+        }
+
+        .closebtn:hover {
+          color: black;
+        }
+        </style>
+
 </head>
 
 <body style="background-image: url(../static/images/wallpaper.jpg);">
@@ -27,17 +49,12 @@
   <h5 class="card-header info-color white-text text-center py-4">
     <strong>Sign in</strong>
   </h5>
-
+  {% if error %}
+				<div class=alert><span class=closebtn onclick="this.parentElement.style.display='none'">&times;</span>
+        <strong>{{ error }} </strong></div>
+		{% endif %}
   <!--Card content-->
   <div class="card-body px-lg-5 pt-0">
-    {% if error %}
-    <div class="form-row">
-      <div class="col"> 
-        <span onclick="this.parentElement.style.display='none'">&times;</span>
-        <strong>{{ error }} </strong>
-      </div>
-    </div>
-    {% endif %}
     <!-- Form -->
     <form class="text-center" style="color: #757575;" action="/verification/" method="POST">
       {% csrf_token %}
