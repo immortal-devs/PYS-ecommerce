@@ -7,7 +7,7 @@ from django.db import IntegrityError
 import math, random
 
 # Create your views here.
-from .models import *
+from .models import Address, Admin_detail, Customer, Order, OrderItem, Product, shopping_cart, UserProfile
 
 def product(request):
 	products = Product.objects.all()
