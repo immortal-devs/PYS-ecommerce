@@ -152,9 +152,9 @@
           <!-- Password -->
           <div class="md-form">
               <input type="password" name="password" id="materialRegisterFormPassword" class="form-control" aria-describedby="materialRegisterFormPasswordHelpBlock" 
-              required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+              required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" oninvalid="alert(' At least 8 characters and 1 digit');">
               <label for="materialRegisterFormPassword">Password</label>
-              <small id="materialRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
+              <small id="materialRegisterFormPasswordHelpBlock"  class="form-text text-muted mb-4">
                   At least 8 characters and 1 digit
               </small>
           </div>
@@ -230,7 +230,15 @@
     $(document).ready(function () {
       $('.mdb-select').material_select();
     });
+InvalidInputHelper(document.getElementById("email"), {
+  {% comment %} defaultText: "Please enter an email address!", {% endcomment %}
 
+  emptyText: "Please enter an email address!",
+
+  invalidText: function (input) {
+    return 'The email address "' + input.value + '" is invalid!';
+  }
+});
     // SideNav Initialization
     $(".button-collapse").sideNav();
 
