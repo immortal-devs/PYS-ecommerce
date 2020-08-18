@@ -167,52 +167,6 @@
     $(document).ready(function () {
       $('.mdb-select').material_select();
     });
-<<<<<<< HEAD
-(function (exports) {
-    function valOrFunction(val, ctx, args) {
-        if (typeof val == "function") {
-            return val.apply(ctx, args);
-        } else {
-            return val;
-        }
-    }
-
-    function InvalidInputHelper(input, options) {
-        input.setCustomValidity(valOrFunction(options.defaultText, window, [input]));
-
-        function changeOrInput() {
-            if (input.value == "") {
-                input.setCustomValidity(valOrFunction(options.emptyText, window, [input]));
-            } else {
-                input.setCustomValidity("");
-            }
-        }
-
-        function invalid() {
-            if (input.value == "") {
-                input.setCustomValidity(valOrFunction(options.emptyText, window, [input]));
-            } else {
-               input.setCustomValidity(valOrFunction(options.invalidText, window, [input]));
-            }
-        }
-
-        input.addEventListener("change", changeOrInput);
-        input.addEventListener("input", changeOrInput);
-        input.addEventListener("invalid", invalid);
-    }
-    exports.InvalidInputHelper = InvalidInputHelper;
-})(window);
-InvalidInputHelper(document.getElementById("email"), {
-  defaultText: "Please enter an email address!",
-
-  emptyText: "Please enter an email address!",
-
-  invalidText: function (input) {
-    return 'The email address "' + input.value + '" is invalid!';
-  }
-});
-=======
->>>>>>> b7f3c03b9a057b45fe0bf2781f6f6a65d61194b5
     // SideNav Initialization
     $(".button-collapse").sideNav();
 
