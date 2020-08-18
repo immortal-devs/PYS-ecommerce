@@ -230,15 +230,6 @@
     $(document).ready(function () {
       $('.mdb-select').material_select();
     });
-InvalidInputHelper(document.getElementById("email"), {
-  {% comment %} defaultText: "Please enter an email address!", {% endcomment %}
-
-  emptyText: "Please enter an email address!",
-
-  invalidText: function (input) {
-    return 'The email address "' + input.value + '" is invalid!';
-  }
-});
     // SideNav Initialization
     $(".button-collapse").sideNav();
 
