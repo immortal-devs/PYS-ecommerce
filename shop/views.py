@@ -67,9 +67,6 @@ def registrationdata(request):
     for i in UserProfile.objects.all():
         if email == i.email:
             return render(request, 'signup.html', {'error': 'This email is already in use!!'})
-    if type(mobileno) == str:
-        print("string phone")
-        return render(request, 'signup.html', {'error': 'Enter correct mobile number!!'})
     if pass1 == pass2:
         s = UserProfile(firstname=firstname, lastname=lastname, email=email, password=pass1, mobile_no=mobileno)
         s.save()

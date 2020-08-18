@@ -150,8 +150,9 @@
           </div>
 
           <!-- Password -->
-          <div class="md-form"> 
-              <input type="password" name="password" id="materialRegisterFormPassword" class="form-control" required pattern="(?=.\d)(?=.[a-z])(?=.*[A-Z]).{8,}" aria-describedby="materialRegisterFormPasswordHelpBlock">
+          <div class="md-form">
+              <input type="password" name="password" id="materialRegisterFormPassword" class="form-control" aria-describedby="materialRegisterFormPasswordHelpBlock" 
+              required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
               <label for="materialRegisterFormPassword">Password</label>
               <small id="materialRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
                   At least 8 characters and 1 digit
@@ -165,7 +166,8 @@
 
           <!-- Phone number -->
           <div class="md-form">
-              <input type="number" name="mobileno" id="materialRegisterFormPhone" class="form-control" aria-describedby="materialRegisterFormPhoneHelpBlock">
+              <input type="text" name="mobileno" id="materialRegisterFormPhone" class="form-control" aria-describedby="materialRegisterFormPhoneHelpBlock"
+              pattern="[0-9]{3}[0-9]{3}[0-9]{4}" required>
               <label for="materialRegisterFormPhone">Phone number</label>
           </div>
 
