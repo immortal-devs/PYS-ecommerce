@@ -137,7 +137,7 @@ def addnewpassword(request):
             return render(request, 'newpassword.html', {'error': 'Enter correct OTP'})
 
 def category(request):
-    title = 'Catogary'
+    title = 'Category'
     if request.session.get('name'):
         name = request.session.get('name')
         context = {'name': name, 'title': title}
