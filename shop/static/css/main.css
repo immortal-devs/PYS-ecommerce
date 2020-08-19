@@ -4,23 +4,3 @@
     max-width: 500px;   
 }
 
-.alert {
-    background-color: #f44336;
-    padding: .50rem,1.25rem;
-    color: white;
-}
-
-.closebtn {
-    margin-left: 15px;
-    color: white;
-    font-weight: bold;
-    float: right;
-    font-size: 22px;
-    line-height: 20px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.closebtn:hover {
-    color: white;
-}
