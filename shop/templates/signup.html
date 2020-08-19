@@ -13,29 +13,23 @@
   <link type="text/css" href="../static/css/bootstrap.min.css" rel="stylesheet">
   <!-- Material Design Bootstrap -->
   <link type="text/css" href="../static/css/mdb.min.css" rel="stylesheet">
-  <link href="../static/css/main.css" type="text/css" rel="stylesheet">
- 
+  <link rel="stylesheet" type="text/css" href="../static/css/main.css">
+
   <style>
-		.alert {
-          background-color: #f44336;
-          color: white;
-        }
 
-        .closebtn {
-          margin-left: 15px;
-          color: white;
-          font-weight: bold;
-          float: right;
-          font-size: 22px;
-          line-height: 20px;
-          cursor: pointer;
-          transition: 0.3s;
-        }
-
-        .closebtn:hover {
-          color: black;
-        }
-        </style>
+    .btn-toggle-pass {
+        --info-color: #0099CC;
+        border: none;
+        position: absolute;
+        top: 11px;
+        background: transparent;
+        right: 0;
+    }
+  
+    .btn-toggle-pass.active {
+        color: var(--info-color);
+    }
+   </style>
 </head>
 
 <body style="background-image: url(../static/images/dresses/pexels-yogendra-singh-3971647.jpg);">
@@ -85,13 +79,11 @@
 
           <!-- Password -->
           <div class="md-form">
-              <input type="password" name="password" id="materialRegisterFormPassword" class="form-control" aria-describedby="materialRegisterFormPasswordHelpBlock" 
-              required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
-              {% comment %} oninvalid="alert(' At least 8 characters and 1 digit');" {% endcomment %}
-              >
+              <input type="password" name="password" id="password" class="form-control" aria-describedby="materialRegisterFormPasswordHelpBlock" 
+              required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" >
               <label for="materialRegisterFormPassword">Password</label>
               <small id="materialRegisterFormPasswordHelpBlock"  class="form-text text-muted mb-4">
-                  At least 8 characters and 1 digit
+                  At least 8 characters including Capital letters and digits
               </small>
           </div>
     <!-- confirm password -->
@@ -153,7 +145,6 @@
   </script>
   <!-- MDB core JavaScript -->
   <script type="text/javascript" src="../static/js/mdb.min.js"></script>
-  	<link rel="stylesheet" type="text/css" href="/static/css/main.css">
 
   <script type="text/javascript">
     /* WOW.js init */
@@ -171,6 +162,7 @@
     $(".button-collapse").sideNav();
 
   </script>
+  <script type="text/javascript" src="../static/js/main.js"></script>
 
 </body>
 
