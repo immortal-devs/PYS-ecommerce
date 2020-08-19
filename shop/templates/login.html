@@ -58,7 +58,7 @@
 
       <!-- Password -->
       <div class="md-form">
-        <input type="password" id="password" name="password" class="form-control">
+        <input type="password" id="password" name="password" class="form-control disablecopypaste">
         <label for="materialLoginFormPassword">Password </label> 
       </div>
       
@@ -127,7 +127,11 @@
 
     // SideNav Initialization
     $(".button-collapse").sideNav();
-
+    $(document).ready(function () {
+      $('input.disablecopypaste').bind('copy paste', function (e) {
+         e.preventDefault();
+      });
+    });
   </script>
   <script type="text/javascript" src="../static/js/main.js"></script>
 
