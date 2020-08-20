@@ -165,5 +165,5 @@ SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [                 # add this
     ('email', 'email'),
 ]
 
-SOCIAL_AUTH_GOOGLE_KEY = '596490440146-ajf36s2eub7el9jid26ovrifmj0dhc5j.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_SECRET = 'NCBUL2SkX7_AmSnjgJcsbPCJ'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '596490440146-ajf36s2eub7el9jid26ovrifmj0dhc5j.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'NCBUL2SkX7_AmSnjgJcsbPCJ'
