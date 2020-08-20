@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -59,6 +61,10 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'ecommerce.urls'
 
 AUTHENTICATION_BACKENDS = [
+    'social_core.backends.linkedin.LinkedinOAuth2',
+    'social_core.backends.instagram.InstagramOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.google.GoogleOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 ]
 
@@ -74,10 +80,16 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends', # add this
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
 ]
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'verification'
+LOGOUT_URL = 'logout'
 
 WSGI_APPLICATION = 'ecommerce.wsgi.application'
 
@@ -141,3 +153,17 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/images/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'shop/static/images')
+
+SOCIAL_AUTH_FACEBOOK_KEY = '1548243245346006'        # App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = '09b9f99944c90b3741a2848c7e9d0ada'
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'user_link'] # add this
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {       # add this
+  'fields': 'id, name, email'
+}
+SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [                 # add this
+    ('name', 'name'),
+    ('email', 'email'),
+]
+
+SOCIAL_AUTH_GOOGLE_KEY = '596490440146-ajf36s2eub7el9jid26ovrifmj0dhc5j.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_SECRET = 'NCBUL2SkX7_AmSnjgJcsbPCJ'

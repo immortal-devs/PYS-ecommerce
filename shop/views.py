@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.template.context_processors import csrf
 from django.conf import settings
@@ -49,6 +50,10 @@ def verification(request):
             request.session['name'] = i.firstname
             request.session['email'] = i.email
             return HttpResponseRedirect('/shop')
+    for i in User.objects.all():
+        if User.is_authenticated:
+            request.session['name'] = i.first_name
+            return HttpResponseRedirect('/shop')
     else:
         return render(request, 'login.html', {'error': 'Email Or Password is incorrect.'})
 
@@ -71,7 +76,6 @@ def registrationdata(request):
         s = UserProfile(firstname=firstname, lastname=lastname, email=email, password=pass1, mobile_no=mobileno)
         s.save()
         request.session['name'] = firstname
-        request.session['email'] = email
         return HttpResponseRedirect('/login/')
     else:
         return render(request, 'signup.html', {'error': 'Re Enter same password!!'})
@@ -87,7 +91,6 @@ def shop(request):
 
 def logout(request):
     del request.session['name']
-    del request.session['email']
     return HttpResponseRedirect('/shop/')
 
 def forgotpassword(request):

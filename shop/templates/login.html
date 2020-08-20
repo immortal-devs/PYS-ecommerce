@@ -100,13 +100,13 @@
       <!-- Social login -->
       <p>or sign in with:</p>
       <div>
-      <a href="https://www.facebook.com/">
+      <a href="{% url 'social:begin' 'facebook' %}">
         <img src="../static/images/svg/facebook-round-color.svg" class="ml-3" alt="cart_svg" style="height: 33px;"> 
       </a>
         <a href="https://www.instagram.com/">
         <img src="../static/images/svg/instagram-round-color.svg" class="ml-3" alt="cart_svg" style="height: 33px;"> 
           </a>
-      <a href="https://www.google.com/">
+      <a href="{% url 'social:begin' 'google' %}">
         <img src="../static/images/svg/icons8-google.svg" class="ml-3" alt="cart_svg" style="height: 33px;"> 
       </a>
       <a href="https://www.twitter.com/">
