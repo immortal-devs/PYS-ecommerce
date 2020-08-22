@@ -43,12 +43,14 @@ def verification(request):
             request.session['name'] = i.firstname
             request.session['email'] = i.email
             return HttpResponseRedirect('/shop')
+    else:
+        return render(request, 'login.html', {'error': 'Email Or Password is incorrect.'})
+
+def verificationsocial(request):
     for i in User.objects.all():
         if User.is_authenticated:
             request.session['name'] = i.first_name
             return HttpResponseRedirect('/shop')
-    else:
-        return render(request, 'login.html', {'error': 'Email Or Password is incorrect.'})
 
 def signup(request):
     context = {}

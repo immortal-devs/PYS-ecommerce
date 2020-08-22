@@ -6,6 +6,7 @@ urlpatterns = [
 	path('login/', views.login, name="login"),
 	path('logout/', views.logout, name="logout"),
 	path('verification/', views.verification, name="verification"),
+	path('verification1/', views.verificationsocial, name="verification1"),
 	path('signup/', views.signup, name="signup"),
 	path('registrationdata/', views.registrationdata, name="registrationdata"),
 	path('forgotpassword/', views.forgotpassword, name="forgotpassword"),

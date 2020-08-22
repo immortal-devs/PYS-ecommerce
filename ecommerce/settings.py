@@ -88,7 +88,7 @@ TEMPLATES = [
 ]
 
 LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'verification'
+LOGIN_REDIRECT_URL = 'verification1'
 LOGOUT_URL = 'logout'
 
 WSGI_APPLICATION = 'ecommerce.wsgi.application'
