@@ -11,7 +11,7 @@ body{
   background: #f2f2f2;
 }
 nav{
-  background: #171c24;
+  background: #ffffff;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -20,7 +20,7 @@ nav{
   padding: 0 100px;
 }
 nav .logo{
-  color: #fff;
+  color: rgb(0, 0, 0);
   font-size: 40px;
   font-weight: 600;
   letter-spacing: -1px;
@@ -35,19 +35,19 @@ nav .nav-items li{
   padding: 0 15px;
 }
 nav .nav-items li a{
-  color: #fff;
+  color: rgb(0, 0, 0);
   font-size: 18px;
   font-weight: 500;
   text-decoration: none;
 }
 nav .nav-items li a:hover{
-  color: #ff3d00;
+  color: #3543c7;
 }
 nav form{
   display: flex;
   height: 40px;
   padding: 2px;
-  background: #1e232b;
+  background: #ffffff;
   min-width: 18%!important;
   border-radius: 2px;
   border: 1px solid rgba(155,155,155,0.2);
@@ -56,7 +56,7 @@ nav form .search-data{
   width: 100%;
   height: 100%;
   padding: 0 10px;
-  color: #fff;
+  color: rgb(0, 0, 0);
   font-size: 17px;
   border: none;
   font-weight: 500;
@@ -64,15 +64,15 @@ nav form .search-data{
 }
 nav form button{
   padding: 0 15px;
-  color: #fff;
+  color: rgb(0, 0, 0);
   font-size: 17px;
-  background: #ff3d00;
+  background: #c8dbff;
   border: none;
   border-radius: 2px;
   cursor: pointer;
 }
 nav form button:hover{
-  background: #e63600;
+  background: #dadcfd;
 }
 nav .menu-icon,
 nav .cancel-icon,
@@ -81,7 +81,7 @@ nav .search-icon{
   text-align: center;
   margin: 0 50px;
   font-size: 18px;
-  color: #fff;
+  color: rgb(0, 0, 0);
   cursor: pointer;
   display: none;
 }
@@ -112,7 +112,7 @@ nav .search-icon{
     height: 100%;
     padding: 10px 50px 0 50px;
     text-align: center;
-    background: #14181f;
+    background: #ffffff;
     display: inline-block;
     transition: left 0.3s ease;
   }
@@ -148,7 +148,7 @@ nav .search-icon{
     height: 0;
     z-index: -1;
     border: 10px solid transparent;
-    border-bottom-color: #1e232b;
+    border-bottom-color: #ffffff;
     margin: -20px 0 0;
   }
   nav form:after{
@@ -156,7 +156,7 @@ nav .search-icon{
     content: '';
     height: 60px;
     padding: 2px;
-    background: #1e232b;
+    background: #ffffff;
     border-radius: 2px;
     min-width: calc(100% + 20px);
     z-index: -2;
@@ -176,6 +176,7 @@ nav .search-icon{
     display: none;
   }
   nav .cancel-icon.show{
+    color: black;
     display: block;
   }
 }
@@ -198,7 +199,7 @@ nav .search-icon{
   margin: 10px 0;
 }
 nav .logo.space{
-  color: red;
+  color: rgb(0, 0, 0);
   padding: 0 5px 0 0;
 }
 @media (max-width: 980px){
