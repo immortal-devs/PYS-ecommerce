@@ -139,11 +139,57 @@
         <span class="fas fa-bars"></span></div>
           <div class="logo">PYS</div>
             <div class="nav-items">
-                  <li><a href="#">Home</a></li>
-                  <li><a href="#">About</a></li>
-                  <li><a href="#">Blogs</a></li>
-                  <li><a href="#">Contact</a></li>
-                  <li><a href="#">Feedback</a></li>
+          <li class="nav-item ml-3">
+            <a href="/cart">
+              <span class="badge danger-color">4</span>
+              <img src="../static/images/svg/shopping-cart.svg" 
+              alt="cart_svg" style="height: 22px;padding-bottom: 3px;">&nbsp; Cart
+            </a>
+          </li>
+         <li class="nav-item ml-3">
+            <a href="#">
+              <img src="../static/images/svg/envelope.svg" 
+              alt="cart_svg" style="height: 18px; width:20px; padding-bottom: 3px;">&nbsp; Contact
+            </a>
+          </li>
+
+          {% if request.session.name %}
+
+          <li class="nav-item ml-3">
+            <a href="#">
+              <img src="../static/images/svg/setting.svg" 
+              alt="cart_svg" style="height: 18px;padding-bottom: 3px;">&nbsp; Settings</a>
+          </li>
+
+          <li class="nav-item dropdown ml-3">
+
+            <a href="#">
+              <img src="https://img.icons8.com/ios-glyphs/30/000000/user--v1.png"
+              alt="cart_svg" style="height: 20px;padding-bottom: 3px;">&nbsp; Hello, {{name}} 
+            </a>
+          </li>
+          
+          {% else %}
+
+          <li class="nav-item ml-3">
+
+            <a href="{% url 'login' %}">
+              <img src="../static/images/svg/lock.svg" alt="cart_svg" style="height: 20px;padding-bottom: 2px;">&nbsp; Log in
+            </a>
+
+          </li>
+
+          <li class="nav-item ml-3">
+
+            <a href="{% url 'signup' %}">
+
+              <img src="../static/images/svg/edit-round.svg" alt="cart_svg" style="height: 20px;padding-bottom: 2px;">&nbsp; Sign up
+
+            </a>
+
+          </li>
+
+          {% endif %}
             </div>
           <div class="search-icon">
           <span class="fas fa-search"></span>
