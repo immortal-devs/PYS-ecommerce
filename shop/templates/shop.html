@@ -369,7 +369,7 @@
                           <img src="../static/images/man/dmitriy-idoedMZ732E-unsplash.jpg"
                             class="img-fluid" alt="sample image">
 
-                          <a>
+                          <a href="{% url 'product' %}">
 
                             <div class="mask rgba-white-slight"></div>
 
@@ -2631,7 +2631,7 @@
           <div class="row justify-content-center mb-4">
 
             <!-- Pagination -->
-            <nav class="mb-4">
+            <nav class="mb-4 white rounded">
 
               <ul class="pagination pagination-circle pg-blue mb-0">
 
@@ -2964,6 +2964,9 @@
     // SideNav Initialization
     $(".button-collapse").sideNav();
 
+    $('#product_btn').on('click', fucntion(e){
+      sessionStorage['product_id'] = 'PRODUCT_ID'
+  })
   </script>
 
   <script>
