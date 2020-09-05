@@ -15,13 +15,6 @@ def product(request):
 	context = {'products':products}
 	return render(request, 'product.html', context)
 
-def cart(request):
-    context = {}
-    return render(request, 'cart.html', context)
-
-def carttemp(request):
-    context = {}
-    return render(request, 'carttemp.html', context)
 def checkout(request):
     if request.user.is_authenticated:
         customer = request.user.customer
@@ -137,6 +130,15 @@ def addnewpassword(request):
         else:
             return render(request, 'newpassword.html', {'error': 'Enter correct OTP'})
 
+def cart(request):
+    if request.session.get('name'):
+        name = request.session.get('name')
+        context = {'name': name}
+        return render(request, 'cart.html', context)
+    else:
+        context = {}
+        return render(request, 'cart.html', context)
+
 def category(request):
     title = 'Category'
     if request.session.get('name'):
@@ -146,3 +148,4 @@ def category(request):
     else:
         context = {'title': title}
         return render(request, 'category.html', context)
+

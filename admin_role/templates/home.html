@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>PYS | Admin</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="{% static 'css/mdb.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+ 
+</head>
+
+<body class="homepage-v1 hidden-sn white-skin animated">
+  <!-- Navigation -->
+<header>
+  <nav class="fixed-top navbar-expand-lg scrolling-navbar" style="height: 70px;">
+    <div class="menu-icon">
+      <span class="fas fa-bars"></span></div>
+    <div class="logo">PYS</div>
+      <div class="nav-items">
+        <li class="nav-item ml-3">
+          <a href="addproduct/">
+            Add Product
+          </a>
+        </li>
+      </div>
+        <div class="cancel-icon">
+        <span class="fas fa-times"></span>
+      </div>
+      
+  </nav>   
+  
+</header>
+
+<main>
+    <!-- Main Container -->
+    <div class="container">
+
+      <!-- Section cart -->
+      <section class="section my-5 pb-5">
+
+        <div class="card card-ecommerce">
+
+          <div class="card-body">
+
+            <!-- Shopping Cart table -->
+            <div class="table-responsive">
+
+              <table class="table product-table table-cart-v-2">
+
+                <!-- Table head -->
+                <thead class="mdb-color lighten-5">
+
+                  <tr>
+
+                    <th></th>
+
+                    <th class="font-weight-bold">
+
+                      <strong>Product</strong>
+
+                    </th>
+
+                    <th></th>
+
+                    <th class="font-weight-bold">
+
+                      <strong>Price</strong>
+
+                    </th>
+
+                    <th class="font-weight-bold">
+
+                      <strong>Category</strong>
+
+                    </th>
+
+                    <th class="font-weight-bold">
+
+                      <strong>Stock</strong>
+
+                    </th>
+
+                    <th></th>
+
+                  </tr>
+
+                </thead>
+                <!-- Table head -->
+
+                <!-- Table body -->
+                <tbody>
+                {% for product in products %}
+                  <!-- First row -->
+                  <tr>
+                    <td scope="row"><img src="{{product.imageURL}}" ></td>
+                    <td>{{product.name}}</td>
+                    <td></td>
+                    <td>{{product.price}}</td>
+                    <td> {{product.category}} </td>
+                    <td>{{product.stock}}</td>
+
+                  </tr>
+                  <!-- First row -->
+                  {% endfor %}
+                </tbody>
+                <!-- Table body -->
+
+              </table>
+
+            </div>
+
+
+          </div>
+
+        </div>
+
+      </section>
+ 
+    </div>
+    <!-- Main Container -->
+
+  </main>
+<!-- SCRIPTS -->
+  <!-- JQuery -->
+  <script type="text/javascript" src="../static/js/jquery-3.4.1.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="../static/js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="../static/js/bootstrap.min.js">
+  </script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="../static/js/mdb.min.js"></script>
+  <script type="text/javascript">
+    /* WOW.js init */
+    new WOW().init();
+    // Tooltips Initialization
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
+
+    // Material Select Initialization
+    $(document).ready(function () {
+      $('.mdb-select').material_select();
+    });
+
+    // SideNav Initialization
+    $(".button-collapse").sideNav();
+
+  </script>
+
+  <script>
+    const menuBtn = document.querySelector(".menu-icon span");
+    const cancelBtn = document.querySelector(".cancel-icon");
+    const items = document.querySelector(".nav-items");
+    
+    menuBtn.onclick = ()=>{
+      items.classList.add("active");
+      menuBtn.classList.add("hide");
+      cancelBtn.classList.add("show");
+    }
+    cancelBtn.onclick = ()=>{
+      items.classList.remove("active");
+      menuBtn.classList.remove("hide");
+      cancelBtn.classList.remove("show");
+    }
+  </script>
+
+</body>
+
+</html>

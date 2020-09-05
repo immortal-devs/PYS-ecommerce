@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     #Leave as empty string for base url
@@ -18,5 +20,4 @@ urlpatterns = [
 	path('checkout/', views.checkout, name="checkout"),
 	path('', views.shop, name="shop"),
 	path('shop/', views.shop, name="shop"),
-	path('carttemp/', views.carttemp, name="cart"),
 ]

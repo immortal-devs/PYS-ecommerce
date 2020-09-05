@@ -5,8 +5,10 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    # path('admin/', admin.site.urls),
+    
     path('',include('shop.urls')),
+    path('admin_role/',include('admin_role.urls')),
     path('social-auth/', include('social_django.urls', namespace="social")),
 ]
 

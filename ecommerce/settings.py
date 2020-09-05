@@ -22,6 +22,7 @@ EMAIL_HOST_PASSWORD = 'yash1305paras'
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -38,6 +39,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'shop.apps.ShopConfig',
+    'admin_role.apps.AdminRoleConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -147,12 +149,11 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'shop/static')
-]
+os.path.join(BASE_DIR, 'shop/static')]
 
 MEDIA_URL = '/images/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'shop/static/images')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'shop/static/images/products')
 
 SOCIAL_AUTH_FACEBOOK_KEY = '1548243245346006'        # App ID
 SOCIAL_AUTH_FACEBOOK_SECRET = '09b9f99944c90b3741a2848c7e9d0ada'

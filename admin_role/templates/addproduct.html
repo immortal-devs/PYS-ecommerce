@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>PYS | Add Product</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+  <link href="{% static 'css/bootstrap.min.css' %}" type="text/css" rel="stylesheet">
+  <link href="{% static 'css/mdb.min.css' %}" type="text/css" rel="stylesheet">
+  <link href="{% static 'css/style.css' %}" rel="stylesheet" >
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    
+    input[type=text], input[type=file], select, textarea {
+      width: 90%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      resize: vertical;
+    }
+    
+    label {
+      padding: 12px 12px 12px 0;
+      display: inline-block;
+    }
+    
+    input[type=submit] {
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      float: right;
+    }
+    
+    input[type=submit]:hover {
+      background-color: #45a049;
+    }
+    
+    .container {
+      border-radius: 5px;
+      background-color: #f2f2f2;
+      padding: 20px 200px 20px 200px;
+    }
+    
+    .col-25 {
+      float: left;
+      width: 25%;
+      margin-top: 6px;
+    }
+    
+    .col-75 {
+      float: left;
+      width: 75%;
+      margin-top: 6px;
+    }
+    
+    /* Clear floats after the columns */
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+    
+    /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+    @media screen and (max-width: 600px) {
+      .col-25, .col-75, input[type=submit] {
+        width: 100%;
+        margin-top: 0;
+      }
+    }
+    </style>
+ 
+</head>
+
+<body class="homepage-v1 hidden-sn white-skin animated">
+<header>
+    <nav class="fixed-top navbar-expand-lg scrolling-navbar" style="height: 70px;">
+      <div><span style="font-size: 30px;justify-content: center;">Add Product Details</span></div>
+   </nav>    
+</header>
+
+<main>
+    <div class="container">
+      <form action="/admin_role/checkproductdata/" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+          <div class="col-25">
+            <label for="name">Product Name</label>
+          </div>
+          <div class="col-75">
+            <input type="text" name="name">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-25">
+            <label for="price">Product Price</label>
+          </div>
+          <div class="col-75">
+            <input type="text" name="price">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-25">
+            <label for="category">Product Category</label>
+          </div>
+          <div class="col-75">
+            <select name="category">
+              <option value="Men">Men</option>
+              <option value="Women">Women</option>
+              <option value="Kids">Kids</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-25">
+            <label for="stock">Product Stock</label>
+          </div>
+          <div class="col-75">
+            <input type="text" name="stock">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-25">
+            <label for="image">Product Image</label>
+          </div>
+          <div class="col-75">
+            <input type="file" name="image" accept="image/*">
+          </div>
+        </div>
+
+        <div class="row" style="justify-content: center;padding-top: 20px;">
+          <input type="submit" value="Submit">
+        </div>
+      </form>
+      
+    </div>
+
+</main>
+  <script type="text/javascript" src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/popper.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}">
+  </script>
+  <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
+  <script type="text/javascript">
+    new WOW().init();
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
+    $(document).ready(function () {
+      $('.mdb-select').material_select();
+    });
+    $(".button-collapse").sideNav();
+
+  </script>
+
+</body>
+
+</html>
