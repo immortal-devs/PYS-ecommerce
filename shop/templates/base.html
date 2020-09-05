@@ -13,6 +13,7 @@
   <link href="../static/css/bootstrap.min.css" rel="stylesheet">
   <!-- Material Design Bootstrap -->
   <link href="../static/css/mdb.min.css" rel="stylesheet">
+  <link href="../static/css/style.css" rel="stylesheet">
   <style>
 
   </style>
@@ -24,85 +25,64 @@
   <!-- Navigation -->
   <header>
   
-    <nav class="navbar fixed-top navbar-expand-lg  navbar-light scrolling-navbar white" style="height: 70px;">
-  
-      <div class="container">
-  
-        <a class="navbar-brand font-weight-bold text-center" href="#">
+      <nav class="fixed-top navbar-expand-lg scrolling-navbar" style="height: 70px;">
+      <div class="menu-icon">
+        <span class="fas fa-bars"></span></div>
+      <div class="logo">PYS</div>
+        <div class="nav-items">
+          <li class="nav-item ml-3">
+            <a href="/cart">
+              <span class="badge danger-color">4</span>
+              <img src="../static/images/svg/shopping-cart.svg" 
+              alt="cart_svg" style="height: 22px;padding-bottom: 3px;">&nbsp; Cart
+            </a>
+          </li>
+         <li class="nav-item ml-3">
+            <a href="#">
+              <img src="../static/images/svg/envelope.svg" 
+              alt="cart_svg" style="height: 18px; width:20px; padding-bottom: 3px;">&nbsp; Contact
+            </a>
+          </li>
 
-          <img src="../static/images/svg/logo.svg" 
-                alt="cart_svg" style="height: 70px;padding-bottom: 2px;">
-  
-        </a>
-  
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
-          aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
-  
-          <span class="navbar-toggler-icon"></span>
-  
-        </button>
-  
-        <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
-  
-          <ul class="navbar-nav ml-auto">
-  
-            <li class="nav-item ml-3">
-  
-              <a class="nav-link waves-effect waves-light dark-grey-text font-weight-bold" href="#">
-          
-                <span class="badge danger-color">4</span>
-          
-                <img src="../static/images/svg/shopping-cart.svg" alt="cart_svg" style="height: 24px;"> Cart
-              </a>
-          
-            </li>
-  
-            <li class="nav-item ml-3">
-  
-              <a class="nav-link waves-effect waves-light dark-grey-text font-weight-bold" href="#">
-  
-                <img src="../static/images/svg/envelope.svg" alt="cart_svg" style="height: 20px; width:26px"> Contact
-  
-              </a>
-  
-            </li>
-  
-            {% if request.session.name %}
-  
-            <li class="nav-item ml-3">
-  
-              <a class="nav-link waves-effect waves-light dark-grey-text font-weight-bold" href="#">
-  
-                <img src="../static/images/svg/gear.svg" alt="cart_svg" style="height: 20px;"> Settings</a>
-  
-            </li>
-  
-            <li class="nav-item dropdown ml-3">
-  
-              <a class="nav-link dropdown-toggle waves-effect waves-light dark-grey-text font-weight-bold"
-                id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-  
-                <img src="../static/images/svg/person.svg" alt="cart_svg" style="height: 20px;"> Hello, {{name}} </a>
-  
-              <div class="dropdown-menu dropdown-menu-right dropdown-cyan" aria-labelledby="navbarDropdownMenuLink-4">
-  
-                <a class="dropdown-item waves-effect waves-light" href="/login">My account</a>
-  
-                <a class="dropdown-item waves-effect waves-light" href="/logout">Log out</a>
-  
-              </div>
-  
-            </li>
-            
-            {% endif %}
-          </ul>
-  
-        </div>
-  
-      </div>
-  
+          {% if request.session.name %}
+
+          <li class="nav-item ml-3">
+            <a href="#">
+              <img src="../static/images/svg/setting.svg" 
+              alt="cart_svg" style="height: 18px;padding-bottom: 3px;">&nbsp; Settings</a>
+          </li>
+
+          <li class="nav-item dropdown ml-3">
+
+            <a class="dropdown-toggle waves-effect"
+              id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+              <img src="https://img.icons8.com/ios-glyphs/30/000000/user--v1.png"
+              alt="cart_svg" style="height: 20px;padding-bottom: 3px;">&nbsp; Hello, {{name}} </a>
+
+            <div class="dropdown-menu dropdown-menu-right dropdown-cyan" aria-labelledby="navbarDropdownMenuLink-4">
+
+              <a class="dropdown-item waves-effect waves-light" href="#">My account</a>
+
+              <a class="dropdown-item waves-effect waves-light" href="/logout">Log out</a>
+
+            </div>
+
+          </li>
+
+          {% endif %}
+         </div>
+          <div class="search-icon">
+          <span class="fas fa-search"></span>
+          </div>
+          <div class="cancel-icon">
+          <span class="fas fa-times"></span>
+          </div>
+        <form action="#">
+          <input type="search" class="search-data" placeholder="Search">
+          <button type="submit" class="fas fa-search"></button>
+        </form>
     </nav>
-        
       
     </header>
   <!-- Navigation -->
@@ -354,6 +334,33 @@
       $("#mdb-lightbox-ui").load("mdb-addons/mdb-lightbox-ui.html");
     });
     
+  </script>
+
+  <script>
+    const menuBtn = document.querySelector(".menu-icon span");
+    const searchBtn = document.querySelector(".search-icon");
+    const cancelBtn = document.querySelector(".cancel-icon");
+    const items = document.querySelector(".nav-items");
+    const form = document.querySelector("form");
+    menuBtn.onclick = ()=>{
+      items.classList.add("active");
+      menuBtn.classList.add("hide");
+      searchBtn.classList.add("hide");
+      cancelBtn.classList.add("show");
+    }
+    cancelBtn.onclick = ()=>{
+      items.classList.remove("active");
+      menuBtn.classList.remove("hide");
+      searchBtn.classList.remove("hide");
+      cancelBtn.classList.remove("show");
+      form.classList.remove("active");
+      cancelBtn.style.color = "#ff3d00";
+    }
+    searchBtn.onclick = ()=>{
+      form.classList.add("active");
+      searchBtn.classList.add("hide");
+      cancelBtn.classList.add("show");
+    }
   </script>
 
 </body>
