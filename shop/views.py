@@ -19,6 +19,9 @@ def cart(request):
     context = {}
     return render(request, 'cart.html', context)
 
+def carttemp(request):
+    context = {}
+    return render(request, 'carttemp.html', context)
 def checkout(request):
     if request.user.is_authenticated:
         customer = request.user.customer
