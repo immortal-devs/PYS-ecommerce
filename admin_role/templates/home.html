@@ -24,13 +24,36 @@
     <div class="menu-icon">
       <span class="fas fa-bars"></span></div>
     <div class="logo">PYS</div>
+
+    
       <div class="nav-items">
+      {% if request.session.username %}
         <li class="nav-item ml-3">
           <a href="addproduct/">
             Add Product
           </a>
         </li>
-      </div>
+
+        <li class="nav-item ml-3">
+          <a href="#">
+            Hello, {{username}}
+          </a>
+        </li>
+        <li class="nav-item ml-3">
+          <a href="adminlogout/">
+            Logout
+          </a>
+        </li>
+      
+      {% else %}
+
+        <li class="nav-item ml-3">
+          <a href="adminlogin/">
+            Login
+          </a>
+        </li>
+      {% endif %}
+    </div>
         <div class="cancel-icon">
         <span class="fas fa-times"></span>
       </div>
@@ -106,7 +129,6 @@
                     <td>{{product.price}}</td>
                     <td> {{product.category}} </td>
                     <td>{{product.stock}}</td>
-
                   </tr>
                   <!-- First row -->
                   {% endfor %}

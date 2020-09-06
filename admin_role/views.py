@@ -7,14 +7,39 @@ from django.conf import settings
 from django.db import IntegrityError
 import math, random
 
-from shop.models import Product
+from shop.models import Product, Admin_detail
 
 # Create your views here.
 
+def adminlogin(request):
+    context = {}
+    return render(request, 'adminlogin.html', context)
+
+def checkuser(request):
+    username = request.POST.get("username")
+    password = request.POST.get("pass")
+
+    for i in Admin_detail.objects.all():
+        if username == i.username and password == i.password:
+            request.session['username'] = username
+            return HttpResponseRedirect('/admin_role/')
+        else:
+            return render(request, 'adminlogin.html')
+
 def admin(request):
-    products = Product.objects.all()
-    context = {'products': products}
-    return render(request, 'home.html', context)
+    if request.session.get('username'):
+        username = request.session.get('username')
+        products = Product.objects.all()
+        context = {'products': products,'username': username}
+        return render(request, 'home.html', context)
+    else:
+        context = {}
+        return render(request, 'home.html', context)
+
+def adminlogout(request):
+    del request.session['username']
+    return HttpResponseRedirect('/admin_role/')
+
 
 def addproduct(request):
     context = {}
