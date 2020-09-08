@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
@@ -131,25 +131,6 @@ def addnewpassword(request):
         else:
             return render(request, 'newpassword.html', {'error': 'Enter correct OTP'})
 
-def cart(request):
-    if request.session.get('name'):
-        name = request.session.get('name')
-        context={}
-        context["name"]=name
-        for i in shopping_cart.objects.all():
-            if i.customer.user.firstname==name:
-                price=i.product.price
-                pname=i.product.name
-                quantity=i.quantity
-                image=i.product.imageURL
-                totalprice=i.quantity*i.product.price
-                context.setdefault("products",[]).append([pname,price,quantity,totalprice,image])
-        print(context)
-        return render(request, 'cart.html', context)
-    else:
-        context = {} 
-        return render(request, 'cart.html', context)
-
 def category(request):
     title = 'Category'
     if request.session.get('name'):
@@ -160,3 +141,46 @@ def category(request):
         context = {'title': title}
         return render(request, 'category.html', context)
 
+def cart(request):
+    if request.session.get('name'):
+        name = request.session.get('name')
+        context={}
+        total=0
+        context["name"]=name
+        for i in shopping_cart.objects.all():
+            if i.customer.user.firstname==name:
+                price=i.product.price
+                pname=i.product.name
+                quantity=i.quantity
+                image=i.product.imageURL
+                totalprice=i.quantity*i.product.price
+                total += totalprice
+                cartid=i.id
+                context.setdefault("products",[]).append([pname,price,quantity,totalprice,image,cartid])
+        context["total"] = total
+        print(context)
+        return render(request, 'cart.html', context)
+    else:
+        context = {} 
+        return render(request, 'cart.html', context)
+
+
+def deleteFromCart(request,id):
+    shopping_cart=shopping_cart.objects.get(id=id)
+    shopping_cart.delete()
+    return redirect('/cart')
+
+def addquantity (request,id):
+    shopping_cart=shopping_cart.objects.get(id=id)
+    shopping_cart.quantity=min(shopping_cart.quantity+1,10)
+
+    return redirect('/cart')
+
+
+def removequantity (request,id):
+    shopping_cart=shopping_cart.objects.get(id=id)
+    if shopping_cart.quantity: 
+        shopping_cart.quantity-=1
+        return redirect('/cart')
+    else:
+        return redirect('/delete')
