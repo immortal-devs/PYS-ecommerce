@@ -4,6 +4,9 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
+	
+	path('cart/addquantity/<int:id>',views.addquantity),
+	path('cart/removequantity/<int:id>',views.removequantity),
     #Leave as empty string for base url
 	path('login/', views.login, name="login"),
 	path('logout/', views.logout, name="logout"),
@@ -20,4 +23,5 @@ urlpatterns = [
 	path('checkout/', views.checkout, name="checkout"),
 	path('', views.shop, name="shop"),
 	path('shop/', views.shop, name="shop"),
+	path('cart/delete/<int:id>',views.deleteFromCart),
 ]

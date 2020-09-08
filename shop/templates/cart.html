@@ -89,20 +89,14 @@
 
                       <span class="qty">{{product|index:2}} </span>
 
-                      <div class="btn-group radio-group ml-2" data-toggle="buttons">
+                      <div class="btn-group radio-group ml-2" >
 
-                        <label class="btn btn-sm btn-primary btn-rounded">
-
-                          <input type="radio" name="options" id="option1">&mdash;
-
-                        </label>
-
-                        <label class="btn btn-sm btn-primary btn-rounded">
-
-                          <input type="radio" name="options" id="option2">+
-
-                        </label>
-
+                        <button type="button" class="btn btn-sm btn-primary btn-rounded" >
+                          <a href="removequantity/{{product|index:5}}">-</a>
+                        </button> 
+                        <button type="button" class="btn btn-sm btn-primary btn-rounded" >
+                          <a href="addquantity/{{product|index:5}}">+</a>
+                        </button>
                       </div>
 
                     </td>
@@ -114,26 +108,19 @@
 
                     <td>
 
-                      <button type="button" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" name="{{product|index:5}}"
-                        title="Remove item">X
+                      <button type="button" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" name=""
+                        title="Remove item">
+                        <a href="delete/{{product|index:5}}">X</a>
 
                       </button>
-                      
-                    <td >
-                       <a href="delete/{{product|index:5}}">Delete</a>
-                    </td>
+                  
                     </td>
 
 
-                    <!-- <td> {{product.category}} </td>
-                    <td>{{product.stock}}</td> -->
                   </tr>
                   <!-- First row -->
                   {% endfor %}
-                  <!-- First row -->
-                                   <!-- Third row -->
-
-                  <!-- Fourth row -->
+        
                   <tr>
 
                     <td colspan="3"></td>

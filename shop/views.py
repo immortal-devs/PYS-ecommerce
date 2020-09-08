@@ -166,21 +166,23 @@ def cart(request):
 
 
 def deleteFromCart(request,id):
-    shopping_cart=shopping_cart.objects.get(id=id)
-    shopping_cart.delete()
+    print(id)
+    shopping_cartq=shopping_cart.objects.filter(id=id)
+    shopping_cartq.delete()
     return redirect('/cart')
 
-def addquantity (request,id):
-    shopping_cart=shopping_cart.objects.get(id=id)
-    shopping_cart.quantity=min(shopping_cart.quantity+1,10)
-
+def addquantity(request,id):
+    shopping_cartq=shopping_cart.objects.get(id=id)
+    shopping_cartq.quantity=min(int(shopping_cartq.quantity)+1,10)
+    shopping_cartq.save()
     return redirect('/cart')
 
 
-def removequantity (request,id):
-    shopping_cart=shopping_cart.objects.get(id=id)
-    if shopping_cart.quantity: 
-        shopping_cart.quantity-=1
+def removequantity(request,id):
+    shopping_cartq=shopping_cart.objects.get(id=id)
+    if shopping_cartq.quantity: 
+        shopping_cartq.quantity-=1
+        shopping_cartq.save()
         return redirect('/cart')
     else:
-        return redirect('/delete')
+        return redirect('/cart/delete')
