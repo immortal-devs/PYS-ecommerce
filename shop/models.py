@@ -73,13 +73,12 @@ class OrderItem(models.Model):
 	quantity = models.IntegerField( default=1)
 	date_added = models.DateTimeField(auto_now_add=True)
 
-	
 	def __str__(self):
 		return str(self.product.name+" "+self.order.customer.name)
 	
 
 class shopping_cart(models.Model):
-	product= models.ForeignKey(Product, on_delete=models.CASCADE, null=False, blank=True)
+	product = models.ForeignKey(Product, on_delete=models.CASCADE, null=False, blank=True)
 	quantity = models.IntegerField( null=True)
 	customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=False, blank=True)
 

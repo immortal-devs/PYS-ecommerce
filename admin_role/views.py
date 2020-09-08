@@ -1,11 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from django.contrib.auth.models import User
-from django.core.mail import send_mail
 from django.template.context_processors import csrf
 from django.conf import settings
-from django.db import IntegrityError
-import math, random
 
 from shop.models import Product, Admin_detail
 
