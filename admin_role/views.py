@@ -29,7 +29,7 @@ def checkuser(request):
 def admin(request):
     if request.session.get('username'):
         username = request.session.get('username')
-        products = Product.objects.all()
+        products = Product.objects.all() 
         context = {'products': products,'username': username}
         return render(request, 'home.html', context)
     else:
