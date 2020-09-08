@@ -85,6 +85,8 @@ TEMPLATES = [
                 'social_django.context_processors.backends', # add this
                 'social_django.context_processors.login_redirect',
             ],
+        
+        
         },
     },
 ]

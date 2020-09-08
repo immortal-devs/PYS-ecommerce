@@ -10,6 +10,7 @@ import math, random
 # Create your views here.
 from .models import Address, Admin_detail, Customer, Order, OrderItem, Product, shopping_cart, UserProfile
 
+
 def product(request):
 	products = Product.objects.all()
 	context = {'products':products}
@@ -133,10 +134,20 @@ def addnewpassword(request):
 def cart(request):
     if request.session.get('name'):
         name = request.session.get('name')
-        context = {'name': name}
+        context={}
+        context["name"]=name
+        for i in shopping_cart.objects.all():
+            if i.customer.user.firstname==name:
+                price=i.product.price
+                pname=i.product.name
+                quantity=i.quantity
+                image=i.product.imageURL
+                totalprice=i.quantity*i.product.price
+                context.setdefault("products",[]).append([pname,price,quantity,totalprice,image])
+        print(context)
         return render(request, 'cart.html', context)
     else:
-        context = {}
+        context = {} 
         return render(request, 'cart.html', context)
 
 def category(request):
