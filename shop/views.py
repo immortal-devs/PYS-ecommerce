@@ -164,7 +164,6 @@ def cart(request):
         context = {} 
         return render(request, 'cart.html', context)
 
-
 def deleteFromCart(request,id):
     print(id)
     shopping_cartq=shopping_cart.objects.filter(id=id)
@@ -176,7 +175,6 @@ def addquantity(request,id):
     shopping_cartq.quantity=min(int(shopping_cartq.quantity)+1,10)
     shopping_cartq.save()
     return redirect('/cart')
-
 
 def removequantity(request,id):
     shopping_cartq=shopping_cart.objects.get(id=id)
