@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load range %}
 <html lang="en">
 
 <head>
@@ -226,9 +227,9 @@
                       <div class="card card-ecommerce">
 
                         <!-- Card image -->
-                        <div class="view overlay">
+                        <div class="view overlay" style="">
 
-                          <img src="../static/images/man/pexels-david-gomes-2479829.jpg"
+                          <img src="{{product.imageURL}}"
                             class="img-fluid" alt="sample image">
 
                             <div class="mask rgba-white-slight"></div>
@@ -255,36 +256,20 @@
 
                           <!-- Rating -->
                           <ul class="rating">
-
-                            <li>
-
+                          {% for star in product.rating|times %}
+                            <li> 
+ 
                               <i class="fas fa-star blue-text"></i>
 
                             </li>
-
+                          {% endfor %}
+                          {% for star in product.rating|times1 %}
                             <li>
 
-                              <i class="fas fa-star blue-text"></i>
+                              <i class="fas fa-star grey-text"></i>
 
                             </li>
-
-                            <li>
-
-                              <i class="fas fa-star blue-text"></i>
-
-                            </li>
-
-                            <li>
-
-                              <i class="fas fa-star blue-text"></i>
-
-                            </li>
-
-                            <li>
-
-                              <i class="fas fa-star blue-text"></i>
-
-                            </li>
+                          {% endfor %}
 
                           </ul>
 
@@ -2113,13 +2098,13 @@
               <!-- Second row -->
 
               <!-- Third row -->
-              <div class="row mt-2 py-2 mb-4 hoverable align-items-center">
+              <div class="row mt-2 py-2 mb-4 hoverable align-items-center" style="">
 
-                <div class="col-6">
+                <div class="col-6" style="max-height:106px; overflow: hidden;">
 
                   <a>
 
-                    <img src="../static/images/dresses/pexels-ray-piedra-1537681.jpg"
+                    <img style="" src="../static/images/products/Gown.jpg"
                       class="img-fluid">
 
                   </a>
