@@ -213,6 +213,127 @@
             <!-- Grid column -->
             <div class="col-12">
               <!-- Nav tabs -->
+                    <div class="tab-pane fade in show active " id="panel5" role="tabpanel">
+                  <br>
+                  <!-- Grid row -->
+                  <div class="row">
+
+                        {% for product in products %}
+                    <!-- Grid column -->
+                    <div class="col-lg-4 col-md-12 mb-4">
+
+                      <!-- Card -->
+                      <div class="card card-ecommerce">
+
+                        <!-- Card image -->
+                        <div class="view overlay">
+
+                          <img src="../static/images/man/pexels-david-gomes-2479829.jpg"
+                            class="img-fluid" alt="sample image">
+
+                            <div class="mask rgba-white-slight"></div>
+
+                        </div>
+
+                        <!-- Card image -->
+
+                        <!-- Card content -->
+                        <div class="card-body">
+
+                          <!-- Category & Title -->
+                          <h5 class="card-title mb-1">
+
+                            <strong>
+
+                              <a href="" class="dark-grey-text">{{product.name}}</a>
+
+                            </strong>
+
+                          </h5>
+
+                          <span class="badge badge-danger mb-2">bestseller</span>
+
+                          <!-- Rating -->
+                          <ul class="rating">
+
+                            <li>
+
+                              <i class="fas fa-star blue-text"></i>
+
+                            </li>
+
+                            <li>
+
+                              <i class="fas fa-star blue-text"></i>
+
+                            </li>
+
+                            <li>
+
+                              <i class="fas fa-star blue-text"></i>
+
+                            </li>
+
+                            <li>
+
+                              <i class="fas fa-star blue-text"></i>
+
+                            </li>
+
+                            <li>
+
+                              <i class="fas fa-star blue-text"></i>
+
+                            </li>
+
+                          </ul>
+
+                          <!-- Card footer -->
+                          <div class="card-footer pb-0">
+
+                            <div class="row mb-0">
+
+                              <span class="float-left">
+
+                                <strong>{{product.price}}</strong>
+
+                              </span>
+
+                              <span class="float-right">
+
+                                <a href="/addtocart/{{product.id}}" >
+
+                                  <i class="fas fa-shopping-cart ml-3"></a></i>
+
+                               
+
+                              </span>
+
+                            </div>
+
+                          </div>
+
+                        </div>
+                        <!-- Card content -->
+
+                      </div>
+                      <!-- Card -->
+
+                    </div>
+                    {% endfor %}
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                  
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                    
+                    <!-- Grid column -->
+
+                  </div>
+                  <!-- Grid row -->
+                </div>
               <ul class="nav md-tabs nav-justified grey lighten-3 mx-0" role="tablist">
 
                 <li class="nav-item">

@@ -4,7 +4,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
-	
+	 
 	path('cart/addquantity/<int:id>',views.addquantity),
 	path('cart/removequantity/<int:id>',views.removequantity),
     #Leave as empty string for base url
@@ -22,6 +22,7 @@ urlpatterns = [
 	path('cart/', views.cart, name="cart"),
 	path('contact/', views.contact, name="contact"),
 	path('checkout/', views.checkout, name="checkout"),
+	path('addtocart/<int:id>', views.addtocart, name="addtocart"),
 	path('', views.shop, name="shop"),
 	path('shop/', views.shop, name="shop"),
 	path('cart/delete/<int:id>',views.deleteFromCart),
