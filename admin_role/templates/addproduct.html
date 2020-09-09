@@ -91,7 +91,16 @@
     <div class="container">
       <form action="/admin_role/checkproductdata/" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        <div class="row">
+        
+          <div class="row">
+            <div class="col-25">
+              <label for="image">Product Image</label>
+            </div>
+            <div class="col-75">
+              <input type="file" name="image" accept="image/*">
+            </div>
+          </div>
+          <div class="row">
           <div class="col-25">
             <label for="name">Product Name</label>
           </div>
@@ -112,11 +121,31 @@
             <label for="category">Product Category</label>
           </div>
           <div class="col-75">
-            <select name="category">
-              <option value="Men">Men</option>
-              <option value="Women">Women</option>
-              <option value="Kids">Kids</option>
-            </select>
+            <input type="text" name="category">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-25">
+            <label for="color">Product Color</label>
+          </div>
+          <div class="col-75">
+            <input type="text" name="color">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-25">
+            <label for="size">Product Size</label>
+          </div>
+          <div class="col-75">
+            <input type="text" name="size">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-25">
+            <label for="discount">Product Discount</label>
+          </div>
+          <div class="col-75">
+            <input type="text" name="discount">
           </div>
         </div>
         <div class="row">
@@ -129,13 +158,13 @@
         </div>
         <div class="row">
           <div class="col-25">
-            <label for="image">Product Image</label>
+            <label for="des">Product Description</label>
           </div>
           <div class="col-75">
-            <input type="file" name="image" accept="image/*">
+            <textarea type="text" name="description"></textarea>
           </div>
         </div>
-
+        
         <div class="row" style="justify-content: center;padding-top: 20px;">
           <input type="submit" value="Submit">
         </div>

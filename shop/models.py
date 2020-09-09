@@ -1,4 +1,6 @@
+from django_mysql.models import ListCharField
 from django.db import models,migrations
+
 
 class UserProfile(models.Model):
 	firstname = models.CharField(max_length=200,null=False)
@@ -24,9 +26,13 @@ class Address(models.Model):
 
 class Customer(models.Model):
 	# customer_id = models.AutoField(primary_key=True)
-	gender = models.CharField(max_length=20,default="male")
+	gender = models.CharField(max_length=20,default="Male")
 	birthdate = models.DateField()
-	search = models.CharField(max_length=1000,null=True,blank=True)
+	search = ListCharField(
+		base_field = models.CharField(max_length=10),
+		size = 5,
+		max_length = (5*11)
+	)
 	address = models.ForeignKey(Address, on_delete=models.CASCADE, null=False, blank=True)
 	user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=False, blank=True)
 
@@ -34,12 +40,33 @@ class Customer(models.Model):
 	 return self.user.firstname
 
 class Product(models.Model):
+	RATE = (
+        ('1', 'Very Low'),
+        ('2', 'Low'),
+        ('3', 'Avarage'),
+		('4', 'Good'),
+		('5', 'Very Good'),
+    )
+
 	# product_id = models.AutoField(primary_key=True)
 	name = models.CharField(max_length=200)
-	price = models.DecimalField(max_digits=5,decimal_places=2,default=0)
+	price = models.DecimalField(max_digits=7,decimal_places=2,default=0)
 	image = models.ImageField(null=True, blank=True)
-	category = models.CharField(max_length=30)
+	category = ListCharField(
+		base_field = models.CharField(max_length=10),
+		size = 5,
+		max_length = (5*11),
+	)
 	stock = models.IntegerField(default=0)
+	color = models.CharField(max_length=20,null=True)
+	size = ListCharField(
+		base_field = models.CharField(max_length=3),
+		size = 6,
+		max_length = (6*4),
+	)
+	description = models.CharField(max_length=200,null=True)
+	rating = models.IntegerField(choices=RATE,default=5)
+	discount = models.IntegerField(default=0)
 
 	def __str__(self):
 		return self.name

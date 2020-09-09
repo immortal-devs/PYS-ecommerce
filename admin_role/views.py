@@ -47,7 +47,11 @@ def checkproductdata(request):
     category = request.POST.get("category")
     stock = request.POST.get("stock")
     image = request.FILES['image']
+    color = request.POST.get('color')
+    size = request.POST.get('size')
+    desc = request.POST.get('description')
+    discount = request.POST.get('discount')
 
-    s = Product(name=name,category=category,price=price,stock=stock,image=image)
+    s = Product(name=name,category=category,price=price,stock=stock,size=size,image=image,color=color,description=desc,discount=discount)
     s.save()
     return HttpResponseRedirect('/admin_role/')
