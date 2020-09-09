@@ -73,12 +73,16 @@ def registrationdata(request):
         return render(request, 'signup.html', {'error': 'Re Enter same password!!'})
 
 def shop(request):
+    context={}
+    # products=Product.object.all()
+    for products in Product.objects.all():
+        context.setdefault("products",[]).append(products)
+   
     if request.session.get('name'):
         name = request.session.get('name')
-        context = {'name': name}
+        context['name']= name
         return render(request, 'shop.html', context)
     else:
-        context = {}
         return render(request, 'shop.html', context)
 
 def logout(request):
@@ -178,9 +182,12 @@ def addquantity(request,id):
 
 def removequantity(request,id):
     shopping_cartq=shopping_cart.objects.get(id=id)
-    if shopping_cartq.quantity: 
-        shopping_cartq.quantity-=1
-        shopping_cartq.save()
-        return redirect('/cart')
-    else:
-        return redirect('/cart/delete')
+    shopping_cartq.quantity-=1
+    if shopping_cartq.quantity <= 0:
+        return redirect('/cart/delete/'+str(id))
+    shopping_cartq.save()
+    return redirect('/cart')
+    
+def contact(request):
+    context = {} 
+    return render(request, 'contact.html', context)
