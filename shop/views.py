@@ -39,6 +39,7 @@ def verification(request):
         if email == i.email and password == i.password:
             request.session['name'] = i.firstname
             request.session['email'] = i.email
+            request.session['cid'] = i.id
             return HttpResponseRedirect('/shop')
     else:
         return render(request, 'login.html', {'error': 'Email Or Password is incorrect.'})
@@ -68,15 +69,19 @@ def registrationdata(request):
         s = UserProfile(firstname=firstname, lastname=lastname, email=email, password=pass1, mobile_no=mobileno)
         s.save()
         request.session['name'] = firstname
+        
+
         return HttpResponseRedirect('/login/')
     else:
         return render(request, 'signup.html', {'error': 'Re Enter same password!!'})
 
 def shop(request):
     context={}
-    # products=Product.object.all()
+    cnt=0
     for products in Product.objects.all():
-        context.setdefault("products",[]).append(products)
+        if cnt<3:
+            cnt+=1
+            context.setdefault("products",[]).append(products)
    
     if request.session.get('name'):
         name = request.session.get('name')
@@ -146,13 +151,14 @@ def category(request):
         return render(request, 'category.html', context)
 
 def cart(request):
-    if request.session.get('name'):
+    if request.session.get('name') and request.session.get('cid'):
         name = request.session.get('name')
+        cid = request.session.get('cid')
         context={}
-        total=0
         context["name"]=name
+        total=0
         for i in shopping_cart.objects.all():
-            if i.customer.user.firstname==name:
+            if Customer.objects.get(user_id=cid):
                 price=i.product.price
                 pname=i.product.name
                 quantity=i.quantity
@@ -162,10 +168,10 @@ def cart(request):
                 cartid=i.id
                 context.setdefault("products",[]).append([pname,price,quantity,totalprice,image,cartid])
         context["total"] = total
-        print(context)
         return render(request, 'cart.html', context)
     else:
         context = {} 
+        print("-----------------stuck in else---------------------------")
         return render(request, 'cart.html', context)
 
 
@@ -193,3 +199,21 @@ def removequantity(request,id):
 def contact(request):
     context = {} 
     return render(request, 'contact.html', context)
+
+def addtocart(request,id):
+    productq= Product.objects.get(id=id)
+    for i in shopping_cart.objects.all():
+        if i.product.id==id:
+            i.quantity=min(int(i.quantity)+1,10)
+            i.save()
+            return redirect('/shop')
+    quantityq=1
+    if request.session.get('name') and request.session.get('cid'):
+        name = request.session.get('name')
+        cid=request.session.get('cid')
+        customerq=Customer.objects.get(user_id=cid)
+        c=shopping_cart(product=productq,quantity=quantityq,customer=customerq)
+        c.save()
+        return redirect('/shop')
+    else:
+        return redirect('/shop')
