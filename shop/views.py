@@ -5,6 +5,7 @@ from django.core.mail import send_mail
 from django.template.context_processors import csrf
 from django.conf import settings
 from django.db import IntegrityError
+from datetime import datetime, timedelta, date
 import math, random
 
 # Create your views here.
@@ -40,6 +41,8 @@ def verification(request):
             request.session['name'] = i.firstname
             request.session['email'] = i.email
             request.session['cid'] = i.id 
+
+            print("verification userid: ",i.id)
             return HttpResponseRedirect('/shop')
     else:
         return render(request, 'login.html', {'error': 'Email Or Password is incorrect.'})
@@ -69,8 +72,11 @@ def registrationdata(request):
         s = UserProfile(firstname=firstname, lastname=lastname, email=email, password=pass1, mobile_no=mobileno)
         s.save()
         request.session['name'] = firstname
-        
-
+        print("registrationdata  userid: ",s.id)
+        c=Customer(gender="male",birthdate=date.today(),search="",address_id="1",user_id=s.id)
+        c.save()
+        request.session['cid'] = s.id 
+        print("registrationdata  customer_id: ",c.id)
         return HttpResponseRedirect('/login/')
     else:
         return render(request, 'signup.html', {'error': 'Re Enter same password!!'})
@@ -82,8 +88,6 @@ def shop(request):
         if cnt<3:
             cnt+=1
             context.setdefault("products",[]).append(products)
-            qwe=range(5)
-            context["qwe"]=qwe
             print(context)
    
     if request.session.get('name'):
@@ -157,11 +161,14 @@ def cart(request):
     if request.session.get('name') and request.session.get('cid'):
         name = request.session.get('name')
         cid = request.session.get('cid')
+        q=Customer.objects.get(user_id=cid)
         context={}
         context["name"]=name
         total=0
         for i in shopping_cart.objects.all():
-            if Customer.objects.get(user_id=cid):
+            if i.customer_id==q.id:
+            # q=Customer.objects.get(user_id=cid)
+            # if shopping_cart.objects.filter(customer_id=q.id):
                 price=i.product.price
                 pname=i.product.name
                 quantity=i.quantity
@@ -178,24 +185,32 @@ def cart(request):
         return render(request, 'cart.html', context)
 
 def deleteFromCart(request,id):
-    print(id)
-    shopping_cartq=shopping_cart.objects.filter(id=id)
-    shopping_cartq.delete()
-    return redirect('/cart')
+    cid = request.session.get('cid')
+    q=Customer.objects.get(user_id=cid)
+    if shopping_cart.objects.filter(customer_id=q.id):
+        shopping_cartq=shopping_cart.objects.filter(id=id)
+        shopping_cartq.delete()
+        return redirect('/cart')
 
 def addquantity(request,id):
-    shopping_cartq=shopping_cart.objects.get(id=id)
-    shopping_cartq.quantity=min(int(shopping_cartq.quantity)+1,10)
-    shopping_cartq.save()
-    return redirect('/cart')
+    cid = request.session.get('cid')
+    q=Customer.objects.get(user_id=cid)
+    if shopping_cart.objects.filter(customer_id=q.id):
+        shopping_cartq=shopping_cart.objects.get(id=id)
+        shopping_cartq.quantity=min(int(shopping_cartq.quantity)+1,10)
+        shopping_cartq.save()
+        return redirect('/cart')
 
 def removequantity(request,id):
-    shopping_cartq=shopping_cart.objects.get(id=id)
-    shopping_cartq.quantity-=1
-    if shopping_cartq.quantity <= 0:
-        return redirect('/cart/delete/'+str(id))
-    shopping_cartq.save()
-    return redirect('/cart')
+    cid = request.session.get('cid')
+    q=Customer.objects.get(user_id=cid)
+    if shopping_cart.objects.filter(customer_id=q.id):
+        shopping_cartq=shopping_cart.objects.get(id=id)
+        shopping_cartq.quantity-=1
+        if shopping_cartq.quantity <= 0:
+            return redirect('/cart/delete/'+str(id))
+        shopping_cartq.save()
+        return redirect('/cart')
     
 def contact(request):
     context = {} 
@@ -203,8 +218,11 @@ def contact(request):
 
 def addtocart(request,id):
     productq= Product.objects.get(id=id)
+    cid = request.session.get('cid')
+    q=Customer.objects.get(user_id=cid)
+
     for i in shopping_cart.objects.all():
-        if i.product.id==id:
+        if i.product.id==id and i.customer_id==q.id:
             i.quantity=min(int(i.quantity)+1,10)
             i.save()
             return redirect('/shop')
