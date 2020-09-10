@@ -89,10 +89,17 @@ def shop(request):
             cnt+=1
             context.setdefault("products",[]).append(products)
             print(context)
-   
+    carttotalq=0
+    if  request.session.get('cid'):
+        cid = request.session.get('cid')
+        q=Customer.objects.get(user_id=cid)
+        for i in shopping_cart.objects.all():
+            if i.customer_id==q.id:
+                carttotalq += i.quantity               
     if request.session.get('name'):
         name = request.session.get('name')
         context['name']= name
+        context["carttotalq"]=carttotalq
         return render(request, 'shop.html', context)
     else:
         return render(request, 'shop.html', context)
@@ -157,6 +164,20 @@ def category(request):
         context = {'title': title}
         return render(request, 'category.html', context)
 
+def totalQuantity(request):
+    total=0
+    if  request.session.get('cid'):
+        cid = request.session.get('cid')
+        q=Customer.objects.get(user_id=cid)
+        context={}
+        total=0
+        for i in shopping_cart.objects.all():
+            if i.customer_id==q.id:
+                total += i.quantity
+               
+        context["total"] = total
+        return render(request, 'cart.html', context)
+
 def cart(request):
     if request.session.get('name') and request.session.get('cid'):
         name = request.session.get('name')
@@ -167,8 +188,6 @@ def cart(request):
         total=0
         for i in shopping_cart.objects.all():
             if i.customer_id==q.id:
-            # q=Customer.objects.get(user_id=cid)
-            # if shopping_cart.objects.filter(customer_id=q.id):
                 price=i.product.price
                 pname=i.product.name
                 quantity=i.quantity
