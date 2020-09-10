@@ -217,9 +217,9 @@
                <div class="tab-pane fade in show active " id="panel5" role="tabpanel">
                   <br>
                   <!-- Grid row -->
-                  <div class="row">
+                  {% comment %} <div class="row">
 
-                   {% for product in products %}
+                   {% for product in men %}
                     <!-- Grid column -->
                     <div class="col-lg-4 col-md-12 mb-4">
 
@@ -227,7 +227,7 @@
                       <div class="card card-ecommerce">
 
                         <!-- Card image -->
-                        <div class="view overlay" style="">
+                        <div class="view overlay" style="height:480px; overflow: hidden;">
 
                           <img src="{{product.imageURL}}"
                             class="img-fluid" alt="sample image">
@@ -252,19 +252,307 @@
 
                           </h5>
 
-                          {% comment %} <span class="badge badge-danger mb-2">bestseller</span> {% endcomment %}
                           {% for Category in product.category %}
-                          {% if Category == 'bestseller' %}
-                          <span class="badge badge-danger mb-2">{{Category}}</span>
-                          {% endif %}
-                          {% if Category == 'sale' %}
-                          <span class="badge badge-success mb-2">{{Category}}</span>
-                          {% endif %}
-                          {% if Category == 'new' %}
-                          <span class="badge badge-info mb-2">{{Category}}</span>
-                          {% endif %}
+                              {% if Category == 'bestseller' %}
+                                  <span class="badge badge-danger mb-2">{{Category}}</span>
+                              {% endif %}
+                              {% if Category == 'sale' %}
+                                  <span class="badge badge-success mb-2">{{Category}}</span>
+                              {% endif %}
+                              {% if Category == 'new' %}
+                                  <span class="badge badge-info mb-2">{{Category}}</span>
+                              {% endif %}
                           {% endfor %}
-                          <!-- Rating -->
+
+                          <ul class="rating">
+                          {% for star in product.rating|times %}
+                            <li> 
+ 
+                              <i class="fas fa-star blue-text"></i>
+
+                            </li>
+                          {% endfor %}
+                          {% for star in product.rating|times1 %}
+                            <li>
+
+                              <i class="fas fa-star grey-text"></i>
+
+                            </li>
+                          {% endfor %}
+
+                          </ul>
+
+                          <!-- Card footer -->
+                          <div class="card-footer pb-0">
+
+                            <div class="row mb-0">
+
+                              <span class="float-left">
+
+                                <strong>{{product.price}}</strong>
+
+                              </span>
+
+                              <span class="float-right">
+
+                                <a href="/addtocart/{{product.id}}" >
+
+                                  <i class="fas fa-shopping-cart ml-3"></a></i>
+
+                              </span>
+
+                            </div>
+
+                          </div>
+
+                        </div>
+                        <!-- Card content -->
+
+                      </div>
+                      <!-- Card -->
+
+                    </div>
+                    {% endfor %}
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                  
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                    
+                    <!-- Grid column -->
+
+                  </div> {% endcomment %}
+                  <!-- Grid row -->
+                </div>
+              <ul class="nav md-tabs nav-justified grey lighten-3 mx-0" role="tablist">
+
+                <li class="nav-item">
+
+                  <a class="nav-link active dark-grey-text font-weight-bold" data-toggle="tab" href="#panel5"
+                    role="tab"> MEN</a>
+
+                </li>
+
+                <li class="nav-item">
+
+                  <a class="nav-link dark-grey-text font-weight-bold" data-toggle="tab" href="#panel6" role="tab">WOMEN</a>
+
+                </li>
+
+                <li class="nav-item">
+
+                  <a class="nav-link dark-grey-text font-weight-bold" data-toggle="tab" href="#panel7" role="tab">
+
+                    </i>KIDS</a>
+
+                </li>
+
+              </ul>
+
+              <!-- Tab panels -->
+              <div class="tab-content px-0">
+
+                <!-- Panel 1 -->
+                <div class="tab-pane fade in show active " id="panel5" role="tabpanel">
+
+                  <br>
+
+                  <!-- Grid row -->
+                <div class="row">
+
+                   {% for product in men %}
+                    <!-- Grid column -->
+                    <div class="col-lg-4 col-md-12 mb-4">
+
+                      <!-- Card -->
+                      <div class="card card-ecommerce">
+
+                        <!-- Card image -->
+                        <div class="view overlay" style="height:480px; overflow: hidden;">
+
+                          <img src="{{product.imageURL}}"
+                            class="img-fluid" alt="sample image">
+
+                            <div class="mask rgba-white-slight"></div>
+
+                        </div>
+
+                        <!-- Card image -->
+
+                        <!-- Card content -->
+                        <div class="card-body">
+
+                          <!-- Category & Title -->
+                          <h5 class="card-title mb-1">
+
+                            <strong>
+
+                              <a href="" class="dark-grey-text">{{product.name}}</a>
+
+                            </strong>
+
+                          </h5>
+
+                          {% for Category in product.category %}
+                              {% if Category == 'bestseller' %}
+                                  <span class="badge badge-danger mb-2">{{Category}}</span>
+                              {% endif %}
+                              {% if Category == 'sale' %}
+                                  <span class="badge badge-success mb-2">{{Category}}</span>
+                              {% endif %}
+                              {% if Category == 'new' %}
+                                  <span class="badge badge-info mb-2">{{Category}}</span>
+                              {% endif %}
+                          {% endfor %}
+
+                          <ul class="rating">
+                          {% for star in product.rating|times %}
+                            <li> 
+ 
+                              <i class="fas fa-star blue-text"></i>
+
+                            </li>
+                          {% endfor %}
+                          {% for star in product.rating|times1 %}
+                            <li>
+
+                              <i class="fas fa-star grey-text"></i>
+
+                            </li>
+                          {% endfor %}
+
+                          </ul>
+
+                          <!-- Card footer -->
+                          <div class="card-footer pb-0">
+
+                            <div class="row mb-0">
+
+                              <span class="float-left">
+
+                                <span class="h6-responsive font-weight-bold dark-grey-text">
+
+                                <strong>{{product.price|mul:product.discount}}&#x20b9;</strong>
+
+                                <span class="grey-text">
+
+                                  <small>
+                                    {% if  product.price|noteql:product.discount %}
+                                    <s>{{product.price}}&#x20b9;</s>
+                                    {% endif %}
+                                  </small>
+
+                                </span>
+
+                                  <small>
+                                    {% if  product.price|noteql:product.discount %}
+                                        {{product.discount}}&#37;
+                                    {% endif %}
+                                  </small>
+
+
+                              </span>
+                              {% comment %} </span>
+                                  <span class="grey-text">
+
+                                    <small>
+
+                                      <s>&nbsp;$89</s>
+
+                                    </small>
+
+                                  </span> {% endcomment %}
+                              <span class="float-right">
+
+                                <a href="/addtocart/{{product.id}}" >
+
+                                  <i class="fas fa-shopping-cart ml-3"></a></i>
+
+                              </span>
+
+                            </div>
+
+                          </div>
+
+                        </div>
+                        <!-- Card content -->
+
+                      </div>
+                      <!-- Card -->
+
+                    </div>
+                    {% endfor %}
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                  
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                    
+                    <!-- Grid column -->
+
+                  </div>
+                  <!-- Grid row -->
+
+                </div>
+                <!-- Panel 1 -->
+
+                <!-- Panel 2 -->
+                <div class="tab-pane fade" id="panel6" role="tabpanel">
+
+                  <br>
+
+                  <!-- Grid row -->
+                  <div class="row">
+
+                   {% for product in women %}
+                    <!-- Grid column -->
+                    <div class="col-lg-4 col-md-12 mb-4">
+
+                      <!-- Card -->
+                      <div class="card card-ecommerce">
+
+                        <!-- Card image -->
+                        <div class="view overlay" style="height:480px; overflow: hidden;">
+
+                          <img src="{{product.imageURL}}"
+                            class="img-fluid" alt="sample image">
+
+                            <div class="mask rgba-white-slight"></div>
+
+                        </div>
+
+                        <!-- Card image -->
+
+                        <!-- Card content -->
+                        <div class="card-body">
+
+                          <!-- Category & Title -->
+                          <h5 class="card-title mb-1">
+
+                            <strong>
+
+                              <a href="" class="dark-grey-text">{{product.name}}</a>
+
+                            </strong>
+
+                          </h5>
+
+                          {% for Category in product.category %}
+                              {% if Category == 'bestseller' %}
+                                  <span class="badge badge-danger mb-2">{{Category}}</span>
+                              {% endif %}
+                              {% if Category == 'sale' %}
+                                  <span class="badge badge-success mb-2">{{Category}}</span>
+                              {% endif %}
+                              {% if Category == 'new' %}
+                                  <span class="badge badge-info mb-2">{{Category}}</span>
+                              {% endif %}
+                          {% endfor %}
+
                           <ul class="rating">
                           {% for star in product.rating|times %}
                             <li> 
@@ -326,732 +614,6 @@
 
                   </div>
                   <!-- Grid row -->
-                </div>
-              <ul class="nav md-tabs nav-justified grey lighten-3 mx-0" role="tablist">
-
-                <li class="nav-item">
-
-                  <a class="nav-link active dark-grey-text font-weight-bold" data-toggle="tab" href="#panel5"
-                    role="tab"> MEN</a>
-
-                </li>
-
-                <li class="nav-item">
-
-                  <a class="nav-link dark-grey-text font-weight-bold" data-toggle="tab" href="#panel6" role="tab">WOMEN</a>
-
-                </li>
-
-                <li class="nav-item">
-
-                  <a class="nav-link dark-grey-text font-weight-bold" data-toggle="tab" href="#panel7" role="tab">
-
-                    </i>KIDS</a>
-
-                </li>
-
-              </ul>
-
-              <!-- Tab panels -->
-              <div class="tab-content px-0">
-
-                <!-- Panel 1 -->
-                <div class="tab-pane fade in show active " id="panel5" role="tabpanel">
-
-                  <br>
-
-                  <!-- Grid row -->
-                  <div class="row">
-
-                    <!-- Grid column -->
-                    <div class="col-lg-4 col-md-12 mb-4">
-
-                      <!-- Card -->
-                      <div class="card card-ecommerce">
-
-                        <!-- Card image -->
-                        <div class="view overlay">
-
-                          <img src="../static/images/man/dmitriy-idoedMZ732E-unsplash.jpg"
-                            class="img-fluid" alt="sample image">
-
-                          <a href="{% url 'product' %}">
-
-                            <div class="mask rgba-white-slight"></div>
-
-                          </a>
-
-                        </div>
-                        <!-- Card image -->
-
-                        <!-- Card content -->
-                        <div class="card-body">
-
-                          <!-- Category & Title -->
-                          <h5 class="card-title mb-1">
-
-                            <strong>
-
-                              <a href="" class="dark-grey-text">Winter Jacket</a>
-
-                            </strong>
-
-                          </h5>
-
-                          <span class="badge badge-danger mb-2">bestseller</span>
-
-                          <!-- Rating -->
-                          <ul class="rating">
-
-                            <li>
-
-                              <i class="fas fa-star blue-text"></i>
-
-                            </li>
-
-                            <li>
-
-                              <i class="fas fa-star blue-text"></i>
-
-                            </li>
-
-                            <li>
-
-                              <i class="fas fa-star blue-text"></i>
-
-                            </li>
-
-                            <li>
-
-                              <i class="fas fa-star blue-text"></i>
-
-                            </li>
-
-                            <li>
-
-                              <i class="fas fa-star blue-text"></i>
-
-                            </li>
-
-                          </ul>
-
-                          <!-- Card footer -->
-                          <div class="card-footer pb-0">
-
-                            <div class="row mb-0">
-
-                              <span class="float-left">
-
-                                <strong>1439$</strong>
-
-                              </span>
-
-                              <span class="float-right">
-
-                                <a class="" data-toggle="tooltip" data-placement="top" title="Add to Cart">
-
-                                  <i class="fas fa-shopping-cart ml-3"></i>
-
-                                </a>
-
-                              </span>
-
-                            </div>
-
-                          </div>
-
-                        </div>
-                        <!-- Card content -->
-
-                      </div>
-                      <!-- Card -->
-
-                    </div>
-                    <!-- Grid column -->
-
-                    <!-- Grid column -->
-                    <div class="col-lg-4 col-md-6 mb-4">
-
-                      <!-- Card -->
-                      <div class="card card-ecommerce">
-
-                        <!-- Card image -->
-                        <div class="view overlay">
-                          
-                          <img src="../static/images/man/pexels-david-gomes-2479829.jpg"
-                            class="img-fluid "
-                             alt="sample image">
-                          <!-- <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/2.jpg"
-                            class="img-fluid" alt="sample image"> -->
-
-                          <a>
-
-                            <div class="mask rgba-white-slight"></div>
-
-                          </a>
-
-                        </div>
-                        <!-- Card image -->
-
-                        <!-- Card content -->
-                        <div class="card-body">
-
-                          <!-- Category & Title -->
-                          <h5 class="card-title mb-1">
-
-                            <strong>
-
-                              <a href="" class="dark-grey-text">Tshirt + Jacket</a>
-
-                            </strong>
-
-                          </h5>
-
-                          <span class="badge badge-danger mb-2">bestseller</span>
-
-                          <span class="badge badge-success mb-2 ml-2">SALE</span>
-
-                          <!-- Rating -->
-                          <ul class="rating">
-
-                            <li>
-
-                              <i class="fas fa-star blue-text"></i>
-
-                            </li>
-
-                            <li>
-
-                              <i class="fas fa-star blue-text"></i>
-
-                            </li>
-
-                            <li>
-
-                              <i class="fas fa-star blue-text"></i>
-
-                            </li>
-
-                            <li>
-
-                              <i class="fas fa-star blue-text"></i>
-
-                            </li>
-
-                            <li>
-
-                              <i class="fas fa-star grey-text"></i>
-
-                            </li>
-
-                          </ul>
-
-                          <!-- Card footer -->
-                          <div class="card-footer pb-0">
-
-                            <div class="row mb-0">
-
-                              <h5 class="mb-0 pb-0 mt-1 font-weight-bold">
-
-                                <span class="red-text">
-
-                                  <strong>$699</strong>
-
-                                </span>
-
-                                <span class="grey-text">
-
-                                  <small>
-
-                                    <s>$920</s>
-
-                                  </small>
-
-                                </span>
-
-                              </h5>
-
-                              <span class="float-right">
-
-                                <a class="" data-toggle="tooltip" data-placement="top" title="Add to Cart">
-
-                                  <i class="fas fa-shopping-cart ml-3"></i>
-
-                                </a>
-
-                              </span>
-
-                            </div>
-
-                          </div>
-
-                        </div>
-                        <!-- Card content -->
-
-                      </div>
-                      <!-- Card -->
-
-                    </div>
-                    <!-- Grid column -->
-
-                    <!-- Grid column -->
-                    <div class="col-lg-4 col-md-6 mb-4">
-
-                      <!-- Card -->
-                      <div class="card card-ecommerce">
-
-                        <!-- Card image -->
-                        <div class="view overlay">
-
-                          <img src="../static/images/man/pexels-raul-reynoso-1018911.jpg"
-                            class="img-fluid" alt="sample image">
-
-                          <a>
-
-                            <div class="mask rgba-white-slight"></div>
-
-                          </a>
-
-                        </div>
-                        <!-- Card image -->
-
-                        <!-- Card content -->
-                        <div class="card-body">
-
-                          <!-- Category & Title -->
-                          <h5 class="card-title mb-1">
-
-                            <strong>
-
-                              <a href="" class="dark-grey-text">Simple Tshirt</a>
-
-                            </strong>
-
-                          </h5>
-
-                          <span class="badge badge-danger mb-2">bestseller</span>
-
-                          <span class="badge badge-info mb-2 ml-2">new</span>
-
-                          <!-- Rating -->
-                          <ul class="rating">
-
-                            <li>
-
-                              <i class="fas fa-star blue-text"></i>
-
-                            </li>
-
-                            <li>
-
-                              <i class="fas fa-star blue-text"></i>
-
-                            </li>
-
-                            <li>
-
-                              <i class="fas fa-star blue-text"></i>
-
-                            </li>
-
-                            <li>
-
-                              <i class="fas fa-star blue-text"></i>
-
-                            </li>
-
-                            <li>
-
-                              <i class="fas fa-star blue-text"></i>
-
-                            </li>
-
-                          </ul>
-
-                          <!-- Card footer -->
-                          <div class="card-footer pb-0">
-
-                            <div class="row mb-0">
-
-                              <span class="float-left">
-
-                                <strong>1439$</strong>
-
-                              </span>
-
-                              <span class="float-right">
-
-                                <a class="" data-toggle="tooltip" data-placement="top" title="Add to Cart">
-
-                                  <i class="fas fa-shopping-cart ml-3"></i>
-
-                                </a>
-
-                              </span>
-
-                            </div>
-
-                          </div>
-
-                        </div>
-                        <!-- Card content -->
-
-                      </div>
-                      <!-- Card -->
-
-                    </div>
-                    <!-- Grid column -->
-
-                  </div>
-                  <!-- Grid row -->
-
-                </div>
-                <!-- Panel 1 -->
-
-                <!-- Panel 2 -->
-                <div class="tab-pane fade" id="panel6" role="tabpanel">
-
-                  <br>
-
-                  <!-- Grid row -->
-                  <div class="row mb-3">
-
-                    <!-- Grid column -->
-                    <div class="col-lg-4 col-md-12 mb-4">
-
-                      <!-- Card -->
-                      <div class="card card-ecommerce">
-
-                        <!-- Card image -->
-                        <div class="view overlay">
-
-                          <img src="../static/images/dresses/pexels-godisable-jacob-914668.jpg"
-                            class="img-fluid" alt="sample image">
-
-                          <a>
-
-                            <div class="mask rgba-white-slight"></div>
-
-                          </a>
-
-                        </div>
-                        <!-- Card image -->
-
-                        <!-- Card content -->
-                        <div class="card-body">
-
-                          <!-- Category & Title -->
-                          <h5 class="card-title mb-1">
-
-                            <strong>
-
-                              <a href="" class="dark-grey-text">Western</a>
-
-                            </strong>
-
-                          </h5>
-
-                          <span class="badge grey mb-2">best rated</span>
-
-                          <!-- Rating -->
-                          <ul class="rating">
-
-                            <li>
-
-                              <i class="fas fa-star blue-text"></i>
-
-                            </li>
-
-                            <li>
-
-                              <i class="fas fa-star blue-text"></i>
-
-                            </li>
-
-                            <li>
-
-                              <i class="fas fa-star blue-text"></i>
-
-                            </li>
-
-                            <li>
-
-                              <i class="fas fa-star blue-text"></i>
-
-                            </li>
-
-                            <li>
-
-                              <i class="fas fa-star blue-text"></i>
-
-                            </li>
-
-                          </ul>
-
-                          <!-- Card footer -->
-                          <div class="card-footer pb-0">
-
-                            <div class="row mb-0">
-
-                              <span class="float-left">
-
-                                <strong>1439$</strong>
-
-                              </span>
-
-                              <span class="float-right">
-
-                                <a class="" data-toggle="tooltip" data-placement="top" title="Add to Cart">
-
-                                  <i class="fas fa-shopping-cart ml-3"></i>
-
-                                </a>
-
-                              </span>
-
-                            </div>
-
-                          </div>
-
-                        </div>
-                        <!-- Card content -->
-
-                      </div>
-                      <!-- Card -->
-
-                    </div>
-                    <!-- Grid column -->
-
-                    <!-- Grid column -->
-                    <div class="col-lg-4 col-md-6 mb-4">
-
-                      <!-- Card -->
-                      <div class="card card-ecommerce">
-
-                        <!-- Card image -->
-                        <div class="view overlay">
-
-                          <img src="../static/images/dresses/pexels-joy-deb-1580272.jpg"
-                            class="img-fluid" alt="sample image">
-
-                          <a>
-
-                            <div class="mask rgba-white-slight"></div>
-
-                          </a>
-
-                        </div>
-                        <!-- Card image -->
-
-                        <!-- Card content -->
-                        <div class="card-body">
-
-                          <!-- Category & Title -->
-                          <h5 class="card-title mb-1">
-
-                            <strong>
-
-                              <a href="" class="dark-grey-text">Indian</a>
-
-                            </strong>
-
-                          </h5>
-
-                          <span class="badge badge-info mb-2">new</span>
-
-                          <!-- Rating -->
-                          <ul class="rating">
-
-                            <li>
-
-                              <i class="fas fa-star blue-text"></i>
-
-                            </li>
-
-                            <li>
-
-                              <i class="fas fa-star blue-text"></i>
-
-                            </li>
-
-                            <li>
-
-                              <i class="fas fa-star blue-text"></i>
-
-                            </li>
-
-                            <li>
-
-                              <i class="fas fa-star blue-text"></i>
-
-                            </li>
-
-                            <li>
-
-                              <i class="fas fa-star grey-text"></i>
-
-                            </li>
-
-                          </ul>
-
-                          <!-- Card footer -->
-                          <div class="card-footer pb-0">
-
-                            <div class="row mb-0">
-
-                              <span class="float-left">
-
-                                <strong>1439$</strong>
-
-                              </span>
-
-                              <span class="float-right">
-
-                                <a class="" data-toggle="tooltip" data-placement="top" title="Add to Cart">
-
-                                  <i class="fas fa-shopping-cart ml-3"></i>
-
-                                </a>
-
-                              </span>
-
-                            </div>
-
-                          </div>
-
-                        </div>
-                        <!-- Card content -->
-
-                      </div>
-
-                      <!-- Card -->
-                    </div>
-                    <!-- Grid column -->
-
-                    <!-- Grid column -->
-                    <div class="col-lg-4 col-md-6 mb-4">
-
-                      <!-- Card -->
-                      <div class="card card-ecommerce">
-
-                        <!-- Card image -->
-                        <div class="view overlay">
-
-                          <img src="../static/images/dresses/pexels-luiz-fernando-3021595.jpg"
-                            class="img-fluid" alt="sample image">
-
-                          <a>
-
-                            <div class="mask rgba-white-slight"></div>
-
-                          </a>
-
-                        </div>
-                        <!-- Card image -->
-
-                        <!-- Card content -->
-                        <div class="card-body">
-
-                          <!-- Category & Title -->
-                          <h5 class="card-title mb-1">
-
-                            <strong>
-
-                              <a href="" class="dark-grey-text">Western</a>
-
-                            </strong>
-
-                          </h5>
-
-                          <span class="badge badge-info mb-2">new</span>
-
-                          <span class="badge badge-success mb-2 ml-2">SALE</span>
-
-                          <!-- Rating -->
-                          <ul class="rating">
-
-                            <li>
-
-                              <i class="fas fa-star blue-text"></i>
-
-                            </li>
-
-                            <li>
-
-                              <i class="fas fa-star blue-text"></i>
-
-                            </li>
-
-                            <li>
-
-                              <i class="fas fa-star blue-text"></i>
-
-                            </li>
-
-                            <li>
-
-                              <i class="fas fa-star blue-text"></i>
-
-                            </li>
-
-                            <li>
-
-                              <i class="fas fa-star blue-text"></i>
-
-                            </li>
-
-                          </ul>
-
-                          <!-- Card footer -->
-                          <div class="card-footer pb-0">
-
-                            <div class="row mb-0">
-
-                              <h5 class="mb-0 pb-0 mt-1 font-weight-bold">
-
-                                <span class="red-text">
-
-                                  <strong>$1199</strong>
-
-                                </span>
-
-                                <span class="grey-text">
-
-                                  <small>
-
-                                    <s>$1520</s>
-
-                                  </small>
-
-                                </span>
-
-                              </h5>
-
-                              <span class="float-right">
-
-                                <a class="" data-toggle="tooltip" data-placement="top" title="Add to Cart">
-
-                                  <i class="fas fa-shopping-cart ml-3"></i>
-
-                                </a>
-
-                              </span>
-
-                            </div>
-
-                          </div>
-
-                        </div>
-                        <!-- Card content -->
-
-                      </div>
-                      <!-- Card -->
-
-                    </div>
-                    <!-- Grid column -->
-
-                  </div>
-                  <!-- Grid row -->
 
                 </div>
                 <!-- Panel 2 -->
@@ -1060,9 +622,115 @@
                 <div class="tab-pane fade" id="panel7" role="tabpanel">
 
                   <br>
-
-                  <!-- Grid row -->
                   <div class="row">
+
+                   {% for product in kids %}
+                    <!-- Grid column -->
+                    <div class="col-lg-4 col-md-12 mb-4">
+
+                      <!-- Card -->
+                      <div class="card card-ecommerce">
+
+                        <!-- Card image -->
+                        <div class="view overlay" style="height:480px; overflow: hidden;">
+
+                          <img src="{{product.imageURL}}"
+                            class="img-fluid" alt="sample image">
+
+                            <div class="mask rgba-white-slight"></div>
+
+                        </div>
+
+                        <!-- Card image -->
+
+                        <!-- Card content -->
+                        <div class="card-body">
+
+                          <!-- Category & Title -->
+                          <h5 class="card-title mb-1">
+
+                            <strong>
+
+                              <a href="" class="dark-grey-text">{{product.name}}</a>
+
+                            </strong>
+
+                          </h5>
+
+                          {% for Category in product.category %}
+                              {% if Category == 'bestseller' %}
+                                  <span class="badge badge-danger mb-2">{{Category}}</span>
+                              {% endif %}
+                              {% if Category == 'sale' %}
+                                  <span class="badge badge-success mb-2">{{Category}}</span>
+                              {% endif %}
+                              {% if Category == 'new' %}
+                                  <span class="badge badge-info mb-2">{{Category}}</span>
+                              {% endif %}
+                          {% endfor %}
+
+                          <ul class="rating">
+                          {% for star in product.rating|times %}
+                            <li> 
+ 
+                              <i class="fas fa-star blue-text"></i>
+
+                            </li>
+                          {% endfor %}
+                          {% for star in product.rating|times1 %}
+                            <li>
+
+                              <i class="fas fa-star grey-text"></i>
+
+                            </li>
+                          {% endfor %}
+
+                          </ul>
+
+                          <!-- Card footer -->
+                          <div class="card-footer pb-0">
+
+                            <div class="row mb-0">
+
+                              <span class="float-left">
+
+                                <strong>{{product.price}}</strong>
+
+                              </span>
+
+                              <span class="float-right">
+
+                                <a href="/addtocart/{{product.id}}" >
+
+                                  <i class="fas fa-shopping-cart ml-3"></a></i>
+
+                              </span>
+
+                            </div>
+
+                          </div>
+
+                        </div>
+                        <!-- Card content -->
+
+                      </div>
+                      <!-- Card -->
+
+                    </div>
+                    {% endfor %}
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                  
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                    
+                    <!-- Grid column -->
+
+                  </div>
+                  <!-- Grid row -->
+                  {% comment %} <div class="row">
 
                     <!-- Grid column -->
                     <div class="col-lg-4 col-md-12 mb-4">
@@ -1382,7 +1050,7 @@
                     </div>
                     <!-- Grid column -->
 
-                  </div>
+                  </div> {% endcomment %}
                   <!-- Grid row -->
 
                 </div>
