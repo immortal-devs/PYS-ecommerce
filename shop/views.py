@@ -83,44 +83,51 @@ def registrationdata(request):
 
 def shop(request):
     context={}
-    cntm=0
-    cntw=0
-    cntk=0
-    # for products in Product.objects.all():
-    #     if cnt<3:
-    #         cnt+=1
-    #         context.setdefault("products",[]).append(products)
-    #         print(context)
-    #         print("products.category is : ",products.category)
+    cntm=cntw=cntk=cntn=cntb=cnts=0
     menProductList=[]
     womenProductList=[]
     kidsProductList=[]
+    newProductList=[]
+    bestSellerProductList=[]
+    saleProductList=[]
     for products in Product.objects.all():
         categoryp=products.category
         if "Men" in categoryp:
             if cntm<3:
                 cntm+=1
                 menProductList.append(products)
-                # print(menProductList)
-                # print("products.category is : ",products.category)
         if "Women" in categoryp:
             if cntw<3:
                 cntw+=1
                 womenProductList.append(products)
-                # print(womenProductList)
-                # print("products.category is : ",products.category)
         if "Kids" in categoryp:
             if cntk<3:
                 cntk+=1
                 kidsProductList.append(products)
-                # print(kidsProductList)
-                # print("products.category is : ",products.category)
+        if "new" in categoryp:
+            if cntn<3:
+                cntn+=1
+                newProductList.append(products)
+        if "bestseller" in categoryp:
+            if cntb<3:
+                cntb+=1
+                bestSellerProductList.append(products)    
+        if "sale" in categoryp:
+            if cnts<3:
+                cnts+=1
+                saleProductList.append(products)            
     print(menProductList)
     print(womenProductList)
     print(kidsProductList)
+    print(saleProductList)
+    print(newProductList)
+    print(bestSellerProductList)
     context["men"]=menProductList
     context["women"]=womenProductList
     context["kids"]=kidsProductList
+    context["sale"]=saleProductList
+    context["new"]=newProductList
+    context["bestseller"]=bestSellerProductList
     print("context is : ",context)
     carttotalq=0
     if  request.session.get('cid'):
