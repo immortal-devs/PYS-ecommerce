@@ -252,8 +252,18 @@
 
                           </h5>
 
-                          <span class="badge badge-danger mb-2">bestseller</span>
-
+                          {% comment %} <span class="badge badge-danger mb-2">bestseller</span> {% endcomment %}
+                          {% for Category in product.category %}
+                          {% if Category == 'bestseller' %}
+                          <span class="badge badge-danger mb-2">{{Category}}</span>
+                          {% endif %}
+                          {% if Category == 'sale' %}
+                          <span class="badge badge-success mb-2">{{Category}}</span>
+                          {% endif %}
+                          {% if Category == 'new' %}
+                          <span class="badge badge-info mb-2">{{Category}}</span>
+                          {% endif %}
+                          {% endfor %}
                           <!-- Rating -->
                           <ul class="rating">
                           {% for star in product.rating|times %}

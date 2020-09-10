@@ -89,6 +89,7 @@ def shop(request):
             cnt+=1
             context.setdefault("products",[]).append(products)
             print(context)
+            print("products.category is : ",products.category)
     carttotalq=0
     if  request.session.get('cid'):
         cid = request.session.get('cid')
