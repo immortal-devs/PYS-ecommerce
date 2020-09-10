@@ -218,7 +218,7 @@
                   <!-- Grid row -->
                   <div class="row">
 
-                        {% for product in products %}
+                   {% for product in products %}
                     <!-- Grid column -->
                     <div class="col-lg-4 col-md-12 mb-4">
 
@@ -228,7 +228,7 @@
                         <!-- Card image -->
                         <div class="view overlay">
 
-                          <img src="../static/images/man/pexels-david-gomes-2479829.jpg"
+                          <img src="{{product.imageURL}}"
                             class="img-fluid" alt="sample image">
 
                             <div class="mask rgba-white-slight"></div>
@@ -304,8 +304,6 @@
                                 <a href="/addtocart/{{product.id}}" >
 
                                   <i class="fas fa-shopping-cart ml-3"></a></i>
-
-                               
 
                               </span>
 
