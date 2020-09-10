@@ -90,26 +90,11 @@
                       <span class="qty">{{product|index:2}} </span>
 
                       <div  class="btn-group radio-group ml-2" >
-                        {% comment %} <label>
-                        <button type="button" class="btn btn-sm btn-primary btn-rounded" >
-                          <a style="color: white; font-size:larger;" href="removequantity/{{product|index:5}}">-</a>
-                        </button> 
-                        </label>
-                        <label>
-                        <button type="button" class="btn btn-sm btn-primary btn-rounded" >
-                          <a style="color: white; font-size:larger;" href="addquantity/{{product|index:5}}">+</a>
-                        </button>
-                        </label> {% endcomment %}
-                         <label  type="button" class="btn btn-sm btn-primary btn-rounded">
-                       
-                          <a style="color: white; font-size:larger;" href="removequantity/{{product|index:5}}">-</a>
-                     
-                        </label>
-                        <label type="button" class="btn btn-sm btn-primary btn-rounded">
-                        
-                          <a style="color: white; font-size:larger;" href="addquantity/{{product|index:5}}">+</a>
                       
-                        </label>
+                          <a type="button" class="btn btn-sm btn-primary btn-rounded" style="color: white; margin-left: 0; " href="removequantity/{{product|index:5}}">-</a>
+                     
+                          <a type="button" class="btn btn-sm btn-primary btn-rounded" style="color: white; margin-left: 0;" href="addquantity/{{product|index:5}}">+</a>
+                      
                       </div>
 
                     </td>
@@ -121,9 +106,9 @@
 
                     <td>
 
-                      <button type="button" class="btn btn-sm btn-primary " data-toggle="tooltip" data-placement="top" name=""
-                        title="Remove item">
-                        <a style="color: white;font-size:larger" href="delete/{{product|index:5}}">X</a>
+                      {% comment %} <button  data-toggle="tooltip" data-placement="top" name=""
+                        title="Remove item"> {% endcomment %}
+                        <a type="button" class="btn btn-sm btn-primary " style="color: white;" href="delete/{{product|index:5}}">X</a>
 
                       </button>
                   
