@@ -39,7 +39,7 @@ def verification(request):
         if email == i.email and password == i.password:
             request.session['name'] = i.firstname
             request.session['email'] = i.email
-            request.session['cid'] = i.id
+            request.session['cid'] = i.id 
             return HttpResponseRedirect('/shop')
     else:
         return render(request, 'login.html', {'error': 'Email Or Password is incorrect.'})
@@ -82,6 +82,9 @@ def shop(request):
         if cnt<3:
             cnt+=1
             context.setdefault("products",[]).append(products)
+            qwe=range(5)
+            context["qwe"]=qwe
+            print(context)
    
     if request.session.get('name'):
         name = request.session.get('name')
