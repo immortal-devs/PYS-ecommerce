@@ -12,20 +12,33 @@ import math, random
 from .models import Address, Admin_detail, Customer, Order, OrderItem, Product, shopping_cart, UserProfile
 
 
-def product(request):
-	products = Product.objects.all()
-	context = {'products':products}
-	return render(request, 'product.html', context)
+def product(request,id):
+    product = Product.objects.get(id=id)
+    context = {'product':product}
+    cntr=0
+    rproductlist=[]
+    relativecategory=product.category[0]
+    for rproducts in Product.objects.all():
+        categoryp=rproducts.category
+        if relativecategory in categoryp:
+            if cntr<3:
+                cntr+=1
+                rproductlist.append(rproducts)
+    context["rproducts"]=rproductlist
+    return render(request, 'product.html', context)
 
 def checkout(request):
     if request.user.is_authenticated:
+        print()
         customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
         items = order.orderitem_set.all()
     else:
+    
         items = []
         order = {'get_cart_total':0,'get_cart_items':0}
     context = {'items':items, 'order':order}
+    print()
     return render(request, 'checkout.html', context)
 
 def login(request):
@@ -241,7 +254,8 @@ def cart(request):
                 totalprice=i.quantity*i.product.price
                 total += totalprice
                 cartid=i.id
-                context.setdefault("products",[]).append([pname,price,quantity,totalprice,image,cartid])
+                color=i.product.color
+                context.setdefault("products",[]).append([pname,price,quantity,totalprice,image,cartid,color])
         context["total"] = total
         return render(request, 'cart.html', context)
     else:

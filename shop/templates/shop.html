@@ -240,6 +240,7 @@
 
                    {% for product in men %}
                     <!-- Grid column -->
+                    <a href="/product/{{product.id}}">
                     <div class="col-lg-4 col-md-12 mb-4">
 
                       <!-- Card -->
@@ -359,6 +360,7 @@
                       <!-- Card -->
 
                     </div>
+                    </a>
                     {% endfor %}
          
                   </div>
@@ -368,6 +370,7 @@
                 <div class="tab-pane fade" id="panel6" role="tabpanel">
                   <br>
                   <div class="row">
+                  <a href="/product/{{product.id}}">
                    {% for product in women %}
                     <!-- Grid column -->
                     <div class="col-lg-4 col-md-12 mb-4">
@@ -461,23 +464,16 @@
                       <!-- Card -->
 
                     </div>
+                    </a>
                     {% endfor %}
-                    <!-- Grid column -->
-
-                    <!-- Grid column -->
-                  
-                    <!-- Grid column -->
-
-                    <!-- Grid column -->
-                    
-                    <!-- Grid column -->
-
+                
                   </div>
                 </div>
                 <div class="tab-pane fade" id="panel7" role="tabpanel">
                   <br>
                   <div class="row">
                    {% for product in kids %}
+                   <a href="/product/{{product.id}}">
                     <!-- Grid column -->
                     <div class="col-lg-4 col-md-12 mb-4">
 
@@ -570,6 +566,7 @@
                       <!-- Card -->
 
                     </div>
+                    </a>
                     {% endfor %}
                     <!-- Grid column -->
 
@@ -633,6 +630,7 @@
               </h5>
               <hr>       
               {% for product in new %}
+              <a href="/product/{{product.id}}">
               <div class="row mt-2 py-2 mb-4 hoverable align-items-center">
 
                 <div class="col-6" style="max-height:106px; overflow: hidden;">
@@ -704,6 +702,7 @@
                 </div>
 
               </div>
+              </a>
               {% endfor %}
   
             </div>
@@ -720,6 +719,7 @@
               </h5>
               <hr>
               {% for product in bestseller %}
+              <a href="/product/{{product.id}}">
               <div class="row mt-2 py-2 mb-4 hoverable align-items-center">
 
                 <div class="col-6" style="max-height:106px; overflow: hidden;">
@@ -791,6 +791,7 @@
                 </div>
 
               </div>
+              </a>
               {% endfor %}
             </div>
             <!-- Random Products -->
@@ -803,6 +804,7 @@
               </h5>
               <hr>
               {% for product in sale %}
+              <a href="/product/{{product.id}}">
               <div class="row mt-2 py-2 mb-4 hoverable align-items-center">
 
                 <div class="col-6" style="max-height:106px; overflow: hidden;">
@@ -874,6 +876,7 @@
                 </div>
 
               </div>
+              </a>
               {% endfor %}
             </div>
             <!-- Random Products -->
