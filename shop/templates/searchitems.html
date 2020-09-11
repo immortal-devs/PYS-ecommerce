@@ -15,6 +15,7 @@
 
                    {% for product in search1list %}
                     <!-- Grid column -->
+                    <a href="/product/{{product.id}}">
                     <div class="col-lg-4 col-md-12 mb-4">
 
                       <!-- Card -->
@@ -24,6 +25,7 @@
                         <div class="view overlay" style="height:480px; overflow: hidden;">
 
                           <img src="{{product.imageURL}}"
+
                             class="img-fluid" alt="sample image">
 
                             <div class="mask rgba-white-slight"></div>
@@ -134,6 +136,7 @@
                       <!-- Card -->
 
                     </div>
+                    </a>
                     {% endfor %}
          
                   </div >

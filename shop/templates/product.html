@@ -17,8 +17,8 @@
 
           <div class="col-lg-6">
 
-              <div class="p-5" style="height:480px; overflow: hidden;">
-
+              {% comment %} <div class="p-5" style="height:480px; overflow: hidden;"> {% endcomment %}
+              <div class="p-5" >
                     <img src="{{product.imageURL}}" alt="First slide"
                       class="img-fluid">
               </div>
@@ -27,7 +27,7 @@
 
      
 
-          <div class="col-lg-6  text-center text-md-left">
+          <div class="col-lg-6 pr-5  text-center text-md-left">
 
             <h2
               class="h2-responsive text-center text-md-left product-name font-weight-bold dark-grey-text mb-1 ml-xl-0 ml-4">
@@ -103,66 +103,14 @@
             <p class="ml-xl-0 ml-4">
               <strong>Availability: </strong>Not in stock</p>
         {% endif %}
-            <!-- Add to Cart -->
             <section class="color">
-
-              <div class="mt-5">
-
-                {% comment %} <p class="grey-text">Choose your color</p> {% endcomment %}
+              <div>
                 <p class="ml-xl-0 ml-4">
-
               <strong>color: </strong>{{product.color}}</p>
-
-                {% comment %} <div class="row text-center text-md-left">
-
-                  <div class="col-md-4 col-12 ">
-
-                    <!-- Radio group -->
-                    <div class="form-group">
-
-                      <input class="form-check-input" name="group100" type="radio" id="radio100" checked="checked">
-
-                      <label for="radio100" class="form-check-label dark-grey-text">White</label>
-
-                    </div>
-
-                  </div>
-
-                  <div class="col-md-4">
-
-                    <!-- Radio group -->
-                    <div class="form-group">
-
-                      <input class="form-check-input" name="group100" type="radio" id="radio101">
-
-                      <label for="radio101" class="form-check-label dark-grey-text">Silver</label>
-
-                    </div>
-
-                  </div>
-
-                  <div class="col-md-4">
-
-                    <!-- Radio group -->
-                    <div class="form-group">
-
-                      <input class="form-check-input" name="group100" type="radio" id="radio102">
-
-                      <label for="radio102" class="form-check-label dark-grey-text">Gold</label>
-
-                    </div>
-
-                  </div>
-
-                </div> {% endcomment %}
-
                 <div class="row mt-3 mb-4">
-
-                  <div class="col-md-12 text-center text-md-left text-md-right">
-
+                  <div class="col-md-12 text-center text-md-left  text-md-right">
                         <a class="btn btn-primary btn-rounded" href="/addtocart/{{product.id}}" >
                       <i class="fas fa-cart-plus mr-2" aria-hidden="true"></i> Add to cart</a>
-
                   </div>
 
                 </div>
@@ -489,13 +437,15 @@
 
         <!-- Indicators -->
         <ol class="carousel-indicators">
-
+            {% if rproducts1 %}
           <li class="primary-color" data-target="#multi-item-example" data-slide-to="0" class="active"></li>
-
+            {% endif %}
+            {% if rproducts2 %}
           <li class="primary-color" data-target="#multi-item-example" data-slide-to="1"></li>
-
+            {% endif %}
+            {% if rproducts3 %}
           <li class="primary-color" data-target="#multi-item-example" data-slide-to="2"></li>
-
+            {% endif %}
         </ol>
         <!-- Indicators -->
 
@@ -503,8 +453,9 @@
         <div class="carousel-inner" role="listbox">
 
           <!-- First slide -->
+          {% if rproducts1 %}
           <div class="carousel-item active">
-          {% for product in rproducts %}
+          {% for product in rproducts1 %}
             <div class="col-md-4 mb-4">
              
               <!-- Card -->
@@ -619,11 +570,14 @@
           {% endfor %}
  
           </div>
+          {% endif %}
           <!-- First slide -->
 
           <!-- Second slide -->
+          {% if rproducts2 %}
           <div class="carousel-item">
-            {% for product in rproducts %}
+          
+            {% for product in rproducts2 %}
             <div class="col-md-4 mb-4">
 
               <!-- Card -->
@@ -721,12 +675,14 @@
           {% endfor %}
  
           </div>
+          {% endif %}
           <!-- Second slide -->
 
           <!-- Third slide -->
+          {% if rproducts3 %}
           <div class="carousel-item">
-
-          {% for product in rproducts %}
+          
+          {% for product in rproducts3 %}
             <div class="col-md-4 mb-4">
 
               <!-- Card -->
@@ -822,8 +778,10 @@
 
             </div>
           {% endfor %}
+          
  
           </div>
+          {% endif %}
           <!-- Third slide -->
 
         </div>

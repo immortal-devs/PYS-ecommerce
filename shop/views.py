@@ -7,24 +7,37 @@ from django.conf import settings
 from django.db import IntegrityError
 from datetime import datetime, timedelta, date
 import math, random
-
-# Create your views here.
 from .models import Address, Admin_detail, Customer, Order, OrderItem, Product, shopping_cart, UserProfile
 
 
 def product(request,id):
+    context={}
+    if request.session.get('name'):
+        name = request.session.get('name')
+        context['name']= name
     product = Product.objects.get(id=id)
-    context = {'product':product}
-    cntr=0
-    rproductlist=[]
+    context['product']=product
+    cnt1=cnt2=cnt3=0
+    rproductlist1=[]
+    rproductlist2=[]
+    rproductlist3=[]
     relativecategory=product.category[0]
     for rproducts in Product.objects.all():
         categoryp=rproducts.category
         if relativecategory in categoryp:
-            if cntr<3:
-                cntr+=1
-                rproductlist.append(rproducts)
-    context["rproducts"]=rproductlist
+            if cnt1<3:
+                cnt1+=1
+                rproductlist1.append(rproducts)
+            elif cnt2<3:
+                cnt2+=1
+                rproductlist2.append(rproducts)
+            elif cnt3<3:
+                cnt3+=1
+                rproductlist3.append(rproducts)
+
+    context["rproducts1"]=rproductlist1
+    context["rproducts2"]=rproductlist2
+    context["rproducts3"]=rproductlist3
     # print(context)
     return render(request, 'product.html', context)
 
@@ -52,8 +65,6 @@ def verification(request):
             request.session['name'] = i.firstname
             request.session['email'] = i.email
             request.session['cid'] = i.id 
-
-            # print("verification userid: ",i.id)
             return HttpResponseRedirect('/shop')
     else:
         return render(request, 'login.html', {'error': 'Email Or Password is incorrect.'})
@@ -83,11 +94,9 @@ def registrationdata(request):
         s = UserProfile(firstname=firstname, lastname=lastname, email=email, password=pass1, mobile_no=mobileno)
         s.save()
         request.session['name'] = firstname
-        # print("registrationdata  userid: ",s.id)
         c=Customer(gender="male",birthdate=date.today(),search="",address_id="1",user_id=s.id)
         c.save()
         request.session['cid'] = s.id 
-        # print("registrationdata  customer_id: ",c.id)
         return HttpResponseRedirect('/login/')
     else:
         return render(request, 'signup.html', {'error': 'Re Enter same password!!'})
@@ -132,20 +141,13 @@ def shop(request):
             if cnts<3:
                 cnts+=1
                 saleProductList.append(products)   
-                continue         
-    # print(menProductList)
-    # print(womenProductList)
-    # print(kidsProductList)
-    # print(saleProductList)
-    # print(newProductList)
-    # print(bestSellerProductList)
+                continue    
     context["men"]=menProductList
     context["women"]=womenProductList
     context["kids"]=kidsProductList
     context["sale"]=saleProductList
     context["new"]=newProductList
     context["bestseller"]=bestSellerProductList
-    # print("context is : ",context)
     carttotalq=0
     if  request.session.get('cid'):
         cid = request.session.get('cid')
@@ -163,6 +165,7 @@ def shop(request):
 
 def logout(request):
     del request.session['name']
+    del request.session['cid']
     return HttpResponseRedirect('/shop/')
 
 def forgotpassword(request):
@@ -258,7 +261,6 @@ def cart(request):
         return render(request, 'cart.html', context)
     else:
         context = {} 
-        # print("-----------------stuck in else---------------------------")
         return render(request, 'cart.html', context)
 
 def deleteFromCart(request,id):
@@ -300,7 +302,6 @@ def addtocart(request,id):
     productq= Product.objects.get(id=id)
     cid = request.session.get('cid')
     q=Customer.objects.get(user_id=cid)
-
     for i in shopping_cart.objects.all():
         if i.product.id==id and i.customer_id==q.id:
             i.quantity=min(int(i.quantity)+1,10)
@@ -319,25 +320,20 @@ def addtocart(request,id):
 
 def search (request):
     search=""
-    # if request.method == 'POST':
-    search=request.POST.get('searchq')
-    print (search)
-    # print("--------search after get----------")
-    searchq=search
-    # searchq="Women"
-    cnt1=0
     context={}
+    if request.session.get('name'):
+        name = request.session.get('name')
+        context['name']= name
+    search=request.POST.get('searchq').capitalize()
+    cnt1=0
     search1list=[]
     for products in Product.objects.all():
         categoryp=products.category
-        if searchq in categoryp:
-            if cnt1<18:
+        if search in categoryp:
+            if cnt1<15:
                 cnt1+=1
                 search1list.append(products)
-                # print("-------------",products.name)
             else:
                 break
     context["search1list"]=search1list
-    # print(context)
-    # print("-----------------------search---------------------")
     return render(request, 'searchitems.html', context)
