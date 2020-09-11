@@ -96,26 +96,32 @@ def shop(request):
             if cntm<3:
                 cntm+=1
                 menProductList.append(products)
+             
         if "Women" in categoryp:
             if cntw<3:
                 cntw+=1
                 womenProductList.append(products)
+              
         if "Kids" in categoryp:
             if cntk<3:
                 cntk+=1
                 kidsProductList.append(products)
+               
         if "new" in categoryp:
             if cntn<3:
                 cntn+=1
                 newProductList.append(products)
+                continue
         if "bestseller" in categoryp:
             if cntb<3:
                 cntb+=1
-                bestSellerProductList.append(products)    
+                bestSellerProductList.append(products) 
+                continue   
         if "sale" in categoryp:
             if cnts<3:
                 cnts+=1
-                saleProductList.append(products)            
+                saleProductList.append(products)   
+                continue         
     print(menProductList)
     print(womenProductList)
     print(kidsProductList)

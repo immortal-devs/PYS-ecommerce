@@ -446,11 +446,11 @@
 
                                 </span>
 
-                                  <small>
+                                  <span>
                                     {% if  product.price|noteql:product.discount %}
                                         {{product.discount}}&#37;
                                     {% endif %}
-                                  </small>
+                                  </span>
 
 
                               </span>
@@ -1090,19 +1090,14 @@
           <div class="row">
 
             <!-- New Products -->
-            <div class="col-lg-4 col-md-12 col-12 pt-5">
-
+            <div class="col-lg-4 col-md-12  pt-5">
               <hr>
-
               <h5 class="text-center font-weight-bold dark-grey-text">
 
                 <strong>New Products</strong>
 
               </h5>
-
-              <hr>
-
-         
+              <hr>       
               {% for product in new %}
               <div class="row mt-2 py-2 mb-4 hoverable align-items-center">
 
@@ -1161,11 +1156,11 @@
 
                                 
 
-                                  <small>
+                                  <span>
                                     {% if  product.price|noteql:product.discount %}
                                         {{product.discount}}&#37;
                                     {% endif %}
-                                  </small>
+                                  </span>
 
 
                                 </span>
@@ -1178,446 +1173,26 @@
               {% endfor %}
   
             </div>
-         </div>
+         
             <!-- New Products -->
 
             <!-- Top Sellers -->
             <div class="col-lg-4  col-md-12 pt-5">
-
               <hr>
-
               <h5 class="text-center font-weight-bold dark-grey-text">
 
                 <strong>Top Sellers</strong>
 
               </h5>
-
               <hr>
-
-              <!-- First row -->
-              <div class="row mt-5 py-2 mb-4 hoverable align-items-center">
-
-                <div class="col-6">
-
-                  <a>
-
-                    <img src="../static/images/dresses/pexels-bess-hamiti-35188.jpg"
-                      class="img-fluid">
-
-                  </a>
-
-                </div>
-
-                <div class="col-6">
-
-                  <!-- Title -->
-                  <a>
-
-                    <strong>Shirt + Jacket</strong>
-
-                  </a>
-
-                  <!-- Rating -->
-                  <ul class="rating inline-ul">
-
-                    <li>
-
-                      <i class="fas fa-star blue-text"></i>
-
-                    </li>
-
-                    <li>
-
-                      <i class="fas fa-star blue-text"></i>
-
-                    </li>
-
-                    <li>
-
-                      <i class="fas fa-star blue-text"></i>
-
-                    </li>
-
-                    <li>
-
-                      <i class="fas fa-star blue-text"></i>
-
-                    </li>
-
-                    <li>
-
-                      <i class="fas fa-star blue-text"></i>
-
-                    </li>
-
-                  </ul>
-
-                  <!-- Price -->
-                  <h6 class="h6-responsive font-weight-bold dark-grey-text">
-
-                    <strong>$649</strong>
-
-                    <span class="grey-text">
-
-                      <small>
-
-                        <s>$889</s>
-
-                      </small>
-
-                    </span>
-
-                  </h6>
-
-                </div>
-
-              </div>
-              <!-- First row -->
-
-              <!-- Second row -->
-              <div class="row mt-2 py-2 mb-4 hoverable align-items-center">
-
-                <div class="col-6">
-
-                  <a>
-
-                    <img src="../static/images/dresses/pexels-artem-beliaikin-994517.jpg"
-                      class="img-fluid">
-
-                  </a>
-
-                </div>
-
-                <div class="col-6">
-
-                  <!-- Title -->
-                  <a>
-
-                    <strong>3 Tshirts</strong>
-
-                  </a>
-
-                  <!-- Rating -->
-                  <ul class="rating inline-ul">
-
-                    <li>
-
-                      <i class="fas fa-star blue-text"></i>
-
-                    </li>
-
-                    <li>
-
-                      <i class="fas fa-star blue-text"></i>
-
-                    </li>
-
-                    <li>
-
-                      <i class="fas fa-star blue-text"></i>
-
-                    </li>
-
-                    <li>
-
-                      <i class="fas fa-star grey-text"></i>
-
-                    </li>
-
-                    <li>
-
-                      <i class="fas fa-star grey-text"></i>
-
-                    </li>
-
-                  </ul>
-
-                  <!-- Price -->
-                  <h6 class="h6-responsive font-weight-bold dark-grey-text">
-
-                    <strong>$1249</strong>
-
-                    <span class="grey-text">
-
-                      <small>
-
-                        <s>$1489</s>
-
-                      </small>
-
-                    </span>
-
-                  </h6>
-
-                </div>
-
-              </div>
-              <!-- Second row -->
-
-              <!-- Third row -->
-              <div class="row mt-2 py-2 pb-1 hoverable align-items-center">
-
-                <div class="col-6">
-
-                  <a>
-
-                    <img src="../static/images/dresses/pexels-mentatdgt-1336873.jpg"
-                      class="img-fluid">
-
-                  </a>
-
-                </div>
-
-                <div class="col-6">
-
-                  <!-- Title -->
-                  <a>
-
-                    <strong>2 Shirts</strong>
-
-                  </a>
-
-                  <!-- Rating -->
-                  <ul class="rating inline-ul">
-
-                    <li>
-
-                      <i class="fas fa-star blue-text"></i>
-
-                    </li>
-
-                    <li>
-
-                      <i class="fas fa-star blue-text"></i>
-
-                    </li>
-
-                    <li>
-
-                      <i class="fas fa-star blue-text"></i>
-
-                    </li>
-
-                    <li>
-
-                      <i class="fas fa-star blue-text"></i>
-
-                    </li>
-
-                    <li>
-
-                      <i class="fas fa-star grey-text"></i>
-
-                    </li>
-
-                  </ul>
-
-                  <!-- Price -->
-                  <h6 class="h6-responsive font-weight-bold dark-grey-text">
-
-                    <strong>$449</strong>
-
-                    <span class="grey-text">
-
-                      <small>
-
-                        <s>$89</s>
-
-                      </small>
-
-                    </span>
-
-                  </h6>
-
-                </div>
-
-              </div>
-
-              <!-- Third row -->
-            </div>
-            <!-- Top Sellers -->
-
-            <!-- Random Products -->
-            <div class="col-lg-4 col-md-12 pt-5">
-
-              <hr>
-
-              <h5 class="text-center font-weight-bold dark-grey-text">
-
-                <strong>Random products</strong>
-
-              </h5>
-
-              <hr>
-
-              <!-- First row -->
-              <div class="row mt-5 py-2 mb-4 hoverable align-items-center">
-
-                <div class="col-6">
-
-                  <a>
-
-                    <img src="../static/images/dresses/pexels-mentatdgt-1329994.jpg"
-                      class="img-fluid">
-
-                  </a>
-
-                </div>
-
-                <div class="col-6">
-
-                  <!-- Title -->
-                  <a>
-
-                    <strong>Dress</strong>
-
-                  </a>
-
-                  <!-- Rating -->
-                  <ul class="rating inline-ul">
-
-                    <li>
-
-                      <i class="fas fa-star blue-text"></i>
-
-                    </li>
-
-                    <li>
-
-                      <i class="fas fa-star blue-text"></i>
-
-                    </li>
-
-                    <li>
-
-                      <i class="fas fa-star blue-text"></i>
-
-                    </li>
-
-                    <li>
-
-                      <i class="fas fa-star blue-text"></i>
-
-                    </li>
-
-                    <li>
-
-                      <i class="fas fa-star grey-text"></i>
-
-                    </li>
-
-                  </ul>
-
-                  <!-- Price -->
-                  <h6 class="h6-responsive font-weight-bold dark-grey-text">
-
-                    <strong>$749</strong>
-
-                    <span class="grey-text">
-
-                      <small>
-
-                        <s>$889</s>
-
-                      </small>
-
-                    </span>
-
-                  </h6>
-
-                </div>
-
-              </div>
-              <!-- First row -->
-
-              <!-- Second row -->
-              <div class="row mt-2 py-2 mb-4 hoverable align-items-center">
-
-                <div class="col-6">
-
-                  <a>
-
-                    <img src="../static/images/dresses/pexels-kai-pilger-996329.jpg"
-                      class="img-fluid">
-
-                  </a>
-
-                </div>
-
-                <div class="col-6">
-
-                  <!-- Title -->
-                  <a>
-
-                    <strong>Tshirt</strong>
-
-                  </a>
-
-                  <!-- Rating -->
-                  <ul class="rating inline-ul">
-
-                    <li>
-
-                      <i class="fas fa-star blue-text"></i>
-
-                    </li>
-
-                    <li>
-
-                      <i class="fas fa-star blue-text"></i>
-
-                    </li>
-
-                    <li>
-
-                      <i class="fas fa-star blue-text"></i>
-
-                    </li>
-
-                    <li>
-
-                      <i class="fas fa-star blue-text"></i>
-
-                    </li>
-
-                    <li>
-
-                      <i class="fas fa-star blue-text"></i>
-
-                    </li>
-
-                  </ul>
-
-                  <!-- Price -->
-                  <h6 class="h6-responsive font-weight-bold dark-grey-text">
-
-                    <strong>$249</strong>
-
-                    <span class="grey-text">
-
-                      <small>
-
-                        <s>$489</s>
-
-                      </small>
-
-                    </span>
-
-                  </h6>
-
-                </div>
-
-              </div>
-              <!-- Second row -->
-
-              <!-- Third row -->
+              {% for product in bestseller %}
               <div class="row mt-2 py-2 mb-4 hoverable align-items-center">
 
                 <div class="col-6" style="max-height:106px; overflow: hidden;">
 
                   <a>
 
-                    <img src="../static/images/products/Gown.jpg"
+                    <img  src="{{product.imageURL}}"
                       class="img-fluid">
 
                   </a>
@@ -1629,67 +1204,143 @@
                   <!-- Title -->
                   <a>
 
-                    <strong>Jeans + Shirt</strong>
+                    <strong>{{product.name}}</strong>
 
                   </a>
 
                   <!-- Rating -->
                   <ul class="rating inline-ul">
+                          {% for star in product.rating|times %}
+                            <li> 
+ 
+                              <i class="fas fa-star blue-text"></i>
 
-                    <li>
+                            </li>
+                          {% endfor %}
+                          {% for star in product.rating|times1 %}
+                            <li>
 
-                      <i class="fas fa-star blue-text"></i>
+                              <i class="fas fa-star grey-text"></i>
 
-                    </li>
-
-                    <li>
-
-                      <i class="fas fa-star blue-text"></i>
-
-                    </li>
-
-                    <li>
-
-                      <i class="fas fa-star blue-text"></i>
-
-                    </li>
-
-                    <li>
-
-                      <i class="fas fa-star grey-text"></i>
-
-                    </li>
-
-                    <li>
-
-                      <i class="fas fa-star grey-text"></i>
-
-                    </li>
+                            </li>
+                          {% endfor %}
 
                   </ul>
+                  
 
                   <!-- Price -->
                   <h6 class="h6-responsive font-weight-bold dark-grey-text">
 
-                    <strong>$2149</strong>
+                                <strong>{{product.price|mul:product.discount}}&#x20b9;</strong>
 
-                    <span class="grey-text">
+                                <span class="grey-text">
 
-                      <small>
+                                  <small>
+                                    {% if  product.price|noteql:product.discount %}
+                                    <s>{{product.price}}&#x20b9;</s>
+                                    {% endif %}
+                                  </small>
 
-                        <s>$2489</s>
+                                
 
-                      </small>
+                                  <span>
+                                    {% if  product.price|noteql:product.discount %}
+                                        {{product.discount}}&#37;
+                                    {% endif %}
+                                  </span>
 
-                    </span>
+
+                                </span>
 
                   </h6>
 
                 </div>
 
               </div>
-              <!-- Third row -->
+              {% endfor %}
+            </div>
+            <!-- Random Products -->
+            <div class="col-lg-4 col-md-12 pt-5">
+              <hr>
+              <h5 class="text-center font-weight-bold dark-grey-text">
 
+                <strong>Random products</strong>
+
+              </h5>
+              <hr>
+              {% for product in sale %}
+              <div class="row mt-2 py-2 mb-4 hoverable align-items-center">
+
+                <div class="col-6" style="max-height:106px; overflow: hidden;">
+
+                  <a>
+
+                    <img  src="{{product.imageURL}}"
+                      class="img-fluid">
+
+                  </a>
+
+                </div>
+
+                <div class="col-6">
+
+                  <!-- Title -->
+                  <a>
+
+                    <strong>{{product.name}}</strong>
+
+                  </a>
+
+                  <!-- Rating -->
+                  <ul class="rating inline-ul">
+                          {% for star in product.rating|times %}
+                            <li> 
+ 
+                              <i class="fas fa-star blue-text"></i>
+
+                            </li>
+                          {% endfor %}
+                          {% for star in product.rating|times1 %}
+                            <li>
+
+                              <i class="fas fa-star grey-text"></i>
+
+                            </li>
+                          {% endfor %}
+
+                  </ul>
+                  
+
+                  <!-- Price -->
+                  <h6 class="h6-responsive font-weight-bold dark-grey-text">
+
+                                <strong>{{product.price|mul:product.discount}}&#x20b9;</strong>
+
+                                <span class="grey-text">
+
+                                  <small>
+                                    {% if  product.price|noteql:product.discount %}
+                                    <s>{{product.price}}&#x20b9;</s>
+                                    {% endif %}
+                                  </small>
+
+                                
+
+                                  <span>
+                                    {% if  product.price|noteql:product.discount %}
+                                        {{product.discount}}&#37;
+                                    {% endif %}
+                                  </span>
+
+
+                                </span>
+
+                  </h6>
+
+                </div>
+
+              </div>
+              {% endfor %}
             </div>
             <!-- Random Products -->
 
