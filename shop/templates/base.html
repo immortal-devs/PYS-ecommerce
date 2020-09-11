@@ -40,7 +40,7 @@
           </li>
 
          <li class="nav-item ml-3">
-            <a href="#">
+            <a href="/contact">
               <img src="../static/images/svg/envelope.svg" 
               alt="cart_svg" style="height: 18px; width:20px; padding-bottom: 3px;">&nbsp; Contact
             </a>
@@ -48,11 +48,11 @@
 
           {% if request.session.name %}
 
-          <li class="nav-item ml-3">
+          {% comment %} <li class="nav-item ml-3">
             <a href="#">
               <img src="../static/images/svg/setting.svg" 
               alt="cart_svg" style="height: 18px;padding-bottom: 3px;">&nbsp; Settings</a>
-          </li>
+          </li> {% endcomment %}
 
           <li class="nav-item dropdown ml-3">
 
@@ -83,7 +83,7 @@
         <form action="/search/" method="POST">
         {% csrf_token %}
           <input type="search" name="searchq" class="search-data" placeholder="Search">
-          <button type="submit" class=."fas fa-search"></button>
+          <button type="submit" class=  "fas fa-search"></button>
         </form>
     </nav>
       

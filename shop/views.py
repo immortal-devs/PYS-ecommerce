@@ -294,6 +294,9 @@ def removequantity(request,id):
     
 def contact(request):
     context = {} 
+    if request.session.get('name'):
+        name = request.session.get('name')
+        context["name"]=name
     return render(request, 'contact.html', context)
 
 def addtocart(request,id):
