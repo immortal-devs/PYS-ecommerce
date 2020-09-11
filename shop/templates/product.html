@@ -62,13 +62,13 @@
               <span class="grey-text">
 
                 <small>
-                  {% if  product.price|noteql:product.discount %}
-                    <s>{{product.price}}&#x20b9;</s>
+                  {% if  0|eql:product.discount %}
+                    <s>{{product.price}}</s>&#x20b9;
                   {% endif %}
                 </small>
 
                   <small>
-                    {% if  product.price|noteql:product.discount %}
+                    {% if  0|eql:product.discount %}
                         &nbsp;{{product.discount}}&#37;&nbsp;off
                     {% endif %}
                   </small>
@@ -574,11 +574,28 @@
                   <div class="card-footer pb-0">
 
                     <div class="row mb-0">
-                          <span class="float-left">
+                         
+                              <span class="float-left">
 
-                                <strong>{{product.price}}</strong>
+                                <span class="h6-responsive font-weight-bold dark-grey-text">
 
-                              </span>
+                                <strong>{{product.price|mul:product.discount}}&#x20b9;</strong>
+
+                                <span class="grey-text">
+
+                                  <small>
+                                    {% if  0|eql:product.discount %}
+                                    <s>{{product.price}}</s>&#x20b9;
+                                    {% endif %}
+                                  </small>
+
+                                </span>
+                                    {% if  0|eql:product.discount %}
+                                    <span>
+                                        {{product.discount}}&#37;
+                                    
+                                  </span>
+                                    {% endif %}
 
                               <span class="float-right">
 
