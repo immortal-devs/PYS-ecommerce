@@ -96,9 +96,10 @@
           <div class="cancel-icon">
           <span class="fas fa-times"></span>
           </div>
-        <form action="#">
-          <input type="search" class="search-data" placeholder="Search">
-          <button type="submit" class="fas fa-search"></button>
+        <form action="/search/" method="POST">
+        {% csrf_token %}
+          <input type="search" name="searchq" class="search-data" placeholder="Search">
+          <button type="submit" class=."fas fa-search"></button>
         </form>
     </nav>
       

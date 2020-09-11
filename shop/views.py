@@ -301,3 +301,28 @@ def addtocart(request,id):
         return redirect('/shop')
     else:
         return redirect('/shop')
+
+def search (request):
+    search="--------search is blank----------"
+    # if request.method == 'POST':
+    search=request.POST.get('searchq')
+    print (search)
+    print("--------search after get----------")
+    searchq=search
+    # searchq="Women"
+    cnt1=0
+    context={}
+    search1list=[]
+    for products in Product.objects.all():
+        categoryp=products.category
+        if searchq in categoryp:
+            if cnt1<18:
+                cnt1+=1
+                search1list.append(products)
+                print("-------------",products.name)
+            else:
+                break
+    context["search1list"]=search1list
+    print(context)
+    print("-----------------------search---------------------")
+    return render(request, 'searchitems.html', context)

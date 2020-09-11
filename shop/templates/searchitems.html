@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% load index %}
+{% load static %}
+{% load range %}
+<link rel="stylesheet" type="text/css" href="../static/css/style.css">
+{% block content %}
+
+<div class="container">
+<div style="padding-top:100px; padding-bottom:10px">
+    <div>
+        <h3>your search result is: </h3>
+    </div>
+</div>
+ <div class="row">
+
+                   {% for product in search1list %}
+                    <!-- Grid column -->
+                    <div class="col-lg-4 col-md-12 mb-4">
+
+                      <!-- Card -->
+                      <div class="card card-ecommerce">
+
+                        <!-- Card image -->
+                        <div class="view overlay" style="height:480px; overflow: hidden;">
+
+                          <img src="{{product.imageURL}}"
+                            class="img-fluid" alt="sample image">
+
+                            <div class="mask rgba-white-slight"></div>
+
+                        </div>
+
+                        <!-- Card image -->
+
+                        <!-- Card content -->
+                        <div class="card-body">
+
+                          <!-- Category & Title -->
+                          <h5 class="card-title mb-1">
+
+                            <strong>
+
+                              <a href="" class="dark-grey-text">{{product.name}}</a>
+
+                            </strong>
+
+                          </h5>
+
+                          {% for Category in product.category %}
+                              {% if Category == 'bestseller' %}
+                                  <span class="badge badge-danger mb-2">{{Category}}</span>
+                              {% endif %}
+                              {% if Category == 'sale' %}
+                                  <span class="badge badge-success mb-2">{{Category}}</span>
+                              {% endif %}
+                              {% if Category == 'new' %}
+                                  <span class="badge badge-info mb-2">{{Category}}</span>
+                              {% endif %}
+                          {% endfor %}
+
+                          <ul class="rating">
+                          {% for star in product.rating|times %}
+                            <li> 
+ 
+                              <i class="fas fa-star blue-text"></i>
+
+                            </li>
+                          {% endfor %}
+                          {% for star in product.rating|times1 %}
+                            <li>
+
+                              <i class="fas fa-star grey-text"></i>
+
+                            </li>
+                          {% endfor %}
+
+                          </ul>
+
+                          <!-- Card footer -->
+                          <div class="card-footer pb-0">
+
+                            <div class="row mb-0">
+
+                              <span class="float-left">
+
+                                <span class="h6-responsive font-weight-bold dark-grey-text">
+
+                                <strong>{{product.price|mul:product.discount}}&#x20b9;</strong>
+
+                                <span class="grey-text">
+
+                                  <small>
+                                    {% if  product.price|noteql:product.discount %}
+                                    <s>{{product.price}}&#x20b9;</s>
+                                    {% endif %}
+                                  </small>
+
+                                </span>
+
+                                  <span>
+                                    {% if  product.price|noteql:product.discount %}
+                                        {{product.discount}}&#37;
+                                    {% endif %}
+                                  </span>
+
+
+                              </span>
+                              {% comment %} </span>
+                                  <span class="grey-text">
+
+                                    <small>
+
+                                      <s>&nbsp;$89</s>
+
+                                    </small>
+
+                                  </span> {% endcomment %}
+                              <span class="float-right">
+
+                                <a href="/addtocart/{{product.id}}" >
+
+                                  <i class="fas fa-shopping-cart ml-3"></a></i>
+
+                              </span>
+
+                            </div>
+
+                          </div>
+
+                        </div>
+                        <!-- Card content -->
+
+                      </div>
+                      <!-- Card -->
+
+                    </div>
+                    {% endfor %}
+         
+                  </div >
+                  {% if search1list %}
+                  <h4 style="padding:0px 0px 10px 0px">
+                        Did you find what you were looking for?
+                  </h4>
+                  {% endif %}
+</div>
+{% endblock %}
