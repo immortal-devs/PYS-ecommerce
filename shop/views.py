@@ -25,6 +25,7 @@ def product(request,id):
                 cntr+=1
                 rproductlist.append(rproducts)
     context["rproducts"]=rproductlist
+    print(context)
     return render(request, 'product.html', context)
 
 def checkout(request):
