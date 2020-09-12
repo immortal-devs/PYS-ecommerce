@@ -18,39 +18,86 @@ def product(request,id):
     product = Product.objects.get(id=id)
     context['product']=product
     cnt1=cnt2=cnt3=0
-    rproductlist1=[]
-    rproductlist2=[]
-    rproductlist3=[]
+    rproductlist1=set()
+    rproductlist2=set()
+    rproductlist3=set()
     relativecategory=product.category[0]
     for rproducts in Product.objects.all():
         categoryp=rproducts.category
         if relativecategory in categoryp:
-            if cnt1<3:
+            if cnt1<3 and rproducts != product:
                 cnt1+=1
-                rproductlist1.append(rproducts)
-            elif cnt2<3:
+                rproductlist1.add(rproducts)
+            elif cnt2<3 and rproducts != product:
                 cnt2+=1
-                rproductlist2.append(rproducts)
-            elif cnt3<3:
+                rproductlist2.add(rproducts)
+            elif cnt3<3 and rproducts != product:
                 cnt3+=1
-                rproductlist3.append(rproducts)
-
+                rproductlist3.add(rproducts)
     context["rproducts1"]=rproductlist1
     context["rproducts2"]=rproductlist2
     context["rproducts3"]=rproductlist3
-    # print(context)
     return render(request, 'product.html', context)
 
+def receipt(request):
+    context={}
+    total=subtotal=0
+    if request.session.get('name') and request.session.get('cid'):
+        name = request.session.get('name')
+        cid = request.session.get('cid')
+        context["cid"]=cid
+        q=Customer.objects.get(user_id=cid)
+        context["name"]=name
+        for i in shopping_cart.objects.all():
+            if i.customer_id==q.id:
+                price=i.product.price
+                pname=i.product.name
+                quantity=i.quantity
+                totalprice=i.quantity*i.product.price
+                subtotal += totalprice
+                context.setdefault("products",[]).append([pname,price,quantity,totalprice,i.product.id])
+    tax=float(subtotal) * 0.18
+    total=float(subtotal) + tax
+    context["subtotal"]=subtotal
+    context["tax"]=tax
+    context["total"] = total
+    return render(request, 'receipt.html', context)
+    
+
 def checkout(request):
-    if request.user.is_authenticated:
-        customer = request.user.customer
-        order, created = Order.objects.get_or_create(customer=customer, complete=False)
-        items = order.orderitem_set.all()
-    else:
-        items = []
-        order = {'get_cart_total':0,'get_cart_items':0}
-    context = {'items':items, 'order':order}
+    context={}
+    if request.session.get('name') and request.session.get('cid'):
+        name = request.session.get('name')
+        cid = request.session.get('cid')
+        q=Customer.objects.get(user_id=cid)
+        context={}
+        context["name"]=name
+        total=0
+        for i in shopping_cart.objects.all():
+            if i.customer_id==q.id:
+                price=i.product.price
+                pname=i.product.name
+                quantity=i.quantity
+                image=i.product.imageURL
+                totalprice=i.quantity*i.product.price
+                total += totalprice
+                cartid=i.id
+                color=i.product.color
+                context.setdefault("products",[]).append([pname,price,quantity,totalprice,image,cartid,color,i.product.id])
+        context["total"] = total
     return render(request, 'checkout.html', context)
+
+
+    # if request.user.is_authenticated:
+    #     customer = request.user.customer
+
+        # order, created = Order.objects.get_or_create(customer=customer, complete=False)
+    #     items = order.orderitem_set.all()
+    # else:
+    #     items = []
+    #     order = {'get_cart_total':0,'get_cart_items':0}
+    # context = {'items':items, 'order':order}
+    # return render(request, 'checkout.html', context)
 
 def login(request):
     context = {}
@@ -127,21 +174,21 @@ def shop(request):
                 cntk+=1
                 kidsProductList.append(products)
                
-        if "new" in categoryp:
+        if "New" in categoryp:
             if cntn<3:
                 cntn+=1
                 newProductList.append(products)
                 continue
-        if "bestseller" in categoryp:
+        if "Bestseller" in categoryp:
             if cntb<3:
                 cntb+=1
                 bestSellerProductList.append(products) 
                 continue   
-        if "sale" in categoryp:
+        if "Sale" in categoryp:
             if cnts<3:
                 cnts+=1
                 saleProductList.append(products)   
-                continue    
+                continue 
     context["men"]=menProductList
     context["women"]=womenProductList
     context["kids"]=kidsProductList
@@ -256,7 +303,7 @@ def cart(request):
                 total += totalprice
                 cartid=i.id
                 color=i.product.color
-                context.setdefault("products",[]).append([pname,price,quantity,totalprice,image,cartid,color])
+                context.setdefault("products",[]).append([pname,price,quantity,totalprice,image,cartid,color,i.product.id])
         context["total"] = total
         return render(request, 'cart.html', context)
     else:

@@ -108,7 +108,7 @@
                 <p class="ml-xl-0 ml-4">
               <strong>color: </strong>{{product.color}}</p>
                 <div class="row mt-3 mb-4">
-                  <div class="col-md-12 text-center text-md-left  text-md-right">
+                  <div class="col-md-12 text-center">
                         <a class="btn btn-primary btn-rounded" href="/addtocart/{{product.id}}" >
                       <i class="fas fa-cart-plus mr-2" aria-hidden="true"></i> Add to cart</a>
                   </div>
@@ -459,15 +459,16 @@
             <div class="col-md-4 mb-4">
              
               <!-- Card -->
+              
               <div class="card card-ecommerce">
 
                 <!-- Card image -->
+                
                 <div class="view overlay"style=" overflow: hidden; height:300px;">
 
                   <img src="{{product.imageURL}}" class="img-fluid" 
                     alt="product">
-
-                  <a>
+                  <a href="/product/{{product.id}}">
 
                     <div class="mask rgba-white-slight"></div>
 
@@ -564,6 +565,7 @@
                 <!-- Card content -->
 
               </div>
+              
               <!-- Card -->
 
             </div>
@@ -589,7 +591,7 @@
                   <img src="{{product.imageURL}}" class="img-fluid"
                     alt="product">
 
-                  <a>
+                  <a href="/product/{{product.id}}">
 
                     <div class="mask rgba-white-slight"></div>
 
@@ -644,14 +646,31 @@
                   </ul>
 
                   <!-- Card footer -->
-                  <div class="card-footer pb-0">
+                   <div class="card-footer pb-0">
 
                     <div class="row mb-0">
-                          <span class="float-left">
+                         
+                              <span class="float-left">
 
-                                <strong>{{product.price}}</strong>
+                                <span class="h6-responsive font-weight-bold dark-grey-text">
 
-                              </span>
+                                <strong>{{product.price|mul:product.discount}}&#x20b9;</strong>
+
+                                <span class="grey-text">
+
+                                  <small>
+                                    {% if  0|eql:product.discount %}
+                                    <s>{{product.price}}</s>&#x20b9;
+                                    {% endif %}
+                                  </small>
+
+                                </span>
+                                    {% if  0|eql:product.discount %}
+                                    <span>
+                                        {{product.discount}}&#37;
+                                    
+                                  </span>
+                                    {% endif %}
 
                               <span class="float-right">
 
@@ -694,7 +713,7 @@
                   <img src="{{product.imageURL}}" class="img-fluid"
                     alt="product">
 
-                  <a>
+                  <a href="/product/{{product.id}}">
 
                     <div class="mask rgba-white-slight"></div>
 
@@ -749,14 +768,31 @@
                   </ul>
 
                   <!-- Card footer -->
-                  <div class="card-footer pb-0">
+                   <div class="card-footer pb-0">
 
                     <div class="row mb-0">
-                          <span class="float-left">
+                         
+                              <span class="float-left">
 
-                                <strong>{{product.price}}</strong>
+                                <span class="h6-responsive font-weight-bold dark-grey-text">
 
-                              </span>
+                                <strong>{{product.price|mul:product.discount}}&#x20b9;</strong>
+
+                                <span class="grey-text">
+
+                                  <small>
+                                    {% if  0|eql:product.discount %}
+                                    <s>{{product.price}}</s>&#x20b9;
+                                    {% endif %}
+                                  </small>
+
+                                </span>
+                                    {% if  0|eql:product.discount %}
+                                    <span>
+                                        {{product.discount}}&#37;
+                                    
+                                  </span>
+                                    {% endif %}
 
                               <span class="float-right">
 
