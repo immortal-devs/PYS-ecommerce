@@ -2,7 +2,7 @@
 {% load index %}
 <link rel="stylesheet" type="text/css" href="../static/css/style.css">
 {% block content %}
-<main>
+<!-- <main>
     <div class="container">
         <div>Your Name: {{name}}</div>
         {% for user in users %}
@@ -10,5 +10,151 @@
             <div>Email: {{user|index:1}}</div>
         {% endfor %}
     </div>
-</main>
+</main> -->
+
+<main>
+    <div class="container-fluid">
+
+      <!-- Section: Edit Account -->
+      <section class="section">
+        <!-- First row -->
+        <div class="row">
+          <!-- First column -->
+          <div class="col-lg-4 mb-4">
+
+            <!-- Card -->
+            <div class="card card-cascade narrower">
+
+              <!-- Card image -->
+              <div class="view view-cascade gradient-card-header mdb-color lighten-3">
+                <h5 class="mb-0 font-weight-bold">Your Details</h5>
+              </div>
+              <!-- Card image -->
+              <div class="card-body card-body-cascade text-center">
+              <form>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="md-form mb-0">
+                      <input type="text" id="form1" class="form-control validate" value="{{name}}" disabled>
+                      <label for="form1" data-error="wrong" data-success="right">Name</label>
+                    </div>
+                  </div>
+                </div>
+                {% for user in users %}
+                <div class="row">
+                    <div class="col-md-12">
+                      <div class="md-form mb-0">
+                        <input type="text" id="form1" class="form-control validate" value="{{user|index:1}}" disabled>
+                        <label for="form1" data-error="wrong" data-success="right">Email ID</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="md-form mb-0">
+                        <input type="text" id="form1" class="form-control validate" value="{{user|index:0}}" disabled>
+                        <label for="form1" data-error="wrong" data-success="right">Gender</label>
+                      </div>
+                    </div>
+                  </div>
+                  {% endfor %}
+             </form>
+            </div>
+            </div>
+            <!-- Card -->
+
+          </div>
+          <!-- First column -->
+
+          <!-- Second column -->
+          <div class="col-lg-8 mb-4">
+
+            <!-- Card -->
+            <div class="card card-cascade narrower">
+
+              <!-- Card image -->
+              <div class="view view-cascade gradient-card-header mdb-color lighten-3">
+                <h5 class="mb-0 font-weight-bold">Edit Account</h5>
+              </div>
+              <!-- Card image -->
+
+              <!-- Card content -->
+              <div class="card-body card-body-cascade text-center">
+
+                <!-- Edit Form -->
+                <form>
+                  <!-- First row -->
+
+                  <div class="row">
+                    {% for user in users %}
+                    <!-- First column -->
+                    <div class="col-md-12">
+                      <div class="md-form mb-0">
+                        <input type="text" id="form1" class="form-control validate" value="{{user|index:1}}" disabled>
+                        <label for="form1" data-error="wrong" data-success="right">Email ID</label>
+                      </div>
+                    </div>
+                    {% endfor %}
+                    </div>
+                  <!-- First row -->
+
+                  <!-- First row -->
+                  <div class="row">
+                    <!-- First column -->
+                    <div class="col-md-6">
+                      <div class="md-form mb-0">
+                        <input type="text" id="form81" class="form-control validate">
+                        <label for="form81" data-error="wrong" data-success="right">First name</label>
+                      </div>
+                    </div>
+
+                    <!-- Second column -->
+                    <div class="col-md-6">
+                      <div class="md-form mb-0">
+                        <input type="text" id="form82" class="form-control validate">
+                        <label for="form82" data-error="wrong" data-success="right">Last name</label>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- First row -->
+
+                  <!-- Second row -->
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="md-form mb-0">
+                        <input type="text" id="form77" class="form-control validate">
+                        <label for="form77" data-error="wrong" data-success="right">Address</label>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Second row -->
+                  <!-- Fourth row -->
+                  <div class="row">
+                    <div class="col-md-12 text-center my-4">
+                      <input type="submit" value="Update Account" class="btn btn-info btn-rounded">
+                    </div>
+                  </div>
+                  <!-- Fourth row -->
+
+                </form>
+                <!-- Edit Form -->
+
+              </div>
+              <!-- Card content -->
+
+            </div>
+            <!-- Card -->
+
+          </div>
+          <!-- Second column -->
+
+        </div>
+        <!-- First row -->
+
+      </section>
+      <!-- Section: Edit Account -->
+
+    </div>
+
+  </main>
 {% endblock %}
