@@ -198,8 +198,12 @@ def shop(request):
         name = request.session.get('name')
         context['name']= name
         context["carttotalq"]=carttotalq
+        print("name: ",name)
+        print("cid: ",cid)
         return render(request, 'shop.html', context)
     else:
+        print("name: ")
+        print("cid: ")
         return render(request, 'shop.html', context)
 
 def myaccount(request):
