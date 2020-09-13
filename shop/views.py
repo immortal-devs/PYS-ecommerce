@@ -7,7 +7,7 @@ from django.conf import settings
 from django.db import IntegrityError
 from datetime import datetime, timedelta, date
 import math, random
-from .models import Address, Admin_detail, Customer, Order, OrderItem, Product, shopping_cart, UserProfile
+from .models import Address, Admin_detail, Customer, Order, OrderItem, Product, shopping_cart
 
 
 def product(request,id):
@@ -46,7 +46,7 @@ def receipt(request):
         name = request.session.get('name')
         cid = request.session.get('cid')
         context["cid"]=cid
-        q=Customer.objects.get(user_id=cid)
+        q=Customer.objects.get(id=cid)
         context["name"]=name
         for i in shopping_cart.objects.all():
             if i.customer_id==q.id:
@@ -75,7 +75,7 @@ def checkout(request):
     if request.session.get('name') and request.session.get('cid'):
         name = request.session.get('name')
         cid = request.session.get('cid')
-        q=Customer.objects.get(user_id=cid)
+        q=Customer.objects.get(id=cid)
         context={}
         context["name"]=name 
         total=totalQuantity=0
@@ -95,18 +95,6 @@ def checkout(request):
     # print("context: ",context)
     return render(request, 'checkout.html', context)
 
-
-    # if request.user.is_authenticated:
-    #     customer = request.user.customer
-
-        # order, created = Order.objects.get_or_create(customer=customer, complete=False)
-    #     items = order.orderitem_set.all()
-    # else:
-    #     items = []
-    #     order = {'get_cart_total':0,'get_cart_items':0}
-    # context = {'items':items, 'order':order}
-    # return render(request, 'checkout.html', context)
-
 def login(request):
     context = {}
     context.update(csrf(request))
@@ -115,7 +103,7 @@ def login(request):
 def verification(request):
     email = request.POST.get('email')
     password = request.POST.get('password')
-    for i in UserProfile.objects.all():
+    for i in Customer.objects.all():
         if email == i.email and password == i.password:
             request.session['name'] = i.firstname
             request.session['email'] = i.email
@@ -142,16 +130,12 @@ def registrationdata(request):
     mobileno = request.POST.get('mobileno')
     pass1 = request.POST.get('password')
     pass2 = request.POST.get('confirmpassword')
-    for i in UserProfile.objects.all():
+    for i in Customer.objects.all():
         if email == i.email:
             return render(request, 'signup.html', {'error': 'This email is already in use!!'})
     if pass1 == pass2:
-        s = UserProfile(firstname=firstname, lastname=lastname, email=email, password=pass1, mobile_no=mobileno)
-        s.save()
-        request.session['name'] = firstname
-        c=Customer(gender="male",birthdate=date.today(),search="",address_id="1",user_id=s.id)
-        c.save()
-        request.session['cid'] = s.id 
+        s = Customer(firstname=firstname, lastname=lastname, email=email, password=pass1, mobile_no=mobileno)
+        s.save() 
         return HttpResponseRedirect('/login/')
     else:
         return render(request, 'signup.html', {'error': 'Re Enter same password!!'})
@@ -204,9 +188,9 @@ def shop(request):
     context["new"]=newProductList
     context["bestseller"]=bestSellerProductList
     carttotalq=0
-    if  request.session.get('cid'):
+    if request.session.get('cid'):
         cid = request.session.get('cid')
-        q=Customer.objects.get(user_id=cid)
+        q=Customer.objects.get(id=cid)
         for i in shopping_cart.objects.all():
             if i.customer_id==q.id:
                 carttotalq += i.quantity               
@@ -222,13 +206,13 @@ def myaccount(request):
     if request.session.get('name') and request.session.get('cid'):
         name = request.session.get('name')
         cid = request.session.get('cid')
-        q=Customer.objects.get(user_id=cid)
+        q=Customer.objects.get(id=cid)
         context={}
         context["name"]=name
         for i in Customer.objects.all():
             if i.id==q.id:
                 gender = i.gender
-                email = i.user.email
+                email = i.email
                 context.setdefault("users",[]).append([gender,email])
         return render(request, 'myaccount.html', context)
 
@@ -251,7 +235,7 @@ def newpassword(request):
     OTP = ""
     for i in range(6):
         OTP += digits[math.floor(random.random() * 10)]
-    for i in UserProfile.objects.all():
+    for i in Customer.objects.all():
         if i.email == email:
             subject = 'Your confidential OTP'
             message = 'Your OTP is ' + OTP
@@ -270,7 +254,7 @@ def addnewpassword(request):
         if password != cpass:
             return render(request, 'newpassword.html', {'error': 'Can not change password. Your both Passwords are different'})
         else:
-            target = UserProfile.objects.get(email=request.session['email2'])
+            target = Customer.objects.get(email=request.session['email2'])
             target.password = password
             target.save()
             del request.session['email2']
@@ -297,7 +281,7 @@ def totalQuantity(request):
     total=0
     if  request.session.get('cid'):
         cid = request.session.get('cid')
-        q=Customer.objects.get(user_id=cid)
+        q=Customer.objects.get(id=cid)
         context={}
         total=0
         for i in shopping_cart.objects.all():
@@ -311,7 +295,7 @@ def cart(request):
     if request.session.get('name') and request.session.get('cid'):
         name = request.session.get('name')
         cid = request.session.get('cid')
-        q=Customer.objects.get(user_id=cid)
+        q=Customer.objects.get(id=cid)
         context={}
         context["name"]=name
         total=0
@@ -334,7 +318,7 @@ def cart(request):
 
 def deleteFromCart(request,id):
     cid = request.session.get('cid')
-    q=Customer.objects.get(user_id=cid)
+    q=Customer.objects.get(id=cid)
     if shopping_cart.objects.filter(customer_id=q.id):
         shopping_cartq=shopping_cart.objects.filter(id=id)
         shopping_cartq.delete()
@@ -342,7 +326,7 @@ def deleteFromCart(request,id):
 
 def addquantity(request,id):
     cid = request.session.get('cid')
-    q=Customer.objects.get(user_id=cid)
+    q=Customer.objects.get(id=cid)
     if shopping_cart.objects.filter(customer_id=q.id):
         shopping_cartq=shopping_cart.objects.get(id=id)
         shopping_cartq.quantity=min(int(shopping_cartq.quantity)+1,10)
@@ -351,7 +335,7 @@ def addquantity(request,id):
 
 def removequantity(request,id):
     cid = request.session.get('cid')
-    q=Customer.objects.get(user_id=cid)
+    q=Customer.objects.get(id=cid)
     if shopping_cart.objects.filter(customer_id=q.id):
         shopping_cartq=shopping_cart.objects.get(id=id)
         shopping_cartq.quantity-=1
@@ -370,7 +354,7 @@ def contact(request):
 def addtocart(request,id):
     productq= Product.objects.get(id=id)
     cid = request.session.get('cid')
-    q=Customer.objects.get(user_id=cid)
+    q=Customer.objects.get(id=cid)
     for i in shopping_cart.objects.all():
         if i.product.id==id and i.customer_id==q.id:
             i.quantity=min(int(i.quantity)+1,10)
@@ -380,7 +364,7 @@ def addtocart(request,id):
     if request.session.get('name') and request.session.get('cid'):
         name = request.session.get('name')
         cid=request.session.get('cid')
-        customerq=Customer.objects.get(user_id=cid)
+        customerq=Customer.objects.get(id=cid)
         c=shopping_cart(product=productq,quantity=quantityq,customer=customerq)
         c.save()
         return redirect('/shop')

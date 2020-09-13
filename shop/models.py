@@ -1,17 +1,6 @@
 from django_mysql.models import ListCharField
 from django.db import models,migrations
 
-
-class UserProfile(models.Model):
-	firstname = models.CharField(max_length=200,null=False)
-	lastname = models.CharField(max_length=200,null=False)
-	email = models.CharField(max_length=200,null=False)
-	password = models.CharField(max_length=15,null=False)
-	mobile_no = models.BigIntegerField(null=True,blank=True)
-
-	def __str__(self):
-		return self.firstname
-
 class Address(models.Model):
 	# address_id = models.AutoField()
 	first_len = models.CharField(max_length=30,null=False)
@@ -26,18 +15,21 @@ class Address(models.Model):
 
 class Customer(models.Model):
 	# customer_id = models.AutoField(primary_key=True)
+	firstname = models.CharField(max_length=200,null=True)
+	lastname = models.CharField(max_length=200,null=True)
+	email = models.CharField(max_length=200,null=True)
+	password = models.CharField(max_length=15,null=True)
+	mobile_no = models.BigIntegerField(null=True,blank=True)
 	gender = models.CharField(max_length=20,default="Male")
-	birthdate = models.DateField()
 	search = ListCharField(
 		base_field = models.CharField(max_length=10),
 		size = 5,
 		max_length = (5*11)
 	)
-	address = models.ForeignKey(Address, on_delete=models.CASCADE, null=False, blank=True)
-	user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=False, blank=True)
+	address = models.ForeignKey(Address, on_delete=models.CASCADE, null=True)
 
 	def __str__(self):
-	 return self.user.firstname
+		return self.firstname
 
 class Product(models.Model):
 	RATE = (
