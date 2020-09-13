@@ -435,16 +435,44 @@
                           </ul>
 
                           <!-- Card footer -->
-                          <div class="card-footer pb-0">
+                         <div class="card-footer pb-0">
 
                             <div class="row mb-0">
 
                               <span class="float-left">
 
-                                <strong>{{product.price}}</strong>
+                                <span class="h6-responsive font-weight-bold dark-grey-text">
+
+                                <strong>{{product.price|mul:product.discount}}&#x20b9;</strong>
+
+                                <span class="grey-text">
+
+                                  <small>
+                                    {% if  0|eql:product.discount %}
+                                    <s>{{product.price}}</s>&#x20b9;
+                                    {% endif %}
+                                  </small>
+
+                                </span>
+
+                                  <span>
+                                    {% if  0|eql:product.discount %}
+                                        {{product.discount}}&#37;
+                                    {% endif %}
+                                  </span>
+
 
                               </span>
+                              {% comment %} </span>
+                                  <span class="grey-text">
 
+                                    <small>
+
+                                      <s>&nbsp;$89</s>
+
+                                    </small>
+
+                                  </span> {% endcomment %}
                               <span class="float-right">
 
                                 <a href="/addtocart/{{product.id}}" >
@@ -537,16 +565,44 @@
                           </ul>
 
                           <!-- Card footer -->
-                          <div class="card-footer pb-0">
+                         <div class="card-footer pb-0">
 
                             <div class="row mb-0">
 
                               <span class="float-left">
 
-                                <strong>{{product.price}}</strong>
+                                <span class="h6-responsive font-weight-bold dark-grey-text">
+
+                                <strong>{{product.price|mul:product.discount}}&#x20b9;</strong>
+
+                                <span class="grey-text">
+
+                                  <small>
+                                    {% if  0|eql:product.discount %}
+                                    <s>{{product.price}}</s>&#x20b9;
+                                    {% endif %}
+                                  </small>
+
+                                </span>
+
+                                  <span>
+                                    {% if  0|eql:product.discount %}
+                                        {{product.discount}}&#37;
+                                    {% endif %}
+                                  </span>
+
 
                               </span>
+                              {% comment %} </span>
+                                  <span class="grey-text">
 
+                                    <small>
+
+                                      <s>&nbsp;$89</s>
+
+                                    </small>
+
+                                  </span> {% endcomment %}
                               <span class="float-right">
 
                                 <a href="/addtocart/{{product.id}}" >

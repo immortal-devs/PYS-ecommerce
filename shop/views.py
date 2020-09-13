@@ -105,7 +105,7 @@ def verification(request):
     password = request.POST.get('password')
     for i in Customer.objects.all():
         if email == i.email and password == i.password:
-            request.session['name'] = i.firstname
+            request.session['name'] = i.firstname.capitalize()
             request.session['email'] = i.email
             request.session['cid'] = i.id 
             return HttpResponseRedirect('/shop')
@@ -115,7 +115,7 @@ def verification(request):
 def verificationsocial(request):
     for i in User.objects.all():
         if User.is_authenticated:
-            request.session['name'] = i.first_name
+            request.session['name'] = i.first_name.capitalize()
             return HttpResponseRedirect('/shop')
 
 def signup(request):
