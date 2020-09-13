@@ -65,26 +65,31 @@ def receipt(request):
     
 
 def checkout(request):
+    print("it's checkout page:------------------------------- ")
     context={}
+    cid=0000
+    name="qwertyuiop"
     if request.session.get('name') and request.session.get('cid'):
         name = request.session.get('name')
         cid = request.session.get('cid')
         q=Customer.objects.get(user_id=cid)
         context={}
-        context["name"]=name
-        total=0
+        context["name"]=name 
+        total=totalQuantity=0
         for i in shopping_cart.objects.all():
             if i.customer_id==q.id:
                 price=i.product.price
                 pname=i.product.name
                 quantity=i.quantity
-                image=i.product.imageURL
                 totalprice=i.quantity*i.product.price
+                totalQuantity+=quantity
                 total += totalprice
-                cartid=i.id
-                color=i.product.color
-                context.setdefault("products",[]).append([pname,price,quantity,totalprice,image,cartid,color,i.product.id])
+                context.setdefault("products",[]).append([pname,price,quantity,totalprice,i.product.id])
+        context["totalQuantity"]=totalQuantity        
         context["total"] = total
+    # print("cname: ",name)
+    # print("cid: ",cid)
+    # print("context: ",context)
     return render(request, 'checkout.html', context)
 
 

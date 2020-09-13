@@ -47,22 +47,10 @@
                             <tr>
                                 <td class="col-md-9"><em>{{product|index:0}}</em></h4></td>
                                 <td class="col-md-1" style="text-align: center"> {{product|index:2}}</td>
-                                <td class="col-md-1 text-center">{{product|index:1}}</td>
-                                <td class="col-md-1 text-center">{{product|index:3}}</td>
+                                <td class="col-md-1 text-center">{{product|index:1}}&#x20b9;</td>
+                                <td class="col-md-1 text-center">{{product|index:3}}&#x20b9;</td>
                             </tr>
                         {% endfor %}
-                        {% comment %} <tr>
-                            <td class="col-md-9"><em>Lebanese Cabbage Salad</em></h4></td>
-                            <td class="col-md-1" style="text-align: center"> 1 </td>
-                            <td class="col-md-1 text-center">$8</td>
-                            <td class="col-md-1 text-center">$8</td>
-                        </tr>
-                        <tr>
-                            <td class="col-md-9"><em>Baked Tart with Thyme and Garlic</em></h4></td>
-                            <td class="col-md-1" style="text-align: center"> 3 </td>
-                            <td class="col-md-1 text-center">$16</td>
-                            <td class="col-md-1 text-center">$48</td>
-                        </tr> {% endcomment %}
                         <tr>
                             <td>   </td>
                             <td>   </td>
@@ -75,17 +63,17 @@
                             </p></td>
                             <td class="text-center">
                             <p>
-                                <strong>{{subtotal}}</strong>
+                                <strong>{{subtotal}}&#x20b9;</strong>
                             </p>
                             <p>
-                                <strong>{{tax}}</strong>
+                                <strong>{{tax}}&#x20b9;</strong>
                             </p></td>
                         </tr>
                         <tr>
                             <td>   </td>
                             <td>   </td>
                             <td class="text-right"><h4><strong>Total: </strong></h4></td>
-                            <td class="text-center text-danger"><h4><strong>{{total}}</strong></h4></td>
+                            <td class="text-center text-danger"><h4><strong>{{total}}&#x20b9;</strong></h4></td>
                         </tr>
                     </tbody>
                 </table>
