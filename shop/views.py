@@ -215,6 +215,20 @@ def shop(request):
     else:
         return render(request, 'shop.html', context)
 
+def myaccount(request):
+    if request.session.get('name') and request.session.get('cid'):
+        name = request.session.get('name')
+        cid = request.session.get('cid')
+        q=Customer.objects.get(user_id=cid)
+        context={}
+        context["name"]=name
+        for i in Customer.objects.all():
+            if i.id==q.id:
+                gender = i.gender
+                email = i.user.email
+                context.setdefault("user",[]).append([gender,email])
+        return render(request, 'myaccount.html', context)
+
 def logout(request):
     del request.session['name']
     del request.session['cid']

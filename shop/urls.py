@@ -17,6 +17,7 @@ urlpatterns = [
 	path('forgotpassword/', views.forgotpassword, name="forgotpassword"),
 	path('newpassword/', views.newpassword, name="newpassword"),
 	path('addnewpassword/', views.addnewpassword, name="addnewpassword"),
+	path('myaccount/', views.myaccount, name="myaccount"),
 	path('category/', views.category, name="category"),
 	path('product/<int:id>', views.product, name="product"),
 	path('cart/', views.cart, name="cart"),
