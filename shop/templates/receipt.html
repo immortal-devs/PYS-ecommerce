@@ -43,7 +43,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for Product in products %}
+                        {% for product in products %}
                             <tr>
                                 <td class="col-md-9"><em>{{product|index:0}}</em></h4></td>
                                 <td class="col-md-1" style="text-align: center"> {{product|index:2}}</td>
@@ -75,7 +75,7 @@
                             </p></td>
                             <td class="text-center">
                             <p>
-                                <strong>{{Subtotal}}</strong>
+                                <strong>{{subtotal}}</strong>
                             </p>
                             <p>
                                 <strong>{{tax}}</strong>
@@ -85,11 +85,11 @@
                             <td>   </td>
                             <td>   </td>
                             <td class="text-right"><h4><strong>Total: </strong></h4></td>
-                            <td class="text-center text-danger"><h4><strong>{{Total}}</strong></h4></td>
+                            <td class="text-center text-danger"><h4><strong>{{total}}</strong></h4></td>
                         </tr>
                     </tbody>
                 </table>
-                <button type="button" class="btn btn-success btn-lg btn-block">
+                <button type="button" class="btn btn-success btn-lg btn-block mb-5">
                     Pay Now   <span class="glyphicon glyphicon-chevron-right"></span>
                 </button></td>
             </div>

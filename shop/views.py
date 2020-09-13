@@ -57,9 +57,9 @@ def receipt(request):
                 subtotal += totalprice
                 context.setdefault("products",[]).append([pname,price,quantity,totalprice,i.product.id])
     tax=float(subtotal) * 0.18
-    total=float(subtotal) + tax
+    total=float(subtotal) + int(tax)
     context["subtotal"]=subtotal
-    context["tax"]=tax
+    context["tax"]=int(tax)
     context["total"] = total
     return render(request, 'receipt.html', context)
     
