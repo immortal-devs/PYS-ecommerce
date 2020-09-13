@@ -41,7 +41,7 @@ def product(request,id):
 
 def receipt(request):
     context={}
-    total=subtotal=0
+    total=subtotal=totaltax=0
     if request.session.get('name') and request.session.get('cid'):
         name = request.session.get('name')
         cid = request.session.get('cid')
@@ -50,16 +50,19 @@ def receipt(request):
         context["name"]=name
         for i in shopping_cart.objects.all():
             if i.customer_id==q.id:
-                price=i.product.price
+                price=int(i.product.price)
+                totalprice=i.quantity*i.product.price
                 pname=i.product.name
                 quantity=i.quantity
-                totalprice=i.quantity*i.product.price
+                tax=int(price*0.18)
+                totaltax+=tax
+                price=price-tax
                 subtotal += totalprice
-                context.setdefault("products",[]).append([pname,price,quantity,totalprice,i.product.id])
+                context.setdefault("products",[]).append([pname,price,quantity,totalprice,tax,i.product.id])
     tax=float(subtotal) * 0.18
-    total=float(subtotal) + int(tax)
+    total=float(subtotal) + int(totaltax)
     context["subtotal"]=subtotal
-    context["tax"]=int(tax)
+    context["totaltax"]=int(totaltax)
     context["total"] = total
     return render(request, 'receipt.html', context)
     
