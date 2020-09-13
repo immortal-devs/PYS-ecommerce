@@ -4,8 +4,11 @@
 {% block content %}
 <main>
     <div class="container">
-        {{name}}
-        {{user|index:0}}
+        <div>Your Name: {{name}}</div>
+        {% for user in users %}
+            <div>Gender: {{user|index:0}}</div>
+            <div>Email: {{user|index:1}}</div>
+        {% endfor %}
     </div>
 </main>
 {% endblock %}

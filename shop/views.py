@@ -226,7 +226,7 @@ def myaccount(request):
             if i.id==q.id:
                 gender = i.gender
                 email = i.user.email
-                context.setdefault("user",[]).append([gender,email])
+                context.setdefault("users",[]).append([gender,email])
         return render(request, 'myaccount.html', context)
 
 def logout(request):
