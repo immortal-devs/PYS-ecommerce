@@ -55,12 +55,12 @@ def receipt(request):
                 pname=i.product.name
                 quantity=i.quantity
                 tax=int(price*0.18)
-                totaltax+=tax
+                totaltax+=tax*quantity
                 price=price-tax
-                subtotal += totalprice
+                subtotal += price*quantity
                 context.setdefault("products",[]).append([pname,price,quantity,totalprice,tax,i.product.id])
-    tax=float(subtotal) * 0.18
-    total=float(subtotal) + int(totaltax)
+    # tax=float(subtotal) * 0.18
+    total=int(subtotal) + int(totaltax)
     context["subtotal"]=subtotal
     context["totaltax"]=int(totaltax)
     context["total"] = total
