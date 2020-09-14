@@ -8,7 +8,13 @@
   <main style="margin-top:160px">
 
     <div class="container-fluid mb-5">
+      <script type="text/javascript">var submitted=false;</script>
+      <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"      
+    onload="if(submitted) {window.location='http://localhost:8000/shop/';}"></iframe>
 
+    <form action="https://docs.google.com/forms/u/2/d/e/1FAIpQLSe0t60SO8xkgouqarvAwktDYPyDt-3hnlrpIL_lJBQldoBLbA/formResponse" 
+    method="POST" target="hidden_iframe" onsubmit="return validateForm();" >
+      
       <!-- Grid row -->
       <div class="row" style="margin-top: -140px;">
 
@@ -46,7 +52,7 @@
 
                               <div class="md-form mb-0">
 
-                                <input type="text" id="form-contact-name" class="form-control">
+                                <input type="text" id="form-contact-name" name="entry.574882542" class="form-control">
 
                                 <label for="form-contact-name" class="">Your name</label>
 
@@ -60,43 +66,9 @@
 
                               <div class="md-form mb-0">
 
-                                <input type="text" id="form-contact-email" class="form-control">
+                                <input type="text" id="form-contact-email" name="entry.234440658" class="form-control">
 
                                 <label for="form-contact-email" class="">Your email</label>
-
-                              </div>
-
-                            </div>
-                            <!-- Grid column -->
-
-                          </div>
-                          <!-- Grid row -->
-
-                          <!-- Grid row -->
-                          <div class="row">
-
-                            <!-- Grid column -->
-                            <div class="col-md-6">
-
-                              <div class="md-form mb-0">
-
-                                <input type="text" id="form-contact-phone" class="form-control">
-
-                                <label for="form-contact-phone" class="">Your phone</label>
-
-                              </div>
-
-                            </div>
-                            <!-- Grid column -->
-
-                            <!-- Grid column -->
-                            <div class="col-md-6">
-
-                              <div class="md-form mb-0">
-
-                                <input type="text" id="form-contact-company" class="form-control">
-
-                                <label for="form-contact-company" class="">Your company</label>
 
                               </div>
 
@@ -114,16 +86,36 @@
 
                               <div class="md-form mb-0">
 
-                                <textarea type="text" id="form-contact-message" class="form-control md-textarea"
+                                <input type="text" id="form-contact-phone" name="entry.1771922162" class="form-control">
+
+                                <label for="form-contact-phone" class="">Your phone</label>
+
+                              </div>
+
+                            </div>
+                            <!-- Grid column -->
+
+                          </div>
+                          <!-- Grid row -->
+
+                          <!-- Grid row -->
+                          <div class="row">
+
+                            <!-- Grid column -->
+                            <div class="col-md-12">
+
+                              <div class="md-form mb-0">
+
+                                <textarea type="text" id="form-contact-message" name="entry.2051562023" class="form-control md-textarea"
                                   rows="3"></textarea>
 
                                 <label for="form-contact-message">Your message</label>
 
-                                <a class="btn-floating btn-lg blue">
+                                <button class="btn-floating btn-lg blue" type="submit"><a>
 
-                                  <i class="far fa-paper-plane"></i>
+                                <i class="far fa-paper-plane"></i>
 
-                                </a>
+                                </a></button>
 
                               </div>
 
@@ -230,10 +222,16 @@
 
       </div>
       <!-- Grid row -->
-
+      </form>
     </div>
 
   </main>
   <!-- Main Layout -->
+  <script type="text/javascript">
+    function validateForm() {
+        submitted=true;
+        return true;
+     }
+  </script>
 
  {% endblock  %}
