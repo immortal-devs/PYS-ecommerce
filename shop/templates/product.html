@@ -106,7 +106,27 @@
             <section class="color">
               <div>
                 <p class="ml-xl-0 ml-4">
-              <strong>color: </strong>{{product.color}}</p>
+              <strong>Color: </strong>{{product.color}}</p>
+                     
+                     <ul class="rating">
+                     </strong class="black-text" style="color:black">Rating: </strong>
+                          {% for star in product.rating|times %}
+                            <li> 
+ 
+                              <i class="fas fa-star blue-text"></i>
+
+                            </li>
+                          {% endfor %}
+                          {% for star in product.rating|times1 %}
+                            <li>
+
+                              <i class="fas fa-star grey-text"></i>
+
+                            </li>
+                          {% endfor %}
+
+                          </ul>
+                      
                 <div class="row mt-3 mb-4">
                   <div class="col-md-12 text-center">
                         <a class="btn btn-primary btn-rounded" href="/addtocart/{{product.id}}" >
