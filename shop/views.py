@@ -377,27 +377,24 @@ def addtocart(request,id):
 
 def search (request):
     searchdict={
-        "Green":"Green", "Gren":"Green", "Grn":"Green", "Greeen":"Green",
-        "Yellow":"Yellow","Llow":"Yellow","Yelow":"Yellow","Ylw":"Yellow",
-        "Black":"Black","Balek":"Black","Blk":"Black","Bleck":"Black",
-       
-    }
-    print("-----------------------------------------search-dict up------------------------------------------------------")
-    
+         "Gren":"Green", "Grn":"Green", "Greeen":"Green",
+        "Llow":"Yellow","Yelow":"Yellow","Ylw":"Yellow",
+        "Balek":"Black","Blk":"Black","Bleck":"Black",
+        "Woman":"Women","wman":"Women","Wmn":"Women",
+        "Man":"Men","Mn":"Men",
+        "Kid":"Kids","ked":"Kids","Child":"Kids","Cild":"kids","Children":"Kids","chidren":"Kids","cld":"Kids","cheldren":"Kids","chaldran":"Kids",
+    } 
     search=""
     context={}
     search1list=[]
     if request.session.get('name'):
         name = request.session.get('name')
         context['name']= name
-    
     search=request.POST.get('searchq').capitalize()
     print(search)
     if search in searchdict.keys():
-        print("in keys.....................",search)
         search=searchdict[search]
-    cnt1=0
-        
+    cnt1=0   
     for products in Product.objects.all():
         categoryp=products.category
         if search in categoryp:

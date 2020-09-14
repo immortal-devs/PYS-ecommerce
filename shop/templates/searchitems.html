@@ -9,7 +9,11 @@
 <div style="padding-top:100px; padding-bottom:10px">
     <div>
         {% comment %} <h3>your search result is: </h3> {% endcomment %}
-        <h3 >Your results for "{{search}}" : </h3>
+        {% if search1list%}
+        <h3 >Your results for " {{search}}" : </h3>
+        {% else %}
+        <h3> We don't have "{{search}}" </h3>
+        {% endif %}
     </div>
 </div>
  <div class="row">
