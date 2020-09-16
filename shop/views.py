@@ -220,7 +220,8 @@ def updatedetail(request,id):
         q.firstname = request.POST.get('firstname')
         q.lastname = request.POST.get('lastname')
         q.email = request.POST.get('email')
-        q.mobileno = request.POST.get('mobile_no')
+        q.gender = request.POST.get('gender')
+        q.mobile_no = request.POST.get('mobile_no')
         q.save()
         return HttpResponseRedirect('/myaccount/')
 
