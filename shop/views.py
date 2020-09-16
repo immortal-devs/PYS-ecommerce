@@ -207,6 +207,10 @@ def myaccount(request):
         context["name"]=name
         context["custid"]=q.id
         context["customer"]=q
+        address=q.address
+        context["address"]=address
+        custaddress=", ".join(map(str,[address.first_len,address.second_len,address.city,address.state,address.pincode]))
+        context["custaddress"]=custaddress
         return render(request, 'myaccount.html', context)
 
 def updatedetail(request,id):
@@ -222,6 +226,13 @@ def updatedetail(request,id):
         q.email = request.POST.get('email')
         q.gender = request.POST.get('gender')
         q.mobile_no = request.POST.get('mobile_no')
+        address=q.address
+        address.first_len=request.POST.get('first_len')
+        address.second_len=request.POST.get('second_len')
+        address.city=request.POST.get('city')
+        address.state=request.POST.get('state')
+        address.pincode=request.POST.get('pincode')
+        address.save()
         q.save()
         return HttpResponseRedirect('/myaccount/')
 
