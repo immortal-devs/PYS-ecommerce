@@ -59,19 +59,14 @@ def receipt(request):
                 price=price-tax
                 subtotal += price*quantity
                 context.setdefault("products",[]).append([pname,price,quantity,totalprice,tax,i.product.id])
-    # tax=float(subtotal) * 0.18
     total=int(subtotal) + int(totaltax)
     context["subtotal"]=subtotal
     context["totaltax"]=int(totaltax)
     context["total"] = total
     return render(request, 'receipt.html', context)
-    
 
 def checkout(request):
-    print("it's checkout page:------------------------------- ")
     context={}
-    cid=0000
-    name="qwertyuiop"
     if request.session.get('name') and request.session.get('cid'):
         name = request.session.get('name')
         cid = request.session.get('cid')
@@ -90,9 +85,6 @@ def checkout(request):
                 context.setdefault("products",[]).append([pname,price,quantity,totalprice,i.product.id])
         context["totalQuantity"]=totalQuantity        
         context["total"] = total
-    # print("cname: ",name)
-    # print("cid: ",cid)
-    # print("context: ",context)
     return render(request, 'checkout.html', context)
 
 def login(request):
@@ -213,12 +205,24 @@ def myaccount(request):
         q=Customer.objects.get(id=cid)
         context={}
         context["name"]=name
-        for i in Customer.objects.all():
-            if i.id==q.id:
-                gender = i.gender
-                email = i.email
-                context.setdefault("users",[]).append([gender,email])
+        context["custid"]=q.id
+        context["customer"]=q
         return render(request, 'myaccount.html', context)
+
+def updatedetail(request,id):
+    if request.session.get('name') and request.session.get('cid'):
+        name = request.session.get('name')
+        cid = request.session.get('cid')
+        q=Customer.objects.get(id=id)
+        context={}
+        context["name"]=name
+        qwertyz = request.POST.get('firstname')
+        q.firstname = request.POST.get('firstname')
+        q.lastname = request.POST.get('lastname')
+        q.email = request.POST.get('email')
+        q.mobileno = request.POST.get('mobile_no')
+        q.save()
+        return HttpResponseRedirect('/myaccount/')
 
 def logout(request):
     del request.session['name']

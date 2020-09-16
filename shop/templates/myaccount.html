@@ -31,20 +31,19 @@
               </div>
               <!-- Card image -->
               <div class="card-body card-body-cascade text-center">
-              <form>
+              {% comment %} <form> {% endcomment %}
                 <div class="row">
                   <div class="col-md-12">
                     <div class="md-form mb-0">
-                      <input type="text" id="form1" class="form-control validate" value="{{name}}" disabled>
+                      <input type="text" id="form1" class="form-control validate" value="{{customer.firstname}}&nbsp;{{customer.lastname}}" disabled>
                       <label for="form1" data-error="wrong" data-success="right">Name</label>
                     </div>
                   </div>
                 </div>
-                {% for user in users %}
                 <div class="row">
                     <div class="col-md-12">
                       <div class="md-form mb-0">
-                        <input type="text" id="form1" class="form-control validate" value="{{user|index:1}}" disabled>
+                        <input type="text" id="form1" class="form-control validate" value="{{customer.email}}" disabled>
                         <label for="form1" data-error="wrong" data-success="right">Email ID</label>
                       </div>
                     </div>
@@ -52,13 +51,12 @@
                   <div class="row">
                     <div class="col-md-12">
                       <div class="md-form mb-0">
-                        <input type="text" id="form1" class="form-control validate" value="{{user|index:0}}" disabled>
-                        <label for="form1" data-error="wrong" data-success="right">Gender</label>
+                        <input type="text" id="form1" class="form-control validate" value="{{customer.mobile_no}}" disabled>
+                        <label for="form1" data-error="wrong" data-success="right">Mobile Number</label>
                       </div>
                     </div>
                   </div>
-                  {% endfor %}
-             </form>
+             {% comment %} </form> {% endcomment %}
             </div>
             </div>
             <!-- Card -->
@@ -82,19 +80,21 @@
               <div class="card-body card-body-cascade text-center">
 
                 <!-- Edit Form -->
-                <form>
+                {% comment %} <form> {% endcomment %}
+                <form class="text-center" style="color: #757575;" action="/updatedetail/{{custid}}" method="POST">
+        {% csrf_token %}
                   <!-- First row -->
 
                   <div class="row">
-                    {% for user in users %}
+                   
                     <!-- First column -->
                     <div class="col-md-12">
                       <div class="md-form mb-0">
-                        <input type="text" id="form1" class="form-control validate" value="{{user|index:1}}" disabled>
+                        <input type="text" id="form1" name="email" class="form-control validate" value="{{customer.email}}" >
                         <label for="form1" data-error="wrong" data-success="right">Email ID</label>
                       </div>
                     </div>
-                    {% endfor %}
+                    
                     </div>
                   <!-- First row -->
 
@@ -103,7 +103,7 @@
                     <!-- First column -->
                     <div class="col-md-6">
                       <div class="md-form mb-0">
-                        <input type="text" id="form81" class="form-control validate">
+                        <input type="text" id="form81" name="firstname" class="form-control validate" value="{{customer.firstname}}">
                         <label for="form81" data-error="wrong" data-success="right">First name</label>
                       </div>
                     </div>
@@ -111,8 +111,25 @@
                     <!-- Second column -->
                     <div class="col-md-6">
                       <div class="md-form mb-0">
-                        <input type="text" id="form82" class="form-control validate">
+                        <input type="text" id="form82"name="lastname" class="form-control validate"value="{{customer.lastname}}">
                         <label for="form82" data-error="wrong" data-success="right">Last name</label>
+                      </div>
+                    </div> 
+                  </div>
+                  <div class="row">
+                    <!-- First column -->
+                    <div class="col-md-6">
+                      <div class="md-form mb-0">
+                        <input type="text" id="form81" name="mobile_no"class="form-control validate"value="{{customer.mobile_no}}">
+                        <label for="form81" data-error="wrong" data-success="right">Mobile Number</label>
+                      </div>
+                    </div>
+
+                    <!-- Second column -->
+                    <div class="col-md-6">
+                      <div class="md-form mb-0">
+                        <input type="text" id="form82"name="gender" class="form-control validate"value="{{customer.gender}}">
+                        <label for="form82" data-error="wrong" data-success="right">Gender</label>
                       </div>
                     </div>
                   </div>
@@ -122,7 +139,7 @@
                   <div class="row">
                     <div class="col-md-12">
                       <div class="md-form mb-0">
-                        <input type="text" id="form77" class="form-control validate">
+                        <input type="text" id="form77" name="address" class="form-control validate"value="">
                         <label for="form77" data-error="wrong" data-success="right">Address</label>
                       </div>
                     </div>
@@ -131,7 +148,9 @@
                   <!-- Fourth row -->
                   <div class="row">
                     <div class="col-md-12 text-center my-4">
-                      <input type="submit" value="Update Account" class="btn btn-info btn-rounded">
+                      {% comment %} <input type="submit" value="Update Account" class="btn btn-info btn-rounded"> {% endcomment %}
+                       <button class="btn btn-info btn-rounded  waves-effect z-depth-0" type="submit">Update Account</button>
+
                     </div>
                   </div>
                   <!-- Fourth row -->
