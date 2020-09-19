@@ -85,6 +85,9 @@ def checkout(request):
                 context.setdefault("products",[]).append([pname,price,quantity,totalprice,i.product.id])
         context["totalQuantity"]=totalQuantity        
         context["total"] = total
+        context["customer"]=q
+        context["address"]=q.address
+        print(context)
     return render(request, 'checkout.html', context)
 
 def login(request):
