@@ -11,7 +11,7 @@ def times1(number):
 
 @register.filter
 def mul(v1, v2):
-    return v1  * (100-v2)/100
+    return v1  * (100-v2)//100
 
 @register.filter
 def eql(v1,v2):
