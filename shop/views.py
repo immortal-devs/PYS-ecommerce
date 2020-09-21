@@ -59,6 +59,10 @@ def receipt(request):
                 price=price-tax
                 subtotal += price*quantity
                 context.setdefault("products",[]).append([pname,price,quantity,totalprice,tax,i.product.id])
+                address=q.address
+                context["address"]=address
+                custaddress=", ".join(map(str,[address.first_len,address.second_len,address.city,address.state,address.pincode]))
+                context["custaddress"]=custaddress
     total=int(subtotal) + int(totaltax)
     context["subtotal"]=subtotal
     context["totaltax"]=int(totaltax)
