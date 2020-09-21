@@ -89,6 +89,9 @@ def checkout(request):
                 context.setdefault("products",[]).append([pname,price,quantity,totalprice,i.product.id])
         context["totalQuantity"]=totalQuantity        
         context["total"] = total
+        context["customer"]=q
+        context["address"]=q.address
+        print(context)
     return render(request, 'checkout.html', context)
 
 def login(request):
@@ -394,16 +397,27 @@ def addtocart(request,id):
         return redirect('/shop')
     else:
         return redirect('/shop')
-
+    
 def search (request):
+    searchdict={
+         "Gren":"Green", "Grn":"Green", "Greeen":"Green",
+        "Llow":"Yellow","Yelow":"Yellow","Ylw":"Yellow",
+        "Balek":"Black","Blk":"Black","Bleck":"Black",
+        "Woman":"Women","wman":"Women","Wmn":"Women",
+        "Man":"Men","Mn":"Men",
+        "Kid":"Kids","ked":"Kids","Child":"Kids","Cild":"kids","Children":"Kids","chidren":"Kids","cld":"Kids","cheldren":"Kids","chaldran":"Kids",
+    } 
     search=""
     context={}
+    search1list=[]
     if request.session.get('name'):
         name = request.session.get('name')
         context['name']= name
     search=request.POST.get('searchq').capitalize()
-    cnt1=0
-    search1list=[]
+    print(search)
+    if search in searchdict.keys():
+        search=searchdict[search]
+    cnt1=0   
     for products in Product.objects.all():
         categoryp=products.category
         if search in categoryp:
@@ -412,5 +426,6 @@ def search (request):
                 search1list.append(products)
             else:
                 break
+    context["search"]=search
     context["search1list"]=search1list
     return render(request, 'searchitems.html', context)
