@@ -8,6 +8,7 @@ from django.db import IntegrityError
 from datetime import datetime, timedelta, date
 import math, random
 import json
+import random
 from .models import Address, Admin_detail, Customer, Order, OrderItem, Product, shopping_cart
 from django.views.decorators.csrf import csrf_exempt
 from . import Checksum
@@ -66,10 +67,15 @@ def receipt(request):
                 context["address"]=address
                 custaddress=", ".join(map(str,[address.first_len,address.second_len,address.city,address.state,address.pincode]))
                 context["custaddress"]=custaddress
+                
+    invoiceno=int(random.random() * 1000000)
+    context["invoiceno"]=invoiceno
+    request.session['invoiceno']=invoiceno
     total=int(subtotal) + int(totaltax)
     context["subtotal"]=subtotal
     context["totaltax"]=int(totaltax)
     context["total"] = total
+    request.session['total']=total
     return render(request, 'receipt.html', context)
 
 def checkout(request):
@@ -436,18 +442,29 @@ def search (request):
 @csrf_exempt
 def payment(request):
     email = 'yashsuhagiya401@gmail.com'
+    orderid=request.session.get("invoiceno")
+    amount=request.session.get("total")
     param_dict={
         'MID': 'UkrRLw57778088991509',
-        'ORDER_ID': str(1),
-        'TXN_AMOUNT': str(100),
+        'ORDER_ID': str(orderid),
+        'TXN_AMOUNT': str(amount),
         'CUST_ID': email,
         'INDUSTRY_TYPE_ID': 'Retail',
         'WEBSITE': 'WEBSTAGING',
         'CHANNEL_ID': 'WEB',
         'CALLBACK_URL':'http://127.0.0.1:8000/paytm/',
+
     }
+    
     param_dict['CHECKSUMHASH'] = Checksum.generate_checksum(param_dict, MERCHANT_KEY)
     return  render(request, 'paytm.html', {'param_dict': param_dict})
+
+def order(request,response_dict):
+        print("order func")
+        cid = request.session.get('cid')
+        s=Order( customer=cid, status="Done", transaction_id=response_dict['TXNID'])
+        s.save()
+        print(" order func end")
 
 @csrf_exempt
 def paytm(request):
@@ -457,11 +474,18 @@ def paytm(request):
         response_dict[i] = form[i]
         if i == 'CHECKSUMHASH':
             checksum = form[i]
-
     verify = Checksum.verify_checksum(response_dict, MERCHANT_KEY, checksum)
+    print(verify)
+    print(response_dict)
     if verify:
         if response_dict['RESPCODE'] == '01':
             print('order successful')
+            
         else:
             print('order was not successful because' + response_dict['RESPMSG'])
+
+    order(request, response_dict)
+    print("after order func")
     return HttpResponse('done')
+
+    
