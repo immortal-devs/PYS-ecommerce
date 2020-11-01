@@ -7,8 +7,11 @@ from django.conf import settings
 from django.db import IntegrityError
 from datetime import datetime, timedelta, date
 import math, random
+import json
 from .models import Address, Admin_detail, Customer, Order, OrderItem, Product, shopping_cart
-
+from django.views.decorators.csrf import csrf_exempt
+from . import Checksum
+MERCHANT_KEY = 'j4zE3okbkZGg71&Z'
 
 def product(request,id):
     context={}
@@ -429,3 +432,36 @@ def search (request):
     context["search"]=search
     context["search1list"]=search1list
     return render(request, 'searchitems.html', context)
+
+@csrf_exempt
+def payment(request):
+    email = 'yashsuhagiya401@gmail.com'
+    param_dict={
+        'MID': 'UkrRLw57778088991509',
+        'ORDER_ID': str(1),
+        'TXN_AMOUNT': str(100),
+        'CUST_ID': email,
+        'INDUSTRY_TYPE_ID': 'Retail',
+        'WEBSITE': 'WEBSTAGING',
+        'CHANNEL_ID': 'WEB',
+        'CALLBACK_URL':'http://127.0.0.1:8000/paytm/',
+    }
+    param_dict['CHECKSUMHASH'] = Checksum.generate_checksum(param_dict, MERCHANT_KEY)
+    return  render(request, 'paytm.html', {'param_dict': param_dict})
+
+@csrf_exempt
+def paytm(request):
+    form = request.POST
+    response_dict = {}
+    for i in form.keys():
+        response_dict[i] = form[i]
+        if i == 'CHECKSUMHASH':
+            checksum = form[i]
+
+    verify = Checksum.verify_checksum(response_dict, MERCHANT_KEY, checksum)
+    if verify:
+        if response_dict['RESPCODE'] == '01':
+            print('order successful')
+        else:
+            print('order was not successful because' + response_dict['RESPMSG'])
+    return HttpResponse('done')
