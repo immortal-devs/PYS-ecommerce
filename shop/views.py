@@ -163,10 +163,13 @@ def myaccount(request):
         context["name"]=name
         context["custid"]=q.id
         context["customer"]=q
-        address=q.address
-        context["address"]=address
-        custaddress=", ".join(map(str,[address.first_len,address.second_len,address.city,address.state,address.pincode]))
-        context["custaddress"]=custaddress
+        if q.address == 'null':
+            address=q.address
+            context["address"]=address
+            custaddress=", ".join(map(str,[address.first_len,address.second_len,address.city,address.state,address.pincode]))
+            context["custaddress"]=custaddress
+        else:
+            context["custaddress"]=' '
         return render(request, 'myaccount.html', context)
 
 def updatedetail(request,id):
@@ -435,7 +438,8 @@ def checkout(request):
         context["totalQuantity"]=totalQuantity        
         context["total"] = total
         context["customer"]=q
-        context["address"]=q.address
+        if q.address != 'null':
+            context["address"]=q.address
         print(context)
     return render(request, 'checkout.html', context)
 
