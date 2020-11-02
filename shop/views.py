@@ -43,66 +43,6 @@ def product(request,id):
     context["rproducts3"]=rproductlist3
     return render(request, 'product.html', context)
 
-def receipt(request):
-    context={}
-    total=subtotal=totaltax=0
-    if request.session.get('name') and request.session.get('cid'):
-        name = request.session.get('name')
-        cid = request.session.get('cid')
-        context["cid"]=cid
-        q=Customer.objects.get(id=cid)
-        context["name"]=name
-        for i in shopping_cart.objects.all():
-            if i.customer_id==q.id:
-                price=int(i.product.price)
-                totalprice=i.quantity*i.product.price
-                pname=i.product.name
-                quantity=i.quantity
-                tax=int(price*0.18)
-                totaltax+=tax*quantity
-                price=price-tax
-                subtotal += price*quantity
-                context.setdefault("products",[]).append([pname,price,quantity,totalprice,tax,i.product.id])
-                address=q.address
-                context["address"]=address
-                custaddress=", ".join(map(str,[address.first_len,address.second_len,address.city,address.state,address.pincode]))
-                context["custaddress"]=custaddress
-                
-    invoiceno=int(random.random() * 1000000)
-    context["invoiceno"]=invoiceno
-    request.session['invoiceno']=invoiceno
-    total=int(subtotal) + int(totaltax)
-    context["subtotal"]=subtotal
-    context["totaltax"]=int(totaltax)
-    context["total"] = total
-    request.session['total']=total
-    return render(request, 'receipt.html', context)
-
-def checkout(request):
-    context={}
-    if request.session.get('name') and request.session.get('cid'):
-        name = request.session.get('name')
-        cid = request.session.get('cid')
-        q=Customer.objects.get(id=cid)
-        context={}
-        context["name"]=name 
-        total=totalQuantity=0
-        for i in shopping_cart.objects.all():
-            if i.customer_id==q.id:
-                price=i.product.price
-                pname=i.product.name
-                quantity=i.quantity
-                totalprice=i.quantity*i.product.price
-                totalQuantity+=quantity
-                total += totalprice
-                context.setdefault("products",[]).append([pname,price,quantity,totalprice,i.product.id])
-        context["totalQuantity"]=totalQuantity        
-        context["total"] = total
-        context["customer"]=q
-        context["address"]=q.address
-        print(context)
-    return render(request, 'checkout.html', context)
-
 def login(request):
     context = {}
     context.update(csrf(request))
@@ -439,9 +379,69 @@ def search (request):
     context["search1list"]=search1list
     return render(request, 'searchitems.html', context)
 
+def receipt(request):
+    context={}
+    total=subtotal=totaltax=0
+    if request.session.get('name') and request.session.get('cid'):
+        name = request.session.get('name')
+        cid = request.session.get('cid')
+        context["cid"]=cid
+        q=Customer.objects.get(id=cid)
+        context["name"]=name
+        for i in shopping_cart.objects.all():
+            if i.customer_id==q.id:
+                price=int(i.product.price)
+                totalprice=i.quantity*i.product.price
+                pname=i.product.name
+                quantity=i.quantity
+                tax=int(price*0.18)
+                totaltax+=tax*quantity
+                price=price-tax
+                subtotal += price*quantity
+                context.setdefault("products",[]).append([pname,price,quantity,totalprice,tax,i.product.id])
+                address=q.address
+                context["address"]=address
+                custaddress=", ".join(map(str,[address.first_len,address.second_len,address.city,address.state,address.pincode]))
+                context["custaddress"]=custaddress
+                
+    invoiceno=int(random.random() * 1000000)
+    context["invoiceno"]=invoiceno
+    request.session['invoiceno']=invoiceno
+    total=int(subtotal) + int(totaltax)
+    context["subtotal"]=subtotal
+    context["totaltax"]=int(totaltax)
+    context["total"] = total
+    request.session['total']=total
+    return render(request, 'receipt.html', context)
+
+def checkout(request):
+    context={}
+    if request.session.get('name') and request.session.get('cid'):
+        name = request.session.get('name')
+        cid = request.session.get('cid')
+        q=Customer.objects.get(id=cid)
+        context={}
+        context["name"]=name 
+        total=totalQuantity=0
+        for i in shopping_cart.objects.all():
+            if i.customer_id==q.id:
+                price=i.product.price
+                pname=i.product.name
+                quantity=i.quantity
+                totalprice=i.quantity*i.product.price
+                totalQuantity+=quantity
+                total += totalprice
+                context.setdefault("products",[]).append([pname,price,quantity,totalprice,i.product.id])
+        context["totalQuantity"]=totalQuantity        
+        context["total"] = total
+        context["customer"]=q
+        context["address"]=q.address
+        print(context)
+    return render(request, 'checkout.html', context)
+
 @csrf_exempt
 def payment(request):
-    email = 'yashsuhagiya401@gmail.com'
+    email = request.session.get("email")
     orderid=request.session.get("invoiceno")
     amount=request.session.get("total")
     param_dict={
@@ -459,13 +459,15 @@ def payment(request):
     param_dict['CHECKSUMHASH'] = Checksum.generate_checksum(param_dict, MERCHANT_KEY)
     return  render(request, 'paytm.html', {'param_dict': param_dict})
 
+@csrf_exempt
 def order(request,response_dict):
-        print("order func")
-        cid = request.session.get('cid')
-        s=Order( customer=cid, status="Done", transaction_id=response_dict['TXNID'])
-        s.save()
-        print(" order func end")
-
+    print("order func")
+    cid = request.session.get('cid')
+    q=Customer.objects.get(id=cid)
+    s=Order(customer=q.id, date_ordered=response_dict['TXNDATE'] , status=response_dict['STATUS'], transaction_id=response_dict['TXNID'])
+    s.save()
+    print(" order func end")
+    
 @csrf_exempt
 def paytm(request):
     form = request.POST
