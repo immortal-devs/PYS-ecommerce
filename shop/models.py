@@ -18,7 +18,7 @@ class Customer(models.Model):
 	firstname = models.CharField(max_length=200,null=True)
 	lastname = models.CharField(max_length=200,null=True)
 	email = models.CharField(max_length=200,null=True)
-	password = models.CharField(max_length=15,null=True)
+	password = models.CharField(max_length=200,null=True)
 	mobile_no = models.BigIntegerField(null=True,blank=True)
 	gender = models.CharField(max_length=20,default="Male")
 	search = ListCharField(
