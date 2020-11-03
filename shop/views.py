@@ -445,19 +445,19 @@ def checkout(request):
 
 @csrf_exempt
 def payment(request):
-    email = request.session.get("email")
+    cid = request.session.get('cid')
+    q=Customer.objects.get(id=cid)
     orderid=request.session.get("invoiceno")
     amount=request.session.get("total")
     param_dict={
         'MID': 'UkrRLw57778088991509',
         'ORDER_ID': str(orderid),
         'TXN_AMOUNT': str(amount),
-        'CUST_ID': email,
+        'CUST_ID': str(q.id),
         'INDUSTRY_TYPE_ID': 'Retail',
         'WEBSITE': 'WEBSTAGING',
         'CHANNEL_ID': 'WEB',
         'CALLBACK_URL':'http://127.0.0.1:8000/paytm/',
-
     }
     
     param_dict['CHECKSUMHASH'] = Checksum.generate_checksum(param_dict, MERCHANT_KEY)
