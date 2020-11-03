@@ -191,13 +191,23 @@ def updatedetail(request,id):
         q.email = request.POST.get('email')
         q.gender = request.POST.get('gender')
         q.mobile_no = request.POST.get('mobile_no')
-        address=q.address
-        address.first_len=request.POST.get('first_len')
-        address.second_len=request.POST.get('second_len')
-        address.city=request.POST.get('city')
-        address.state=request.POST.get('state')
-        address.pincode=request.POST.get('pincode')
-        address.save()
+        first_len=request.POST.get('first_len')
+        second_len=request.POST.get('second_len')
+        city=request.POST.get('city')
+        state=request.POST.get('state')
+        pincode=request.POST.get('pincode')
+        if q.address != None:
+            address=q.address
+            address.first_len=first_len
+            address.second_len=second_len
+            address.city=city
+            address.state=state
+            address.pincode=pincode
+            address.save()
+        else:
+            s = Address(first_len=first_len,second_len=second_len,city=city,state=state,pincode=pincode)
+            s.save()
+            q.address = Address.objects.latest('id')
         q.save()
         return HttpResponseRedirect('/myaccount/')
 
