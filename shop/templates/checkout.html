@@ -29,10 +29,10 @@
                 <div class="col-md-6 mb-2">
 
                   <!--firstName-->
-                  <div class="md-form ">
+                  {% comment %} <div class="md-form ">
                     <input type="text" id="firstName"value="{{customer.firstname}}" class="form-control">
                     <label for="firstName" class="">First name</label>
-                  </div>
+                  </div> {% endcomment %}
 
                 </div>
                 <!--Grid column-->
@@ -41,10 +41,10 @@
                 <div class="col-md-6 mb-2">
 
                   <!--lastName-->
-                  <div class="md-form">
+                  {% comment %} <div class="md-form">
                     <input type="text" id="lastName"value="{{customer.lastname}}" class="form-control">
                     <label for="lastName" class="">Last name</label>
-                  </div>
+                  </div> {% endcomment %}
 
                 </div>
                 <!--Grid column-->
@@ -61,10 +61,10 @@
               </div>
 
               email-->
-              <div class="md-form mb-5">
+              {% comment %} <div class="md-form mb-5">
                 <input type="text" id="email" class="form-control" value="{{customer.email}}"placeholder="youremail@example.com">
                 <label for="email" class="">Email (optional)</label>
-              </div>
+              </div> {% endcomment %}
 
               <!--address-->
               <div class="md-form mb-5">
@@ -237,14 +237,14 @@
           <!-- Cart -->
 
           <!-- Promo code -->
-          <form class="card p-2">
+          {% comment %} <form class="card p-2">
             <div class="input-group">
               <input type="text" class="form-control" placeholder="Promo code" aria-label="Recipient's username" aria-describedby="basic-addon2">
               <div class="input-group-append">
                 <button class="btn btn-secondary btn-md waves-effect m-0" type="button">Redeem</button>
               </div>
             </div>
-          </form>
+          </form> {% endcomment %}
           <!-- Promo code -->
 
         </div>

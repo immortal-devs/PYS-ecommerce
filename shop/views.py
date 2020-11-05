@@ -14,6 +14,8 @@ from django.views.decorators.csrf import csrf_exempt
 from . import Checksum
 MERCHANT_KEY = 'j4zE3okbkZGg71&Z'
 
+cidx=None
+
 def product(request,id):
     context={}
     if request.session.get('name'):
@@ -56,6 +58,8 @@ def verification(request):
             request.session['name'] = i.firstname.capitalize()
             request.session['email'] = i.email
             request.session['cid'] = i.id 
+            cidx=i.id
+            # response.set_cookie('cid', i.id)  
             return HttpResponseRedirect('/shop')
     else:
         return render(request, 'login.html', {'error': 'Email Or Password is incorrect.'})
@@ -466,9 +470,13 @@ def payment(request):
 @csrf_exempt
 def order(request,response_dict):
     print("order func")
-    cid = request.session.get('cid')
-    q=Customer.objects.get(id=cid)
-    s=Order(customer=q.id, date_ordered=response_dict['TXNDATE'] , status=response_dict['STATUS'], transaction_id=response_dict['TXNID'])
+    cid=cidx
+    print("cidx",cidx)
+    print("cid",cid)
+    # cid=request.COOKIES['cid']
+    # cid = request.session.get('cid')
+    # q=Customer.objects.get(id=cid)
+    s=Order(customer=cid, date_ordered=response_dict['TXNDATE'] , status=response_dict['STATUS'], transaction_id=response_dict['TXNID'])
     s.save()
     print(" order func end")
     
