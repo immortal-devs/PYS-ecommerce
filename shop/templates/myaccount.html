@@ -13,10 +13,15 @@
 </main> -->
 
 <main>
+  
     <div class="container-fluid">
-
+      {% if message %}
+				<div class=alert><span class=closebtn onclick="this.parentElement.style.display='none'">&times;</span>
+        <strong>{{ message }} </strong></div>
+		    {% endif %}
       <!-- Section: Edit Account -->
       <section class="section">
+        
         <!-- First row -->
         <div class="row">
           <!-- First column -->
@@ -129,7 +134,7 @@
                     <!-- First column -->
                     <div class="col-md-6">
                       <div class="md-form mb-0">
-                        <input type="text" id="form81" name="mobile_no"class="form-control validate"value="{{customer.mobile_no}}">
+                        <input type="text" id="form81" name="mobile_no"class="form-control validate" value="{{customer.mobile_no}}">
                         <label for="form81" data-error="wrong" data-success="right">Mobile Number</label>
                       </div>
                     </div>
@@ -137,7 +142,7 @@
                     <!-- Second column -->
                     <div class="col-md-6">
                       <div class="md-form mb-0">
-                        <input type="text" id="form82"name="gender" class="form-control validate"value="{{customer.gender}}">
+                        <input type="text" id="form82"name="gender" class="form-control validate" value="{{customer.gender}}">
                         <label for="form82" data-error="wrong" data-success="right">Gender</label>
                       </div>
                     </div>
@@ -149,7 +154,7 @@
                     <!-- First column -->
                     <div class="col-md-6">
                       <div class="md-form mb-0">
-                        <input type="text" id="form81" name="first_len"class="form-control validate"value="{{address.first_len}}">
+                        <input type="text" id="form81" name="first_len"class="form-control validate" value="{{address.first_len}}" required>
                         <label for="form81" data-error="wrong" data-success="right">First Len</label>
                       </div>
                     </div>
@@ -157,7 +162,7 @@
                     <!-- Second column -->
                     <div class="col-md-6">
                       <div class="md-form mb-0">
-                        <input type="text" id="form82"name="second_len" class="form-control validate"value="{{address.second_len}}">
+                        <input type="text" id="form82"name="second_len" class="form-control validate" value="{{address.second_len}}" required>
                         <label for="form82" data-error="wrong" data-success="right">Second Len</label>
                       </div>
                     </div>
@@ -166,7 +171,7 @@
                     <!-- First column -->
                     <div class="col-md-6">
                       <div class="md-form mb-0">
-                        <input type="text" id="form81" name="city"class="form-control validate"value="{{address.city}}">
+                        <input type="text" id="form81" name="city"class="form-control validate"value="{{address.city}}" required>
                         <label for="form81" data-error="wrong" data-success="right">City</label>
                       </div>
                     </div>
@@ -174,7 +179,7 @@
                     <!-- Second column -->
                     <div class="col-md-6">
                       <div class="md-form mb-0">
-                        <input type="text" id="form82"name="state" class="form-control validate"value="{{address.state}}">
+                        <input type="text" id="form82"name="state" class="form-control validate"value="{{address.state}}" required>
                         <label for="form82" data-error="wrong" data-success="right">State</label>
                       </div>
                     </div>
@@ -185,7 +190,7 @@
                   <div class="row">
                     <div class="col-md-6">
                       <div class="md-form mb-0">
-                        <input type="text" id="form77" name="pincode" class="form-control validate"value="{{address.pincode}}">
+                        <input type="text" id="form77" name="pincode" class="form-control validate"value="{{address.pincode}}" required>
                         <label for="form77" data-error="wrong" data-success="right">Pincode</label>
                       </div>
                     </div>

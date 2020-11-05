@@ -12,6 +12,8 @@ import random
 from .models import Address, Admin_detail, Customer, Order, OrderItem, Product, shopping_cart
 from django.views.decorators.csrf import csrf_exempt
 from . import Checksum
+import hashlib 
+from django.contrib.auth.decorators import login_required
 MERCHANT_KEY = 'j4zE3okbkZGg71&Z'
 
 cidx=None
@@ -43,6 +45,7 @@ def product(request,id):
     context["rproducts1"]=rproductlist1
     context["rproducts2"]=rproductlist2
     context["rproducts3"]=rproductlist3
+    context["title"] = "Product"
     return render(request, 'product.html', context)
 
 def login(request):
@@ -53,6 +56,8 @@ def login(request):
 def verification(request):
     email = request.POST.get('email')
     password = request.POST.get('password')
+    password = hashlib.md5(password.encode())
+    password = password.hexdigest()
     for i in Customer.objects.all():
         if email == i.email and password == i.password:
             request.session['name'] = i.firstname.capitalize()
@@ -86,6 +91,8 @@ def registrationdata(request):
         if email == i.email:
             return render(request, 'signup.html', {'error': 'This email is already in use!!'})
     if pass1 == pass2:
+        pass1 = hashlib.md5(pass1.encode())
+        pass1 = pass1.hexdigest()
         s = Customer(firstname=firstname, lastname=lastname, email=email, password=pass1, mobile_no=mobileno)
         s.save() 
         return HttpResponseRedirect('/login/')
@@ -150,12 +157,9 @@ def shop(request):
         name = request.session.get('name')
         context['name']= name
         context["carttotalq"]=carttotalq
-        print("name: ",name)
-        print("cid: ",cid)
         return render(request, 'shop.html', context)
     else:
-        print("name: ")
-        print("cid: ")
+        
         return render(request, 'shop.html', context)
 
 def myaccount(request):
@@ -167,13 +171,15 @@ def myaccount(request):
         context["name"]=name
         context["custid"]=q.id
         context["customer"]=q
-        if q.address == 'null':
+        context["title"] = "Your Account"
+        if q.address != None:
             address=q.address
             context["address"]=address
             custaddress=", ".join(map(str,[address.first_len,address.second_len,address.city,address.state,address.pincode]))
             context["custaddress"]=custaddress
         else:
             context["custaddress"]=' '
+            context["message"]='please enter address...'
         return render(request, 'myaccount.html', context)
 
 def updatedetail(request,id):
@@ -189,13 +195,23 @@ def updatedetail(request,id):
         q.email = request.POST.get('email')
         q.gender = request.POST.get('gender')
         q.mobile_no = request.POST.get('mobile_no')
-        address=q.address
-        address.first_len=request.POST.get('first_len')
-        address.second_len=request.POST.get('second_len')
-        address.city=request.POST.get('city')
-        address.state=request.POST.get('state')
-        address.pincode=request.POST.get('pincode')
-        address.save()
+        first_len=request.POST.get('first_len')
+        second_len=request.POST.get('second_len')
+        city=request.POST.get('city')
+        state=request.POST.get('state')
+        pincode=request.POST.get('pincode')
+        if q.address != None:
+            address=q.address
+            address.first_len=first_len
+            address.second_len=second_len
+            address.city=city
+            address.state=state
+            address.pincode=pincode
+            address.save()
+        else:
+            s = Address(first_len=first_len,second_len=second_len,city=city,state=state,pincode=pincode)
+            s.save()
+            q.address = Address.objects.latest('id')
         q.save()
         return HttpResponseRedirect('/myaccount/')
 
@@ -280,6 +296,7 @@ def cart(request):
         cid = request.session.get('cid')
         q=Customer.objects.get(id=cid)
         context={}
+        context["title"] = "Cart"
         context["name"]=name
         total=0
         for i in shopping_cart.objects.all():
@@ -329,11 +346,13 @@ def removequantity(request,id):
     
 def contact(request):
     context = {} 
+    context["title"] = "Contact Us"
     if request.session.get('name'):
         name = request.session.get('name')
         context["name"]=name
     return render(request, 'contact.html', context)
 
+@login_required
 def addtocart(request,id):
     productq= Product.objects.get(id=id)
     cid = request.session.get('cid')
@@ -365,6 +384,7 @@ def search (request):
     } 
     search=""
     context={}
+    context["title"] = "Search Results"
     search1list=[]
     if request.session.get('name'):
         name = request.session.get('name')
@@ -388,6 +408,7 @@ def search (request):
 
 def receipt(request):
     context={}
+    context["title"] = "Receipt"
     total=subtotal=totaltax=0
     if request.session.get('name') and request.session.get('cid'):
         name = request.session.get('name')
@@ -423,6 +444,7 @@ def receipt(request):
 
 def checkout(request):
     context={}
+    context["title"] = "Checkout"
     if request.session.get('name') and request.session.get('cid'):
         name = request.session.get('name')
         cid = request.session.get('cid')
@@ -442,8 +464,10 @@ def checkout(request):
         context["totalQuantity"]=totalQuantity        
         context["total"] = total
         context["customer"]=q
-        if q.address != 'null':
+        if q.address != None:
             context["address"]=q.address
+        else:
+            return HttpResponseRedirect('/myaccount/')
         print(context)
     return render(request, 'checkout.html', context)
 
@@ -478,7 +502,7 @@ def order(request,response_dict):
     # q=Customer.objects.get(id=cid)
     s=Order(customer=cid, date_ordered=response_dict['TXNDATE'] , status=response_dict['STATUS'], transaction_id=response_dict['TXNID'])
     s.save()
-    print(" order func end")
+    print("order func end")
     
 @csrf_exempt
 def paytm(request):
@@ -494,12 +518,9 @@ def paytm(request):
     if verify:
         if response_dict['RESPCODE'] == '01':
             print('order successful')
-            
         else:
             print('order was not successful because' + response_dict['RESPMSG'])
 
     order(request, response_dict)
     print("after order func")
     return HttpResponse('done')
-
-    
