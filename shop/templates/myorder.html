@@ -10,7 +10,7 @@
 
     <!-- Section cart -->
     <section class="section my-4 pb-4">
-
+      {% if products %}
       <div class="card card-ecommerce">
 
         <div class="card-body">
@@ -101,7 +101,11 @@
             </table>
           </div>
         </div>
-      </div>
+        {% else %}
+        <h1>
+          Nothing ordered yet!
+        </h1> 
+    {% endif %}
     </section>
   </div>
 </main>
