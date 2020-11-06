@@ -5,12 +5,11 @@
 <!-- Main Layout -->
 <main>
 
-    {% if context.products %}
   <!-- Main Container -->
   <div class="container">
 
     <!-- Section cart -->
-    <section class="section my-5 pb-5">
+    <section class="section my-4 pb-4">
 
       <div class="card card-ecommerce">
 
@@ -45,8 +44,6 @@
 
                   </th>
 
-                  <th></th>
-
                   <th class="font-weight-bold">
 
                     <strong>Price</strong>
@@ -64,9 +61,6 @@
                     <strong>Amount</strong>
 
                   </th>
-
-                  <th></th>
-
                 </tr>
 
               </thead>
@@ -91,41 +85,16 @@
                       <strong>{{product|index:0}}</strong>
                     </h5>
                   </td>
-                  <td>{{product|index:6}}</td> 
-                  <td></td>
-                  <td>{{product|index:8}}</td> 
-                  <td></td>
+                  <td>{{product|index:8}}</td>
+                  <td>{{product|index:6}}</td>
               
                   <td>{{product|index:1}}&#x20b9;</td>
               
-                  <td class="text-center text-md-left">
-
-                    <span class="qty">{{product|index:2}} </span>
-
-                    <div  class="btn-group radio-group ml-2" >
-                    
-                        <a type="button" class="btn btn-sm btn-primary btn-rounded" style="color: white; margin-left: 0; " href="removequantity/{{product|index:5}}">-</a>
-                   
-                        <a type="button" class="btn btn-sm btn-primary btn-rounded" style="color: white; margin-left: 0;" href="addquantity/{{product|index:5}}">+</a>
-                    
-                    </div>
-
-                  </td>
-
+                  <td>{{product|index:2}}</td>
                   <td class="font-weight-bold">
                     <strong>{{product|index:3}}&#x20b9;</strong>
 
                   </td>
-
-                  <td>
-
-                      <a type="button" class="btn btn-sm btn-primary " style="color: white;" href="delete/{{product|index:5}}">X</a>
-
-                    </button>
-                
-                  </td>
-
-
                 </tr>
                 {% endfor %}
                 <tr>
@@ -140,12 +109,6 @@
                       <strong>{{total}}&#x20b9;</strong>
                     </h4>
                   </td>
-                  <td colspan="3" class="text-right">
-                      <a href="/checkout">
-                    <button type="button" class="btn btn-primary btn-rounded">Complete purchase
-                      <i class="fas fa-angle-right right"></i>
-                    </button>
-                  </td>
                 </tr>
               </tbody>
             </table>
@@ -154,10 +117,5 @@
       </div>
     </section>
   </div>
-  {% else %}
-<h1>
-    No Order
-</h1>
-  {% endif %}
 </main>
 {% endblock %}

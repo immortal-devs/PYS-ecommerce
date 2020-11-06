@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load index %}
+<link rel="stylesheet" type="text/css" href="../static/css/style.css">
+{% block content %}
+<main>
+    <div class="container">
+
+        <!-- Section cart -->
+        <section class="section my-4 pb-4">
+            <div class="card card-ecommerce">
+
+                <div class="card-body" >
+                    <p>
+                    <h1>
+                        <span style="color: green;"><b>Order Successfully Placed !!</b></span>
+                    </h1>
+                    <br>
+                    </p>
+                    <p>
+                        <a href="/myorder">
+                            <button type="button" class="btn btn-primary btn-rounded">View Order History
+                                <i class="fas fa-angle-right right"></i>
+                            </button>
+
+                        <a href="/shop">
+                            <button type="button" class="btn btn-primary btn-rounded">Countinue Shopping
+                                <i class="fas fa-angle-right right"></i>
+                            </button>
+                    </p>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+{% endblock %}

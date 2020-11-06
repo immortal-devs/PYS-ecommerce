@@ -448,13 +448,13 @@ def receipt(request):
 
 def checkout(request):
     context={}
-    context["title"] = "Checkout"
     if request.session.get('name') and request.session.get('cid'):
         name = request.session.get('name')
         cid = request.session.get('cid')
         q=Customer.objects.get(id=cid)
         context={}
         context["name"]=name 
+        context["title"] = "Checkout"
         total=totalQuantity=0
         for i in shopping_cart.objects.all():
             if i.customer_id==q.id:
@@ -516,7 +516,7 @@ def order(request,response_dict):
     for i in shopping_cart.objects.all():
         if i.customer_id==q.id:
             quantity=i.quantity
-            orderitem=OrderItem(product=i.product, order=s, quantity=quantity,date_added=response_dict['TXNDATE'])
+            orderitem=OrderItem(product=i.product, customer=q, order=s, quantity=quantity,date_added=response_dict['TXNDATE'])
             orderitem.save()
     for i in shopping_cart.objects.all():
         print("for.....")
@@ -539,21 +539,24 @@ def paytm(request):
     if verify:
         if response_dict['RESPCODE'] == '01':
             order(request, response_dict)
-            return redirect('/successfull')
+            return redirect('/successful')
 
             print('order successful')
         else:
             print('order was not successful because' + response_dict['RESPMSG'])
-            return redirect('/successfull')
+            return redirect('/successful')
 
-def successfull(request):
-
-    return  render(request, 'successfull.html')
+def successful(request):
+    context = {}
+    context["title"] = "Success"
+    name = request.session.get('name')
+    context["name"] = name
+    return  render(request, 'successful.html', context)
 
 def myorder(request):
     cid=request.session.get("cid")
     context={}
-    context["title"] = "My Order"
+    context["title"] = "Orders"
     
     total=0
     for i in OrderItem.objects.all():
