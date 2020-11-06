@@ -567,9 +567,11 @@ def myorder(request):
             quantity=i.quantity
             image=i.product.imageURL
             totalprice=i.quantity*i.product.price
+            total += totalprice
+            cartid=i.id
             color=i.product.color
             date=i.date_added
-            context.setdefault("products",[]).append([pname,price,quantity,totalprice,image,color,i.product.id,date])
+            context.setdefault("products",[]).append([pname,price,quantity,totalprice,image,cartid,color,i.product.id,date])
     print("myorder")
     print(context)
     return  render(request, 'myorder.html',context)
