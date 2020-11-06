@@ -5,11 +5,13 @@
   <!-- Main Layout -->
   <main>
 
+    
     <!-- Main Container -->
     <div class="container">
 
       <!-- Section cart -->
       <section class="section my-5 pb-5">
+        {% if products %}
 
         <div class="card card-ecommerce">
 
@@ -113,7 +115,6 @@
 
                         <a type="button" class="btn btn-sm btn-primary " style="color: white;" href="delete/{{product|index:5}}">X</a>
 
-                      </button>
                   
                     </td>
 
@@ -144,7 +145,15 @@
             </div>
           </div>
         </div>
+      {% else %}
+          <h1>
+            Your basket is empty!
+          </h1> 
+      {% endif %}
       </section>
     </div>
+    
+
+   
   </main>
 {% endblock %}

@@ -1,5 +1,7 @@
+
 <!DOCTYPE html>
 {% load static %}
+{% load index %}
 <html lang="en">
 
 <head>
@@ -34,7 +36,7 @@
           </a>
         </li>
         <li class="nav-item ml-3">
-          <a href="orders/">
+          <a href="addproduct/">
             Order Received
           </a>
         </li>
@@ -66,110 +68,120 @@
   </nav>   
   
 </header>
-
 <main>
-    <!-- Main Container -->
-    <div class="container">
 
-      <!-- Section cart -->
-      <section class="section my-5 pb-5">
+  <!-- Main Container -->
+  <div class="container">
 
-        <div class="card card-ecommerce">
+    <!-- Section cart -->
+    <section class="section my-4 pb-4">
+      {% if products %}
+      <div class="card card-ecommerce">
 
-          <div class="card-body">
+        <div class="card-body">
 
-            <!-- Shopping Cart table -->
-            <div class="table-responsive">
+          <!-- Shopping Cart table -->
+          <div class="table-responsive">
 
-              <table class="table product-table table-cart-v-2">
+            <table class="table product-table table-cart-v-2">
 
-                <!-- Table head -->
-                <thead class="mdb-color lighten-5">
+              <!-- Table head -->
+              <thead class="mdb-color lighten-5">
 
-                  <tr>
+                <tr>
 
-                    <th></th>
+                  <th></th>
 
-                    <th class="font-weight-bold">
+                  <th class="font-weight-bold">
 
-                      <strong>Product</strong>
+                    <strong>Product</strong>
 
-                    </th>
+                  </th>
+                  <th class="font-weight-bold">
 
-                    <th></th>
+                    <strong>Date</strong>
 
-                    <th class="font-weight-bold">
+                  </th>
 
-                      <strong>Price</strong>
+                 
 
-                    </th>
+                  <th class="font-weight-bold">
 
-                    <th class="font-weight-bold">
+                    <strong>Price</strong>
 
-                      <strong>Color</strong>
+                  </th>
 
-                    </th>
+                  <th class="font-weight-bold">
 
-                    <th class="font-weight-bold">
+                    <strong>QTY</strong>
 
-                      <strong>Size</strong>
+                  </th>
 
-                    </th>
+                  <th class="font-weight-bold">
 
-                    <th class="font-weight-bold">
+                    <strong>Amount</strong>
 
-                      <strong>Category</strong>
+                  </th>
+                  <th class="font-weight-bold">
 
-                    </th>
+                    <strong>delivered</strong>
 
-                    <th class="font-weight-bold">
+                  </th>
+                </tr>
 
-                      <strong>Stock</strong>
+              </thead>
+              <!-- Table head -->
 
-                    </th>
+              <!-- Table body -->
+              <tbody>
 
-                    <th></th>
+              {% for product in products %}
 
-                  </tr>
+                <!-- First row -->
+                <tr>
+                  <td scope="row">
+                  <a href="/product/{{product|index:7}}">
+                  <div class="view overlay" style="height:150px;  overflow: hidden;">
+                      <img src="{{product|index:4}}" >
+                    </a>
+                  </div>
+                  </td>
+                    <td>
+                    <h5 class="mt-3">
+                      <strong>{{product|index:0}}</strong>
+                    </h5>
+                  </td>
+                  <td>{{product|index:6}}</td>
+              
+                  <td>{{product|index:1}}&#x20b9;</td>
+              
+                  <td>{{product|index:2}}</td>
+                  <td class="font-weight-bold">
+                    <strong>{{product|index:3}}&#x20b9;</strong>
 
-                </thead>
-                <!-- Table head -->
-
-                <!-- Table body -->
-                <tbody>
-                {% for product in products %}
-                  <!-- First row -->
-                  <tr>
-                    <td scope="row"><img src="{{product.imageURL}}" ></td>
-                    <td>{{product.name}}</td>
-                    <td></td>
-                    <td>{{product.price}}</td>
-                    <td>{{product.color}}</td>
-                    <td>{{product.size}}</td>
-                    <td> {{product.category}} </td>
-                    <td>{{product.stock}}</td>
-                  </tr>
-                  <!-- First row -->
-                  {% endfor %}
-                </tbody>
-                <!-- Table body -->
-
-              </table>
-
-            </div>
-
-
+                  </td>
+                  <td>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
+                            <label class="custom-control-label" for="defaultUnchecked">delivered</label>
+                        </div>
+                        {% comment %} <a type="button" class="btn btn-sm btn-primary " style="color: white;" href="#">X</a> {% endcomment %}
+                    </td>
+                    
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
           </div>
-
         </div>
-
-      </section>
- 
-    </div>
-    <!-- Main Container -->
-
-  </main>
-<!-- SCRIPTS -->
+        {% else %}
+        <h1>
+          Nothing ordered yet!
+        </h1> 
+    {% endif %}
+    </section>
+  </div>
+</main>
   <!-- JQuery -->
   <script type="text/javascript" src="../static/js/jquery-3.4.1.min.js"></script>
   <!-- Bootstrap tooltips -->
