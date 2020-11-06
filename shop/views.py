@@ -552,12 +552,9 @@ def successfull(request):
 
 def myorder(request):
     cid=request.session.get("cid")
-    # for i in OrderItem.objects.all():
-    #     if i.cid == cid:
-    #         context[]
     context={}
     context["title"] = "My Order"
-    # context["name"]=
+    
     total=0
     for i in OrderItem.objects.all():
         if i.customer.id==cid:
@@ -569,6 +566,9 @@ def myorder(request):
             total += totalprice
             cartid=i.id
             color=i.product.color
-            context.setdefault("products",[]).append([pname,price,quantity,totalprice,image,cartid,color,i.product.id])
+            date=i.date_added
+            context.setdefault("products",[]).append([pname,price,quantity,totalprice,image,cartid,color,i.product.id,date])
     context["total"] = total
+    print("myorder")
+    print(context)
     return  render(request, 'myorder.html',context)
