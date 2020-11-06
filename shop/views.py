@@ -557,7 +557,8 @@ def myorder(request):
     cid=request.session.get("cid")
     context={}
     context["title"] = "Orders"
-    
+    name = request.session.get('name')
+    context["name"] = name
     total=0
     for i in OrderItem.objects.all():
         if i.customer.id==cid:
@@ -566,12 +567,9 @@ def myorder(request):
             quantity=i.quantity
             image=i.product.imageURL
             totalprice=i.quantity*i.product.price
-            total += totalprice
-            cartid=i.id
             color=i.product.color
             date=i.date_added
-            context.setdefault("products",[]).append([pname,price,quantity,totalprice,image,cartid,color,i.product.id,date])
-    context["total"] = total
+            context.setdefault("products",[]).append([pname,price,quantity,totalprice,image,color,i.product.id,date])
     print("myorder")
     print(context)
     return  render(request, 'myorder.html',context)
