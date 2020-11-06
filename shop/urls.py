@@ -30,5 +30,7 @@ urlpatterns = [
 	path('updatedetail/<int:id>',views.updatedetail),
 	path('payment/', views.payment, name="payment"),
 	path('paytm/', views.paytm, name="paytm"),
+	path('successfull/', views.successfull, name="successfull"),
+	path('myorder/', views.myorder, name="myorder"),
 	
 ]

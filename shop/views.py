@@ -9,7 +9,7 @@ from datetime import datetime, timedelta, date
 import math, random
 import json
 import random
-from .models import Address, Admin_detail, Customer, Order, OrderItem, Product, shopping_cart
+from .models import Address, Admin_detail, Customer, Order, OrderItem, Product, shopping_cart, paymentdata
 from django.views.decorators.csrf import csrf_exempt
 from . import Checksum
 import hashlib 
@@ -352,7 +352,7 @@ def contact(request):
         context["name"]=name
     return render(request, 'contact.html', context)
 
-@login_required
+# @login_required
 def addtocart(request,id):
     productq= Product.objects.get(id=id)
     cid = request.session.get('cid')
@@ -435,6 +435,10 @@ def receipt(request):
     invoiceno=int(random.random() * 1000000)
     context["invoiceno"]=invoiceno
     request.session['invoiceno']=invoiceno
+
+    s= paymentdata (orderid=invoiceno,cid=cid)
+    s.save()
+
     total=int(subtotal) + int(totaltax)
     context["subtotal"]=subtotal
     context["totaltax"]=int(totaltax)
@@ -493,16 +497,32 @@ def payment(request):
 
 @csrf_exempt
 def order(request,response_dict):
-    print("order func")
-    cid=cidx
-    print("cidx",cidx)
-    print("cid",cid)
-    # cid=request.COOKIES['cid']
-    # cid = request.session.get('cid')
-    # q=Customer.objects.get(id=cid)
-    s=Order(customer=cid, date_ordered=response_dict['TXNDATE'] , status=response_dict['STATUS'], transaction_id=response_dict['TXNID'])
+    orderid=response_dict['ORDERID']
+    print("orderid",orderid)
+    for i in paymentdata.objects.all():
+        if i.orderid == orderid:
+            cid=i.cid
+    print("cid ",cid)
+   
+    q=Customer.objects.get(id=cid)
+    print(q,cid,q.id)
+    s=Order(customer=q, date_ordered=response_dict['TXNDATE'] , status=response_dict['STATUS'], transaction_id=response_dict['TXNID'])
     s.save()
-    print("order func end")
+    # paymentdata.objects.get(cid=cid).delete()
+    for i in paymentdata.objects.all():
+        if i.cid == cid:
+            i.delete()
+
+    for i in shopping_cart.objects.all():
+        if i.customer_id==q.id:
+            quantity=i.quantity
+            orderitem=OrderItem(product=i.product, order=s, quantity=quantity,date_added=response_dict['TXNDATE'])
+            orderitem.save()
+    for i in shopping_cart.objects.all():
+        print("for.....")
+        if i.customer_id==q.id:
+            i.delete()
+    
     
 @csrf_exempt
 def paytm(request):
@@ -515,12 +535,40 @@ def paytm(request):
     verify = Checksum.verify_checksum(response_dict, MERCHANT_KEY, checksum)
     print(verify)
     print(response_dict)
+    
     if verify:
         if response_dict['RESPCODE'] == '01':
+            order(request, response_dict)
+            return redirect('/successfull')
+
             print('order successful')
         else:
             print('order was not successful because' + response_dict['RESPMSG'])
+            return redirect('/successfull')
 
-    order(request, response_dict)
-    print("after order func")
-    return HttpResponse('done')
+def successfull(request):
+
+    return  render(request, 'successfull.html')
+
+def myorder(request):
+    cid=request.session.get("cid")
+    # for i in OrderItem.objects.all():
+    #     if i.cid == cid:
+    #         context[]
+    context={}
+    context["title"] = "My Order"
+    # context["name"]=
+    total=0
+    for i in OrderItem.objects.all():
+        if i.customer.id==cid:
+            price=i.product.price
+            pname=i.product.name
+            quantity=i.quantity
+            image=i.product.imageURL
+            totalprice=i.quantity*i.product.price
+            total += totalprice
+            cartid=i.id
+            color=i.product.color
+            context.setdefault("products",[]).append([pname,price,quantity,totalprice,image,cartid,color,i.product.id])
+    context["total"] = total
+    return  render(request, 'myorder.html',context)
