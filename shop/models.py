@@ -29,7 +29,7 @@ class Customer(models.Model):
 	address = models.ForeignKey(Address, on_delete=models.CASCADE, null=True)
 
 	def __str__(self):
-		return self.firstname
+		return str(self.id)
 
 class Product(models.Model):
 	RATE = (
@@ -88,12 +88,13 @@ class Order(models.Model):
 
 class OrderItem(models.Model):
 	product = models.ForeignKey(Product, on_delete=models.CASCADE, null=False, blank=True)
+	customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=False, blank=True)
 	order = models.ForeignKey(Order, on_delete=models.CASCADE, null=False, blank=True)
 	quantity = models.IntegerField( default=1)
 	date_added = models.DateTimeField(auto_now_add=True)
 
 	def __str__(self):
-		return str(self.product.name+" "+self.order.customer.name)
+		return str(self.product.name+" "+self.order.customer.firstname)
 	
 
 class shopping_cart(models.Model):
@@ -104,3 +105,8 @@ class shopping_cart(models.Model):
 class Admin_detail(models.Model):
 	username = models.CharField(max_length=200)
 	password = models.CharField(max_length=15)
+
+class paymentdata(models.Model):
+	orderid = models.CharField(max_length=200)
+	cid = models.CharField(max_length=50)
+	
