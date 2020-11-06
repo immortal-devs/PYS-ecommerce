@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template.context_processors import csrf
 from django.conf import settings
@@ -67,11 +67,25 @@ def orders(request):
         quantity=i.quantity
         image=i.product.imageURL
         totalprice=i.quantity*i.product.price
-        cartid=i.id
+        orderitemid=i.id
         # color=i.product.color
         date=i.date_added
-        context.setdefault("products",[]).append([pname,price,quantity,totalprice,image,cartid,date,i.product.id])
+        status=i.delivered
+        context.setdefault("products",[]).append([pname,price,quantity,totalprice,image,i.product.id,date,orderitemid,status])
         print(pname,totalprice,i.product.id)
     print("qwqw")
     print(context)
     return render(request, 'orders.html', context)
+
+def orderstatus(request,id):
+    print("order status start")
+    if OrderItem.objects.filter(id=id):
+        print("if........")
+        q=OrderItem.objects.filter(id=id)
+        print(q)
+        if q.delivered != "Delivered":
+            q.delivered="Delivered"
+            q.save()
+        return redirect('/orders')
+
+       

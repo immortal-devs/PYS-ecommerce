@@ -92,6 +92,7 @@ class OrderItem(models.Model):
 	order = models.ForeignKey(Order, on_delete=models.CASCADE, null=False, blank=True)
 	quantity = models.IntegerField( default=1)
 	date_added = models.DateTimeField(auto_now_add=True)
+	delivered = models.CharField(max_length=50,default="Ordered")
 
 	def __str__(self):
 		return str(self.product.name+" "+self.order.customer.firstname)

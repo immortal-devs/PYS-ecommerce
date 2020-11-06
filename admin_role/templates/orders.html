@@ -140,7 +140,7 @@
                 <!-- First row -->
                 <tr>
                   <td scope="row">
-                  <a href="/product/{{product|index:7}}">
+                  <a href="/product/{{product|index:5}}">
                   <div class="view overlay" style="height:150px;  overflow: hidden;">
                       <img src="{{product|index:4}}" >
                     </a>
@@ -161,11 +161,11 @@
 
                   </td>
                   <td>
-                        <div class="custom-control custom-checkbox">
+                        {% comment %} <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
                             <label class="custom-control-label" for="defaultUnchecked">delivered</label>
-                        </div>
-                        {% comment %} <a type="button" class="btn btn-sm btn-primary " style="color: white;" href="#">X</a> {% endcomment %}
+                        </div> {% endcomment %}
+                        <a type="button" class="btn btn-sm btn-outline-primary waves-effect" style="color: white;" href="orderstatus/{{product|index:7}}">{{product|index:8}}</a>
                     </td>
                     
                 </tr>

@@ -12,5 +12,6 @@ urlpatterns = [
     path('checkuser/', views.checkuser, name="checkuser"),
     path('addproduct/', views.addproduct, name="addproduct"),
     path('orders/', views.orders, name="orders"),
+    path('orders/orderstatus/<int:id>', views.orderstatus, name="orderstatus"),
     path('checkproductdata/', views.checkproductdata, name="checkproductdata"),
 ]
