@@ -517,12 +517,17 @@ def order(request,response_dict):
     for i in shopping_cart.objects.all():
         if i.customer_id==q.id:
             quantity=i.quantity
+            if q.product.stock >= q.quantity:
+                product= q.product
+                product.stock -= q.quantity
+                product.save()
             orderitem=OrderItem(product=i.product, customer=q, order=s, quantity=quantity,date_added=response_dict['TXNDATE'])
             orderitem.save()
-    for i in shopping_cart.objects.all():
-        print("for.....")
-        if i.customer_id==q.id:
             i.delete()
+    # for i in shopping_cart.objects.all():
+    #     print("for.....")
+    #     if i.customer_id==q.id:
+            # i.delete()
     
     
 @csrf_exempt

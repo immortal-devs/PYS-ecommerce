@@ -86,10 +86,10 @@ def orderstatus(request,id):
         if q.delivered != "Delivered":
             q.delivered="Delivered"
             q.save()
-            if q.product.stock >= q.quantity:
-                product= q.product
-                product.stock -= q.quantity
-                product.save()
+            # if q.product.stock >= q.quantity:
+            #     product= q.product
+            #     product.stock -= q.quantity
+            #     product.save()
         return HttpResponseRedirect('/orders/')
 
        
