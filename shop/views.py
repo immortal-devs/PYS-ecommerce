@@ -510,9 +510,9 @@ def order(request,response_dict):
     for i in shopping_cart.objects.all():
         if i.customer_id==q.id:
             quantity=i.quantity
-            if q.product.stock >= q.quantity:
-                product= q.product
-                product.stock -= q.quantity
+            if i.product.stock >= i.quantity:
+                product= i.product
+                product.stock -= i.quantity
                 product.save()
             orderitem=OrderItem(product=i.product, customer=q, order=s, quantity=quantity,date_added=response_dict['TXNDATE'])
             orderitem.save()
