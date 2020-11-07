@@ -12,9 +12,12 @@
                 <div class="card-body" >
                     <p>
                     <h1>
+                        {% comment %} {% if status %}
                         
-                        <span style="color: green;"><b>Order Successfully Placed !!</b></span>
-                 
+                        <span style="color: red;">{{status}} !!</span>
+                    {% else %} {% endcomment %}
+                        <span style="color: red;"><b>Order failed!!</b></span>
+                    {% comment %} {% endif %} {% endcomment %}
                     </h1>
                     <br>
                     </p>

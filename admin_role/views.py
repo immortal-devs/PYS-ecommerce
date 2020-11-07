@@ -81,11 +81,15 @@ def orderstatus(request,id):
     print("order status start")
     if OrderItem.objects.filter(id=id):
         print("if........")
-        q=OrderItem.objects.filter(id=id)
+        q=OrderItem.objects.get(id=id)
         print(q)
         if q.delivered != "Delivered":
             q.delivered="Delivered"
             q.save()
-        return redirect('/orders')
+            if q.product.stock >= q.quantity:
+                product= q.product
+                product.stock -= q.quantity
+                product.save()
+        return HttpResponseRedirect('/orders/')
 
        

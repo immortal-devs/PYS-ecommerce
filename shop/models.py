@@ -82,7 +82,7 @@ class Order(models.Model):
 	date_ordered = models.DateTimeField(auto_now_add=True)
 	status = models.CharField(max_length=40, null=True, choices=STATUS)
 	transaction_id = models.CharField(max_length=200,null=True,blank=True,default="00000000")
-
+	# RESPMSG=models.CharField(max_length=500,null=True,blank=True,default="None")
 	def __str__(self):
 		return self.transaction_id
 

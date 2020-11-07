@@ -507,6 +507,7 @@ def order(request,response_dict):
     q=Customer.objects.get(id=cid)
     print(q,cid,q.id)
     s=Order(customer=q, date_ordered=response_dict['TXNDATE'] , status=response_dict['STATUS'], transaction_id=response_dict['TXNID'])
+    # s=Order(customer=q, date_ordered=response_dict['TXNDATE'] , status=response_dict['STATUS'], transaction_id=response_dict['TXNID'],RESPMSG=response_dict['RESPMSG'])
     s.save()
     # paymentdata.objects.get(cid=cid).delete()
     for i in paymentdata.objects.all():
@@ -544,7 +545,7 @@ def paytm(request):
             print('order successful')
         else:
             print('order was not successful because' + response_dict['RESPMSG'])
-            return redirect('/successful')
+            return redirect('/unsuccessful')
 
 def successful(request):
     context = {}
@@ -552,6 +553,13 @@ def successful(request):
     name = request.session.get('name')
     context["name"] = name
     return  render(request, 'successful.html', context)
+
+def unsuccessful(request):
+    context = {}
+    context["title"] = "failed"
+    name = request.session.get('name')
+    context["name"] = name
+    return  render(request, 'orderfailed.html', context)
 
 def myorder(request):
     cid=request.session.get("cid")
@@ -569,9 +577,10 @@ def myorder(request):
             totalprice=i.quantity*i.product.price
             total += totalprice
             cartid=i.id
-            color=i.product.color
+            # color=i.product.color
+            delivered=i.delivered
             date=i.date_added
-            context.setdefault("products",[]).append([pname,price,quantity,totalprice,image,cartid,color,i.product.id,date])
+            context.setdefault("products",[]).append([pname,price,quantity,totalprice,image,cartid,delivered,i.product.id,date])
     print("myorder")
     print(context)
     return  render(request, 'myorder.html',context)
