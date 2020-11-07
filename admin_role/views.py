@@ -5,8 +5,6 @@ from django.conf import settings
 
 from shop.models import Product, Admin_detail, OrderItem
 
-# Create your views here.
-
 def adminlogin(request):
     context = {}
     return render(request, 'adminlogin.html', context)
@@ -68,7 +66,6 @@ def orders(request):
         image=i.product.imageURL
         totalprice=i.quantity*i.product.price
         orderitemid=i.id
-        # color=i.product.color
         date=i.date_added
         status=i.delivered
         context.setdefault("products",[]).append([pname,price,quantity,totalprice,image,i.product.id,date,orderitemid,status])
@@ -86,10 +83,6 @@ def orderstatus(request,id):
         if q.delivered != "Delivered":
             q.delivered="Delivered"
             q.save()
-            # if q.product.stock >= q.quantity:
-            #     product= q.product
-            #     product.stock -= q.quantity
-            #     product.save()
         return HttpResponseRedirect('/orders/')
 
        

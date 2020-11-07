@@ -16,7 +16,6 @@ import hashlib
 from django.contrib.auth.decorators import login_required
 MERCHANT_KEY = 'j4zE3okbkZGg71&Z'
 
-cidx=None
 
 def product(request,id):
     context={}
@@ -63,8 +62,6 @@ def verification(request):
             request.session['name'] = i.firstname.capitalize()
             request.session['email'] = i.email
             request.session['cid'] = i.id 
-            cidx=i.id
-            # response.set_cookie('cid', i.id)  
             return HttpResponseRedirect('/shop')
     else:
         return render(request, 'login.html', {'error': 'Email Or Password is incorrect.'})
@@ -352,7 +349,6 @@ def contact(request):
         context["name"]=name
     return render(request, 'contact.html', context)
 
-# @login_required
 def addtocart(request,id):
     productq= Product.objects.get(id=id)
     cid = request.session.get('cid')
@@ -503,13 +499,10 @@ def order(request,response_dict):
         if i.orderid == orderid:
             cid=i.cid
     print("cid ",cid)
-   
     q=Customer.objects.get(id=cid)
     print(q,cid,q.id)
     s=Order(customer=q, date_ordered=response_dict['TXNDATE'] , status=response_dict['STATUS'], transaction_id=response_dict['TXNID'])
-    # s=Order(customer=q, date_ordered=response_dict['TXNDATE'] , status=response_dict['STATUS'], transaction_id=response_dict['TXNID'],RESPMSG=response_dict['RESPMSG'])
     s.save()
-    # paymentdata.objects.get(cid=cid).delete()
     for i in paymentdata.objects.all():
         if i.cid == cid:
             i.delete()
@@ -524,11 +517,6 @@ def order(request,response_dict):
             orderitem=OrderItem(product=i.product, customer=q, order=s, quantity=quantity,date_added=response_dict['TXNDATE'])
             orderitem.save()
             i.delete()
-    # for i in shopping_cart.objects.all():
-    #     print("for.....")
-    #     if i.customer_id==q.id:
-            # i.delete()
-    
     
 @csrf_exempt
 def paytm(request):
@@ -541,13 +529,10 @@ def paytm(request):
     verify = Checksum.verify_checksum(response_dict, MERCHANT_KEY, checksum)
     print(verify)
     print(response_dict)
-    
     if verify:
         if response_dict['RESPCODE'] == '01':
             order(request, response_dict)
             return redirect('/successful')
-
-            print('order successful')
         else:
             print('order was not successful because' + response_dict['RESPMSG'])
             return redirect('/unsuccessful')
@@ -582,7 +567,6 @@ def myorder(request):
             totalprice=i.quantity*i.product.price
             total += totalprice
             cartid=i.id
-            # color=i.product.color
             delivered=i.delivered
             date=i.date_added
             context.setdefault("products",[]).append([pname,price,quantity,totalprice,image,cartid,delivered,i.product.id,date])

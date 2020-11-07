@@ -7,11 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <title>{{title}}</title>
-  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
-  <!-- Bootstrap core CSS -->
   <link href="../static/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Material Design Bootstrap -->
   <link href="../static/css/mdb.min.css" rel="stylesheet">
   <link href="../static/css/style.css" rel="stylesheet">
   <style>
@@ -54,7 +51,7 @@
 
 <body class="homepage-v1 hidden-sn white-skin animated">
 
-  <!-- Navigation -->
+
   <header>
   
       <nav class="fixed-top navbar-expand-lg scrolling-navbar" style="height: 70px;">
@@ -64,10 +61,7 @@
         <div class="nav-items">
 
          <li class="nav-item ml-3">
-            <a href="/shop">
-              <!-- <span class="badge danger-color">4</span> -->
-              <!-- <img src="../static/images/svg/shopping-cart.svg" 
-              alt="cart_svg" style="height: 22px;padding-bottom: 3px;"> -->&nbsp; Shop 
+            <a href="/shop">&nbsp; Shop 
             </a>
           </li>
 
@@ -79,12 +73,6 @@
           </li>
 
           {% if request.session.name %}
-
-          {% comment %} <li class="nav-item ml-3">
-            <a href="#">
-              <img src="../static/images/svg/setting.svg" 
-              alt="cart_svg" style="height: 18px;padding-bottom: 3px;">&nbsp; Settings</a>
-          </li> {% endcomment %}
 
           <li class="nav-item dropdown ml-3">
 
@@ -120,87 +108,69 @@
     </nav>
       
     </header>
-  <!-- Navigation -->
 
 
-  <!-- Main Container -->
   <div class="container">
     {% block content %}
   
   
     {% endblock content %}
   </div>
-  <!-- Main Container -->
  
-    <!-- Footer -->
     <footer class="page-footer text-center text-md-left stylish-color-dark pt-0">
     
-    <!-- background-color: #4285f4 -->
     <div style=" background-image: linear-gradient(to right, purple , white);">
 
       <div class="container">
 
-        <!-- Grid row -->
         <div class="row py-4 d-flex align-items-center">
 
-          <!-- Grid column -->
           <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
 
             <h6 class="mb-0 white-text">Get connected with us on social networks!</h6>
 
           </div>
-          <!-- Grid column -->
 
-          <!-- Grid column -->
           <div class="col-md-6 col-lg-7 text-center text-md-right">
 
-            <!-- Facebook -->
             <a class="fb-ic ml-0 px-2" href="https://www.facebook.com/">
 
               <img src="../static/images/svg/facebook-round-color.svg" alt="cart_svg" style="height: 30px;" >
             </a>
 
-            <!-- Twitter -->
             <a class="tw-ic px-2"href="https://www.twitter.com/">
 
               <img src="../static/images/svg/twitter-round-color.svg" alt="cart_svg" style="height: 30px;" >
             </a>
 
-            <!-- Linkedin-->
             <a class="gplus-ic px-2"href="https://www.linkedin.com/">
 
               <img src="../static/images/svg/linkedin-round-color.svg" alt="cart_svg" style="height: 30px;" >
             </a>
 
-            <!-- Instagram -->
             <a class="li-ic px-2"href="https://www.instagram.com/">
 
 
               <img src="../static/images/svg/instagram-round-color.svg" alt="cart_svg" style="height: 30px;" >
             </a>
 
-            <!-- Telegram -->
             <a class="ins-ic px-2"href="https://www.google.com/">
 
               <img src="../static/images/svg/icons8-google.svg" alt="cart_svg" style="height: 30px;" >
             </a>
 
           </div>
-          <!-- Grid column -->
 
         </div>
-        <!-- Grid row -->
 
       </div>
 
     </div>
 
-    <!-- Footer Links -->
     <div class="container mt-5 mb-4 text-center text-md-left">
 
       <div class="row mt-3">
 
-        <!-- First column -->
         <div class="col-md-3 col-lg-4 col-xl-3 mb-4">
 
           <h6 class="text-uppercase font-weight-bold">
@@ -215,9 +185,6 @@
           find fancy, stylish and colorful clothes.We have clothes for Men, Women and Kids.</p>
 
         </div>
-        <!-- First column -->
-
-        <!-- Second column -->
         <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
 
           <h6 class="text-uppercase font-weight-bold">
@@ -225,44 +192,24 @@
             <strong>Products</strong>
 
           </h6>
-
           <hr class="blue mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
-
           <p>
-
             <a href="#!">Shirts and Tshirts</a>
-
           </p>
-
-          <p>
-
+          <p
             <a href="#!">Dresses</a>
-
           </p>
-
           <p>
-
             <a href="#!">Jackets</a>
-
           </p>
-
         </div>
-        <!-- Second column -->
-
-        <!-- Third column -->
         <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-
           <h6 class="text-uppercase font-weight-bold">
-
             <strong>Useful links</strong>
-
           </h6>
-
           <hr class="blue mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
-
           <p>
-
-            <a href="#!">Your Account</a>
+          <a href="#!">Your Account</a>
 
           </p>
 
@@ -285,9 +232,6 @@
           </p>
 
         </div>
-        <!-- Third column -->
-
-        <!-- Fourth column -->
         <div class="col-md-4 col-lg-3 col-xl-3">
 
           <h6 class="text-uppercase font-weight-bold">
@@ -309,18 +253,12 @@
           <p>
 
             <img src="https://img.icons8.com/ios-filled/30/ffffff/headset.png" alt="cart_svg" style="height: 22px;"/>&nbsp; +91 9033925646</p>
-            <!-- <object type="image/svg+xml" data="../static/images/svg/call.svg" style="fill: white;">
-              qwerty
-            </object> -->
+           
         </div>
-        <!-- Fourth column -->
 
       </div>
 
     </div>
-    <!-- Footer Links -->
-
-    <!-- Copyright -->
     <div class="footer-copyright py-3 text-center">
 
       <div class="container-fluid">
@@ -330,36 +268,25 @@
       </div>
 
     </div>
-    <!-- Copyright -->
 
   </footer>
-  <!-- SCRIPTS -->
-  <!-- JQuery -->
   <script type="text/javascript" src="../static/js/jquery-3.4.1.min.js"></script>
-  <!-- Bootstrap tooltips -->
   <script type="text/javascript" src="../static/js/popper.min.js"></script>
-  <!-- Bootstrap core JavaScript -->
   <script type="text/javascript" src="../static/js/bootstrap.min.js">
   </script>
-  <!-- MDB core JavaScript -->
   <script type="text/javascript" src="../static/js/mdb.min.js"></script>
   <script type="text/javascript">
-    /* WOW.js init */
     new WOW().init();
-    // Tooltips Initialization
     $(function () {
       $('[data-toggle="tooltip"]').tooltip()
     })
 
-    // Material Select Initialization
     $(document).ready(function () {
       $('.mdb-select').material_select();
     });
 
-    // SideNav Initialization
     $(".button-collapse").sideNav();
 
-    // MDB Lightbox Init
     $(function () {
       $("#mdb-lightbox-ui").load("mdb-addons/mdb-lightbox-ui.html");
     });

@@ -2,7 +2,6 @@ from django_mysql.models import ListCharField
 from django.db import models,migrations
 
 class Address(models.Model):
-	# address_id = models.AutoField()
 	first_len = models.CharField(max_length=200,null=False)
 	second_len = models.CharField(max_length=200,null=False)
 	city = models.CharField(max_length=200,null=False)
@@ -14,7 +13,6 @@ class Address(models.Model):
          return self.first_len+" "+self.second_len
 
 class Customer(models.Model):
-	# customer_id = models.AutoField(primary_key=True)
 	firstname = models.CharField(max_length=200,null=True)
 	lastname = models.CharField(max_length=200,null=True)
 	email = models.CharField(max_length=200,null=True)
@@ -77,12 +75,10 @@ class Order(models.Model):
 		('Out for delivery','Out for delivery'),
 		('Delivered','Delivered'),
 	)
-	# order_id = models.AutoField(primary_key=True)
 	customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=False, blank=True)
 	date_ordered = models.DateTimeField(auto_now_add=True)
 	status = models.CharField(max_length=40, null=True, choices=STATUS)
 	transaction_id = models.CharField(max_length=200,null=True,blank=True,default="00000000")
-	# RESPMSG=models.CharField(max_length=500,null=True,blank=True,default="None")
 	def __str__(self):
 		return self.transaction_id
 
