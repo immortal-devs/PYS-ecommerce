@@ -121,7 +121,7 @@
                           {% endfor %}
 
                           </ul>
-                      
+                      {% if request.session.name %}
                 <div class="row mt-3 mb-4">
                   <div class="col-md-12 text-center">
                         <a class="btn btn-primary btn-rounded" href="/addtocart/{{product.id}}" >
@@ -129,7 +129,7 @@
                   </div>
 
                 </div>
-
+                  {% endif %}
               </div>
 
             </section>
@@ -155,13 +155,6 @@
         <strong>Related Products</strong>
 
       </h4>
-
-      <hr class="mb-5">
-
-      <p class="text-center w-responsive mx-auto mb-5 dark-grey-text">Lorem ipsum dolor sit amet, consectetur
-        adipisicing elit. Fugit, error amet numquam iure provident voluptate
-
-        esse quasi, veritatis totam voluptas nostrum quisquam eum porro a pariatur accusamus veniam.</p>
 
       <!-- Carousel Wrapper -->
       <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
@@ -297,7 +290,7 @@
                                     
                                   </span>
                                     {% endif %}
-
+                                    {% if request.session.name %}
                               <span class="float-right">
 
                                 <a href="/addtocart/{{product.id}}" >
@@ -305,7 +298,7 @@
                                   <i class="fas fa-shopping-cart ml-3"></a></i>
 
                               </span>
-
+                              {% endif %}
                     </div>
 
                   </div>
@@ -420,7 +413,7 @@
                                     
                                   </span>
                                     {% endif %}
-
+                                    {% if request.session.name %}
                               <span class="float-right">
 
                                 <a href="/addtocart/{{product.id}}" >
@@ -428,7 +421,7 @@
                                   <i class="fas fa-shopping-cart ml-3"></a></i>
 
                               </span>
-
+                              {% endif %}
                     </div>
 
                   </div>
@@ -542,7 +535,7 @@
                                     
                                   </span>
                                     {% endif %}
-
+                                    {% if request.session.name %}
                               <span class="float-right">
 
                                 <a href="/addtocart/{{product.id}}" >
@@ -550,7 +543,7 @@
                                   <i class="fas fa-shopping-cart ml-3"></a></i>
 
                               </span>
-
+                              {% endif %}
                     </div>
 
                   </div>

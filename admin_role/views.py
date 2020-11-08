@@ -59,7 +59,7 @@ def orders(request):
     if request.session.get('username'):
         username = request.session.get('username')
         context['username']= username
-    for i in OrderItem.objects.all():
+    for i in OrderItem.objects.all().order_by('-id'):
         price=i.product.price
         pname=i.product.name
         quantity=i.quantity
@@ -69,18 +69,13 @@ def orders(request):
         date=i.date_added
         status=i.delivered
         context.setdefault("products",[]).append([pname,price,quantity,totalprice,image,i.product.id,date,orderitemid,status])
-        print(pname,totalprice,i.product.id)
-    print("qwqw")
-    print(context)
     return render(request, 'orders.html', context)
 
 def orderstatus(request,id):
     print("order status start")
     if OrderItem.objects.filter(id=id):
-        print("if........")
         q=OrderItem.objects.get(id=id)
-        print(q)
-        if q.delivered != "Delivered":
+        if q.delivered != "Delivered" and q.delivered != "Returned" and q.delivered != "Canceled":
             q.delivered="Delivered"
             q.save()
         return HttpResponseRedirect('/orders/')

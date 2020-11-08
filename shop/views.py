@@ -13,6 +13,7 @@ from .models import Address, Admin_detail, Customer, Order, OrderItem, Product, 
 from django.views.decorators.csrf import csrf_exempt
 from . import Checksum
 import hashlib 
+import datetime
 from django.contrib.auth.decorators import login_required
 MERCHANT_KEY = 'j4zE3okbkZGg71&Z'
 
@@ -105,7 +106,7 @@ def shop(request):
     newProductList=[]
     bestSellerProductList=[]
     saleProductList=[]
-    for products in Product.objects.all():
+    for products in Product.objects.all().order_by('?'):
         categoryp=products.category
         if "Men" in categoryp:
             if cntm<3:
@@ -431,7 +432,8 @@ def receipt(request):
     invoiceno=int(random.random() * 1000000)
     context["invoiceno"]=invoiceno
     request.session['invoiceno']=invoiceno
-
+    x = datetime.date.today()
+    context["date"] = x
     s= paymentdata (orderid=invoiceno,cid=cid)
     s.save()
 
@@ -441,6 +443,30 @@ def receipt(request):
     context["total"] = total
     request.session['total']=total
     return render(request, 'receipt.html', context)
+
+def codpayment(request):
+    invoiceno = request.session.get('invoiceno')
+    cid = request.session.get('cid')
+    q = Customer.objects.get(id=cid)
+    transaction_id = int(random.random() * 1000000000)
+    s=Order(customer=q, status="Success", transaction_id=transaction_id, method="COD")
+    s.save()
+    for i in shopping_cart.objects.all():
+        if i.customer_id==q.id:
+            quantity=i.quantity
+            if i.product.stock >= i.quantity:
+                product= i.product
+                product.stock -= i.quantity
+                product.save()
+            orderitem=OrderItem(product=i.product, customer=q, order=s, quantity=quantity)
+            orderitem.save()
+            i.delete()
+            subject = 'Purchased product details'
+            message = 'Transaction id: ' + str(transaction_id) + '\n' + 'Product name: ' + i.product.name + '\n' + 'Quantity: ' + str(quantity) + '\n' + 'Payment status: ' + response_dict['STATUS']
+            from_email = settings.EMAIL_HOST_USER
+            to_list = [q.email]
+            send_mail(subject, message, from_email, to_list, fail_silently=True)
+    return redirect('/successful')
 
 def checkout(request):
     context={}
@@ -498,10 +524,8 @@ def order(request,response_dict):
     for i in paymentdata.objects.all():
         if i.orderid == orderid:
             cid=i.cid
-    print("cid ",cid)
     q=Customer.objects.get(id=cid)
-    print(q,cid,q.id)
-    s=Order(customer=q, date_ordered=response_dict['TXNDATE'] , status=response_dict['STATUS'], transaction_id=response_dict['TXNID'])
+    s=Order(customer=q, status=response_dict['STATUS'], transaction_id=response_dict['TXNID'], method="PAYTM")
     s.save()
     for i in paymentdata.objects.all():
         if i.cid == cid:
@@ -514,9 +538,14 @@ def order(request,response_dict):
                 product= i.product
                 product.stock -= i.quantity
                 product.save()
-            orderitem=OrderItem(product=i.product, customer=q, order=s, quantity=quantity,date_added=response_dict['TXNDATE'])
+            orderitem=OrderItem(product=i.product, customer=q, order=s, quantity=quantity, date_added=str(x))
             orderitem.save()
             i.delete()
+    subject = 'Purchased product details'
+    message = 'Transaction id: ' + str(response_dict['TXNID']) + '\n' + 'Product name: ' + i.product.name + '\n' + 'Quantity: ' + str(quantity) + '\n' + 'Payment status: ' + response_dict['STATUS']
+    from_email = settings.EMAIL_HOST_USER
+    to_list = [q.email]
+    send_mail(subject, message, from_email, to_list, fail_silently=True)
     
 @csrf_exempt
 def paytm(request):
@@ -528,7 +557,6 @@ def paytm(request):
             checksum = form[i]
     verify = Checksum.verify_checksum(response_dict, MERCHANT_KEY, checksum)
     print(verify)
-    print(response_dict)
     if verify:
         if response_dict['RESPCODE'] == '01':
             order(request, response_dict)
@@ -558,7 +586,7 @@ def myorder(request):
     name = request.session.get('name')
     context["name"] = name
     total=0
-    for i in OrderItem.objects.all():
+    for i in OrderItem.objects.all().order_by('-id'):
         if i.customer.id==cid:
             price=i.product.price
             pname=i.product.name
@@ -568,8 +596,23 @@ def myorder(request):
             total += totalprice
             cartid=i.id
             delivered=i.delivered
+            orderitemid=i.id
             date=i.date_added
-            context.setdefault("products",[]).append([pname,price,quantity,totalprice,image,cartid,delivered,i.product.id,date])
-    print("myorder")
-    print(context)
+            context["delivered"] = i.delivered
+            context.setdefault("products",[]).append([pname,price,quantity,totalprice,image,cartid,delivered,orderitemid,i.product.id,date])
     return  render(request, 'myorder.html',context)
+
+def returnproduct(request,id):
+    if OrderItem.objects.filter(id=id):
+        q=OrderItem.objects.get(id=id)
+        print(q)
+        if q.delivered=="Ordered":
+            q.delivered="Canceled"
+        elif q.delivered=="Delivered":
+            q.delivered="Returned"
+        q.save()
+        if q.product.stock >= q.quantity:
+            product = q.product
+            product.stock += q.quantity
+            product.save()
+        return HttpResponseRedirect('/myorder/')

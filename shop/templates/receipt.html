@@ -10,7 +10,7 @@
             <h4 class="h4-responsive mt-3">Invoice #{{invoiceno}}</h4>
             <div>
               <a href="/payment" class="btn btn-secondary">Pay Now</a>
-              {% comment %} <a href="#" class="btn btn-primary"><i class="fas fa-print left"></i> Print</a> {% endcomment %}
+              <a href="/codpayment" class="btn btn-primary"> COD</a>
             </div>
           </div>
         </div>
@@ -24,7 +24,7 @@
                 <p><strong>PYS Company Inc</strong></p>
                 <p>134 Royal Arcade, Sarthana Jakatnaka</p>
                 <p>Surat, Gujarat 395006</p>
-                <p><strong>Invoice date:</strong> August 18, 2020</p>
+                <p><strong>Invoice date:</strong> {{date}}</p>
                 <!-- <p><strong>Due date:</strong> December 2, 2016</p> -->
               </div>
               <div class="col-md-6 text-right">

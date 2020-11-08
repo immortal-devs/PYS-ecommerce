@@ -61,6 +61,7 @@
                     <strong>Amount</strong>
 
                   </th>
+                  <th></th>
                 </tr>
 
               </thead>
@@ -82,8 +83,8 @@
                       <strong>{{product|index:0}}</strong>
                     </h5>
                   </td>
-                  <td>{{product|index:8}}</td>
-                  <td>{{product|index:6}}</td>
+                  <td>{{product|index:9}}</td>
+                  <td class="font-weight-bold">{{product|index:6}}</td>
               
                   <td>{{product|index:1}}&#x20b9;</td>
               
@@ -92,8 +93,17 @@
                     <strong>{{product|index:3}}&#x20b9;</strong>
 
                   </td>
+                  {% if delivered == "Delivered" %}
+                  <td>
+                        <a type="button" class="btn btn-sm btn-outline-primary waves-effect" style="color: white;" href="/returnproduct/{{product|index:7}}">Return</a>
+                  </td>
+                  {% else %}
+                  <td><a type="button" class="btn btn-sm btn-outline-primary waves-effect" style="color: white;" href="/returnproduct/{{product|index:7}}">Cancel</a></td>
+                  {% endif %}
+
                 </tr>
                 {% endfor %}
+                
               </tbody>
             </table>
           </div>
