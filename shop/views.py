@@ -462,7 +462,7 @@ def codpayment(request):
             orderitem.save()
             i.delete()
             subject = 'Purchased product details'
-            message = 'Transaction id: ' + str(transaction_id) + '\n' + 'Product name: ' + i.product.name + '\n' + 'Quantity: ' + str(quantity) + '\n' + 'Payment status: ' + response_dict['STATUS']
+            message = 'Transaction id: ' + str(transaction_id) + '\n' + 'Product name: ' + i.product.name + '\n' + 'Quantity: ' + str(quantity) + '\n' + 'Payment status: ' + s.status
             from_email = settings.EMAIL_HOST_USER
             to_list = [q.email]
             send_mail(subject, message, from_email, to_list, fail_silently=True)
@@ -542,7 +542,7 @@ def order(request,response_dict):
             orderitem.save()
             i.delete()
     subject = 'Purchased product details'
-    message = 'Transaction id: ' + str(response_dict['TXNID']) + '\n' + 'Product name: ' + i.product.name + '\n' + 'Quantity: ' + str(quantity) + '\n' + 'Payment status: ' + response_dict['STATUS']
+    message = 'Transaction id: ' + str(response_dict['TXNID']) + '\n' + 'Product name: ' + i.product.name + '\n' + 'Quantity: ' + str(quantity) + '\n' + 'Payment status: ' + s.status
     from_email = settings.EMAIL_HOST_USER
     to_list = [q.email]
     send_mail(subject, message, from_email, to_list, fail_silently=True)
@@ -612,16 +612,13 @@ def myorder(request):
 def returnproduct(request,id):
     if OrderItem.objects.filter(id=id):
         q=OrderItem.objects.get(id=id)
-        print("wwwwwwwwwwwwwwwww")
         if q.delivered=="Ordered":
             q.delivered="Canceled"
         elif q.delivered=="Delivered":
             q.delivered="Returned"
         q.save()
-        print("qqqqqqqqqqqqqqqqq")
         if q.product.stock >= q.quantity:
             product = q.product
             product.stock += q.quantity
             product.save()
         return HttpResponseRedirect('/myorder/')
-    print("endddddddddddddddddd")

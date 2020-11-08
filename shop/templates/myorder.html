@@ -93,13 +93,9 @@
                     <strong>{{product|index:3}}&#x20b9;</strong>
 
                   </td>
-                  {% comment %} {% if delivered == "Delivered" %} {% endcomment %}
                   <td>
                         <a type="button" class="btn btn-sm btn-outline-primary waves-effect" style="color: white;" href="/returnproduct/{{product|index:7}}">{{product|index:10}}</a>
                   </td>
-                  {% comment %} {% else %} {% endcomment %}
-                  {% comment %} <td><a type="button" class="btn btn-sm btn-outline-primary waves-effect" style="color: white;" href="/returnproduct/{{product|index:7}}">Cancel</a></td> {% endcomment %}
-                  {% comment %} {% endif %} {% endcomment %}
 
                 </tr>
                 {% endfor %}

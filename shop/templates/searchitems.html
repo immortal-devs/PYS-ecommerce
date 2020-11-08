@@ -8,7 +8,6 @@
 <div class="container">
 <div style="padding-top:100px; padding-bottom:10px">
     <div>
-        {% comment %} <h3>your search result is: </h3> {% endcomment %}
         {% if search1list%}
         <h3 >Your results for " {{search}}" : </h3>
         {% else %}
@@ -112,16 +111,6 @@
 
 
                               </span>
-                              {% comment %} </span>
-                                  <span class="grey-text">
-
-                                    <small>
-
-                                      <s>&nbsp;$89</s>
-
-                                    </small>
-
-                                  </span> {% endcomment %}
                               <span class="float-right">
 
                                 <a href="/addtocart/{{product.id}}" >
