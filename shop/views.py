@@ -598,21 +598,30 @@ def myorder(request):
             delivered=i.delivered
             orderitemid=i.id
             date=i.date_added
+            rstatus=" "
+            if i.delivered=="Ordered":
+                rstatus="Cancel"
+            elif i.delivered=="Delivered":
+                rstatus="Return"
+            else:
+                rstatus=i.delivered
             context["delivered"] = i.delivered
-            context.setdefault("products",[]).append([pname,price,quantity,totalprice,image,cartid,delivered,orderitemid,i.product.id,date])
+            context.setdefault("products",[]).append([pname,price,quantity,totalprice,image,cartid,delivered,orderitemid,i.product.id,date,rstatus])
     return  render(request, 'myorder.html',context)
 
 def returnproduct(request,id):
     if OrderItem.objects.filter(id=id):
         q=OrderItem.objects.get(id=id)
-        print(q)
+        print("wwwwwwwwwwwwwwwww")
         if q.delivered=="Ordered":
             q.delivered="Canceled"
         elif q.delivered=="Delivered":
             q.delivered="Returned"
         q.save()
+        print("qqqqqqqqqqqqqqqqq")
         if q.product.stock >= q.quantity:
             product = q.product
             product.stock += q.quantity
             product.save()
         return HttpResponseRedirect('/myorder/')
+    print("endddddddddddddddddd")
