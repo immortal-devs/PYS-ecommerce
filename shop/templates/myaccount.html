@@ -2,16 +2,6 @@
 {% load index %}
 <link rel="stylesheet" type="text/css" href="../static/css/style.css">
 {% block content %}
-<!-- <main>
-    <div class="container">
-        <div>Your Name: {{name}}</div>
-        {% for user in users %}
-            <div>Gender: {{user|index:0}}</div>
-            <div>Email: {{user|index:1}}</div>
-        {% endfor %}
-    </div>
-</main> -->
-
 <main>
   
     <div class="container-fluid">
@@ -36,7 +26,6 @@
               </div>
               <!-- Card image -->
               <div class="card-body card-body-cascade text-center">
-              {% comment %} <form> {% endcomment %}
                 <div class="row">
                   <div class="col-md-12">
                     <div class="md-form mb-0">
@@ -70,7 +59,6 @@
                       </div>
                     </div>
                   </div>
-             {% comment %} </form> {% endcomment %}
             </div>
             </div>
             <!-- Card -->
@@ -93,8 +81,6 @@
               <!-- Card content -->
               <div class="card-body card-body-cascade text-center">
 
-                <!-- Edit Form -->
-                {% comment %} <form> {% endcomment %}
                 <form class="text-center" style="color: #757575;" action="/updatedetail/{{custid}}" method="POST">
         {% csrf_token %}
                   <!-- First row -->
