@@ -622,3 +622,66 @@ def returnproduct(request,id):
             product.stock += q.quantity
             product.save()
         return HttpResponseRedirect('/myorder/')
+
+def filter(request,filter):
+	cid=request.session.get("cid")
+	context={}
+	context["title"] = "Orders"
+	name = request.session.get('name')
+	context["name"] = name
+	total=0
+	for i in OrderItem.objects.all().order_by('-id'):
+		if i.customer.id==cid:
+			if filter == 1 and i.delivered == "Ordered":
+				price=i.product.price
+				pname=i.product.name
+				quantity=i.quantity
+				image=i.product.imageURL
+				totalprice=i.quantity*i.product.price
+				total += totalprice
+				cartid=i.id
+				delivered=i.delivered
+				orderitemid=i.id
+				date=i.date_added
+				rstatus="Cancel"
+				context.setdefault("products",[]).append([pname,price,quantity,totalprice,image,cartid,delivered,orderitemid,i.product.id,date,rstatus])
+			if filter == 2 and i.delivered == "Delivered":
+				price=i.product.price
+				pname=i.product.name
+				quantity=i.quantity
+				image=i.product.imageURL
+				totalprice=i.quantity*i.product.price
+				total += totalprice
+				cartid=i.id
+				delivered=i.delivered
+				orderitemid=i.id
+				date=i.date_added
+				rstatus="Return"
+				context.setdefault("products",[]).append([pname,price,quantity,totalprice,image,cartid,delivered,orderitemid,i.product.id,date,rstatus])
+			if filter == 3 and i.delivered == "Returned":
+				price=i.product.price
+				pname=i.product.name
+				quantity=i.quantity
+				image=i.product.imageURL
+				totalprice=i.quantity*i.product.price
+				total += totalprice
+				cartid=i.id
+				delivered=i.delivered
+				orderitemid=i.id
+				date=i.date_added
+				rstatus=i.delivered
+				context.setdefault("products",[]).append([pname,price,quantity,totalprice,image,cartid,delivered,orderitemid,i.product.id,date,rstatus])
+			if filter == 4 and i.delivered == "Canceled":
+				price=i.product.price
+				pname=i.product.name
+				quantity=i.quantity
+				image=i.product.imageURL
+				totalprice=i.quantity*i.product.price
+				total += totalprice
+				cartid=i.id
+				delivered=i.delivered
+				orderitemid=i.id
+				date=i.date_added
+				rstatus=i.delivered
+				context.setdefault("products",[]).append([pname,price,quantity,totalprice,image,cartid,delivered,orderitemid,i.product.id,date,rstatus])
+	return  render(request, 'myorder.html',context)

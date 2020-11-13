@@ -35,4 +35,5 @@ urlpatterns = [
 	path('myorder/', views.myorder, name="myorder"),
 	path('returnproduct/<int:id>', views.returnproduct, name="return"),
 	path('codpayment/', views.codpayment, name="cod"),
+	path('filter/<int:filter>', views.filter, name="filter"),
 ]
