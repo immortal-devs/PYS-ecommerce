@@ -574,7 +574,7 @@ def successful(request):
 
 def unsuccessful(request):
     context = {}
-    context["title"] = "failed"
+    context["title"] = "Failed"
     name = request.session.get('name')
     context["name"] = name
     return  render(request, 'orderfailed.html', context)
