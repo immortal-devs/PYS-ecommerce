@@ -11,28 +11,22 @@
       <!-- News card -->
       <div class="card mt-5 hoverable">
 
-        <div class="row mt-5 pd-5">
+        <div class="row mt-2 pd-2">
 
           <div class="col-lg-6">
 
               <div class="p-5" >
-                    <img src="{{product.imageURL}}" alt="First slide"
-                      class="img-fluid">
+                    <img src="{{product.imageURL}}" alt="First slide" class="img-fluid">
               </div>
            
           </div>
 
-     
+          <div class="col-lg-6 pr-5 text-center" style="padding: 75px 0;">
 
-          <div class="col-lg-6 pr-5  text-center text-md-left">
-
-            <h2
-              class="h2-responsive text-center text-md-left product-name font-weight-bold dark-grey-text mb-1 ml-xl-0 ml-4">
-
-              <strong>{{product.name}} </strong>
-
+            <h2 class="h2-responsive product-name font-weight-bold dark-grey-text mb-2 ml-xl-0 ml-4">
+                <strong>{{product.name}} </strong>
             </h2>
-                  {% for Category in product.category %}
+            {% for Category in product.category %}
                       {% if Category == 'bestseller' %}
                           <span class="badge badge-danger mb-2">{{Category}}</span>
                       {% endif %}
@@ -42,13 +36,9 @@
                       {% if Category == 'new' %}
                           <span class="badge badge-info mb-2">{{Category}}</span>
                       {% endif %}
-                  {% endfor %}
+            {% endfor %}
 
-            </strong>
-
-            </h2>
-
-            <h3 class="h3-responsive text-center text-md-left mb-5 ml-xl-0 ml-4">
+            <h3 class="h3-responsive text-center mb-5 ml-xl-0 ml-4">
 
               <span class="font-weight-bold">
 
@@ -73,35 +63,31 @@
               </span>
 
             </h3>
-              <p class="ml-xl-0 ml-4">
-              {{product.description}}
-              </p>
-            <p class="ml-xl-0 ml-4">Random Discription
 
-            </p>
+              <p class="ml-xl-0 ml-4">{{product.description}} </p>
+              <p class="ml-xl-0 ml-4">Random Discription</p>
     
-            <p class="ml-xl-0 ml-4">
+              <p class="ml-xl-0 ml-4">
 
               <strong>Size: </strong>
               {% for size in product.size %}
                 {{size}} ,
               {% endfor %}
               </p>
-
-        {% if product.stock %}
-            <p class="ml-xl-0 ml-4">
-              <strong>Availability: </strong>In stock</p>
-        {% else %}
-            <p class="ml-xl-0 ml-4">
-              <strong>Availability: </strong>Not in stock</p>
-        {% endif %}
+              {% if product.stock %}
+                  <p class="ml-xl-0 ml-4">
+                    <strong>Availability: </strong>In stock</p>
+              {% else %}
+                  <p class="ml-xl-0 ml-4">
+                    <strong>Availability: </strong>Not in stock</p>
+              {% endif %}
             <section class="color">
               <div>
                 <p class="ml-xl-0 ml-4">
-              <strong>Color: </strong>{{product.color}}</p>
-                     
+                <h><strong>Color: </strong>{{product.color}}</p>
+                </h5>
                      <ul class="rating">
-                     </strong class="black-text" style="color:black">Rating: </strong>
+                     <strong class="black-text">Rating: </strong>
                           {% for star in product.rating|times %}
                             <li> 
  
@@ -117,7 +103,7 @@
                             </li>
                           {% endfor %}
 
-                          </ul>
+                      </ul>
                       {% if request.session.name %}
                 <div class="row mt-3 mb-4">
                   <div class="col-md-12 text-center">
@@ -128,10 +114,7 @@
                 </div>
                   {% endif %}
               </div>
-
             </section>
-            <!-- Add to Cart -->
-
           </div>
 
         </div>

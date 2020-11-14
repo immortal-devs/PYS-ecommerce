@@ -372,7 +372,7 @@ def addtocart(request,id):
     
 def search (request):
     searchdict={
-         "Gren":"Green", "Grn":"Green", "Greeen":"Green",
+        "Gren":"Green", "Grn":"Green", "Greeen":"Green",
         "Llow":"Yellow","Yelow":"Yellow","Ylw":"Yellow",
         "Balek":"Black","Blk":"Black","Bleck":"Black",
         "Woman":"Women","wman":"Women","Wmn":"Women",
@@ -391,7 +391,7 @@ def search (request):
     if search in searchdict.keys():
         search=searchdict[search]
     cnt1=0   
-    for products in Product.objects.all():
+    for products in Product.objects.all().order_by('?'):
         categoryp=products.category
         if search in categoryp:
             if cnt1<15:
