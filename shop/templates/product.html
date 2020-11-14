@@ -4,24 +4,23 @@
 <link rel="stylesheet" type="text/css" href="../static/css/style.css">
 {% block content %}
 
-  <!-- Main Container -->
   <div class="mt-5 pt-3">
     <section id="productDetails" class="pb-5">
 
       <!-- News card -->
       <div class="card mt-5 hoverable">
 
-        <div class="row mt-2 pd-2">
+        <div class="row mt-1 pd-1">
 
           <div class="col-lg-6">
 
-              <div class="p-5" >
-                    <img src="{{product.imageURL}}" alt="First slide" class="img-fluid">
+              <div class="p-5 text-center">
+                    <img src="{{product.imageURL}}" style="height: 450px;overflow: hidden;"  alt="First slide" class="img-fluid">
               </div>
            
           </div>
 
-          <div class="col-lg-6 pr-5 text-center" style="padding: 75px 0;">
+          <div class="col-lg-6 pr-5" style="padding: 75px 0;">
 
             <h2 class="h2-responsive product-name font-weight-bold dark-grey-text mb-2 ml-xl-0 ml-4">
                 <strong>{{product.name}} </strong>
@@ -38,7 +37,7 @@
                       {% endif %}
             {% endfor %}
 
-            <h3 class="h3-responsive text-center mb-5 ml-xl-0 ml-4">
+            <h3 class="h3-responsive mb-5 ml-xl-0 ml-4">
 
               <span class="font-weight-bold">
 
@@ -63,7 +62,7 @@
               </span>
 
             </h3>
-
+            <span style="font-size: 17px;">
               <p class="ml-xl-0 ml-4">{{product.description}} </p>
               <p class="ml-xl-0 ml-4">Random Discription</p>
     
@@ -71,7 +70,7 @@
 
               <strong>Size: </strong>
               {% for size in product.size %}
-                {{size}} ,
+                {{size}}
               {% endfor %}
               </p>
               {% if product.stock %}
@@ -105,7 +104,7 @@
 
                       </ul>
                       {% if request.session.name %}
-                <div class="row mt-3 mb-4">
+                <div class="row mt-4 mb-4">
                   <div class="col-md-12 text-center">
                         <a class="btn btn-primary btn-rounded" href="/addtocart/{{product.id}}" >
                       <i class="fas fa-cart-plus mr-2" aria-hidden="true"></i> Add to cart</a>
@@ -115,6 +114,7 @@
                   {% endif %}
               </div>
             </section>
+          </span>
           </div>
 
         </div>
@@ -552,6 +552,4 @@
     <!-- Section: Products v.5 -->
 
   </div>
-  <!-- Main Container -->
-
-  {% endblock content %}
+{% endblock content %}

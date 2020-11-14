@@ -74,7 +74,7 @@
           {% if request.session.name %}
 
       
-          <li class="nav-item dropdown ml-3">
+          <li class="nav-item dropdown-animating show" style="position: relative;">
 
             <a class="dropdown-toggle waves-effect"
               id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -129,15 +129,12 @@
     </nav>
       
     </header>
-
-
-  <div class="container">
+<div class="container">
     {% block content %}
   
   
     {% endblock content %}
-  </div>
- 
+ </div>
  <footer class="page-footer text-center text-md-left stylish-color-dark pt-0">
     
     <!-- background-color: #4285f4 -->
@@ -335,15 +332,11 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js "></script>
-  <script type="text/javascript">
+  <!-- <script type="text/javascript">
     new WOW().init();
     $(function () {
       $('[data-toggle="tooltip"]').tooltip()
     })
-
-    $(document).ready(function () {
-      $('.mdb-select').material_select();
-    });
 
     $(".button-collapse").sideNav();
 
@@ -351,7 +344,7 @@
       $("#mdb-lightbox-ui").load("mdb-addons/mdb-lightbox-ui.html");
     });
     
-  </script>
+  </script> -->
 <script>
 $(document).ready(function() {
     $('#example').DataTable();
