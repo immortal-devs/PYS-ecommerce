@@ -7,6 +7,7 @@ from django.conf import settings
 from django.db import IntegrityError
 from datetime import datetime, timedelta, date
 import math, random
+from django.contrib import messages
 import json
 import random
 from .models import Address, Admin_detail, Customer, Order, OrderItem, Product, shopping_cart, paymentdata
@@ -42,6 +43,9 @@ def product(request,id):
             elif cnt3<3 and rproducts != product:
                 cnt3+=1
                 rproductlist3.add(rproducts)
+        for i in shopping_cart.objects.all():
+        	if i.product_id == rproducts.id:
+        		context["already"] = True
     context["rproducts1"]=rproductlist1
     context["rproducts2"]=rproductlist2
     context["rproducts3"]=rproductlist3
@@ -366,7 +370,7 @@ def addtocart(request,id):
         customerq=Customer.objects.get(id=cid)
         c=shopping_cart(product=productq,quantity=quantityq,customer=customerq)
         c.save()
-        return redirect('/shop')
+        return redirect('/cart')
     else:
         return redirect('/shop')
     
@@ -448,8 +452,9 @@ def codpayment(request):
     invoiceno = request.session.get('invoiceno')
     cid = request.session.get('cid')
     q = Customer.objects.get(id=cid)
+    x=datetime.datetime.today()
     transaction_id = int(random.random() * 1000000000)
-    s=Order(customer=q, status="Success", transaction_id=transaction_id, method="COD")
+    s=Order(customer=q, status="Success", transaction_id=transaction_id, method="COD", date_ordered=str(x))
     s.save()
     for i in shopping_cart.objects.all():
         if i.customer_id==q.id:
@@ -458,14 +463,14 @@ def codpayment(request):
                 product= i.product
                 product.stock -= i.quantity
                 product.save()
-            orderitem=OrderItem(product=i.product, customer=q, order=s, quantity=quantity)
+            orderitem=OrderItem(product=i.product, customer=q, order=s, quantity=quantity, date_added=str(x))
             orderitem.save()
             i.delete()
-            subject = 'Purchased product details'
-            message = 'Transaction id: ' + str(transaction_id) + '\n' + 'Product name: ' + i.product.name + '\n' + 'Quantity: ' + str(quantity) + '\n' + 'Payment status: ' + s.status
-            from_email = settings.EMAIL_HOST_USER
-            to_list = [q.email]
-            send_mail(subject, message, from_email, to_list, fail_silently=True)
+    subject = 'Purchased product details'
+    message = 'Transaction id: ' + str(transaction_id) + '\n' + 'Product name: ' + i.product.name + '\n' + 'Quantity: ' + str(quantity) + '\n' + 'Payment status: ' + s.status
+    from_email = settings.EMAIL_HOST_USER
+    to_list = [q.email]
+    send_mail(subject, message, from_email, to_list, fail_silently=True)
     return redirect('/successful')
 
 def checkout(request):
@@ -525,7 +530,7 @@ def order(request,response_dict):
         if i.orderid == orderid:
             cid=i.cid
     q=Customer.objects.get(id=cid)
-    s=Order(customer=q, status=response_dict['STATUS'], transaction_id=response_dict['TXNID'], method="PAYTM")
+    s=Order(customer=q, status=response_dict['STATUS'], date_ordered=response_dict['TXNDATE'], transaction_id=response_dict['TXNID'], method="PAYTM")
     s.save()
     for i in paymentdata.objects.all():
         if i.cid == cid:
@@ -538,7 +543,7 @@ def order(request,response_dict):
                 product= i.product
                 product.stock -= i.quantity
                 product.save()
-            orderitem=OrderItem(product=i.product, customer=q, order=s, quantity=quantity, date_added=str(x))
+            orderitem=OrderItem(product=i.product, customer=q, order=s, quantity=quantity, date_added=response_dict['TXNDATE'])
             orderitem.save()
             i.delete()
     subject = 'Purchased product details'
@@ -602,7 +607,7 @@ def myorder(request):
             if i.delivered=="Ordered":
                 rstatus="Cancel"
             elif i.delivered=="Delivered":
-                rstatus="Return"
+            	rstatus="Return"
             else:
                 rstatus=i.delivered
             context["delivered"] = i.delivered
@@ -615,7 +620,12 @@ def returnproduct(request,id):
         if q.delivered=="Ordered":
             q.delivered="Canceled"
         elif q.delivered=="Delivered":
-            q.delivered="Returned"
+        	date = datetime.datetime.today().replace(tzinfo=None) 
+        	if (q.date_added.replace(tzinfo=None) + datetime.timedelta(days=7)) >= date:
+        		q.delivered="Returned"
+        	else:
+        		messages.error(request, "Return policy period of 7 days is over. You cannot return this product.")
+        		q.delivered=="Delivered"
         q.save()
         if q.product.stock >= q.quantity:
             product = q.product
@@ -685,3 +695,38 @@ def filter(request,filter):
 				rstatus=i.delivered
 				context.setdefault("products",[]).append([pname,price,quantity,totalprice,image,cartid,delivered,orderitemid,i.product.id,date,rstatus])
 	return  render(request, 'myorder.html',context)
+
+def rating(request,id):
+    context={}
+    name = request.session.get('name')
+    context["name"] = name
+    context["ratestatus"] = True
+    productq = Product.objects.get(id=id)
+    for q in OrderItem.objects.all():
+        if q.product.id == id:
+            image = productq.imageURL
+            pid = q.product.id
+            pname = q.product.name
+            customer = q.customer.firstname + " " + q.customer.lastname
+            payment = q.order.method
+            total = q.quantity * q.product.price
+            date = q.date_added
+            delivered = q.delivered
+            if q.rating != 0:
+                context["ratestatus"] = False
+            rating = q.rating
+            rstatus=False
+            if q.delivered=="Delivered" or q.delivered=="Returned":
+                context["rstatus"]=True
+            context.setdefault("products",[]).append([pid,pname,total,image,customer,payment,date,delivered,rating])
+    return render(request, 'ratings.html', context)
+
+def ratingdata(request,id):
+    rate = int(request.POST.get('rating'))
+    q = Product.objects.get(id=id)
+    p = OrderItem.objects.get(product=q)
+    p.rating = rate
+    p.save()
+    q.rating = int((q.rating+rate)/2)
+    q.save()
+    return HttpResponseRedirect('/myorder/')

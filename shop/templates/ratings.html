@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load range %}
 {% load index %}
 <html lang="en">
 
@@ -7,52 +8,52 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>{{title}}</title>
+  <title>Rating</title>
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+  <!-- Bootstrap core CSS -->
   <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
   <link href="../static/css/mdb.min.css" rel="stylesheet">
-  <link type="text/css" href="../static/css/style.css" rel="stylesheet">
+  <link href="../static/css/main.css" rel="stylesheet">
+  <link href="../static/css/style.css" rel="stylesheet">
   <style>
-
-    .alert {
-        background-color: #f44336;
-        padding: .50rem,1.25rem;
-        color: white;
+    
+    input[type=text]{
+      width: 10%;
+      padding: 3px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      resize: vertical;
     }
     
-    .closebtn {
-        margin-left: 15px;
-        color: white;
-        font-weight: bold;
-        float: right;
-        font-size: 22px;
-        line-height: 20px;
-        cursor: pointer;
-        transition: 0.3s;
+    input[type=submit] {
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      float: right;
     }
     
-    .closebtn:hover {
-        color: white;
+    input[type=submit]:hover {
+      background-color: #45a049;
     }
-      .btn-toggle-pass {
-          --info-color: #0099CC;
-          border: none;
-          position: absolute;
-          top: 11px;
-          background: transparent;
-          right: 0;
+    
+    @media screen and (max-width: 600px) {
+      .col-25, .col-75, input[type=submit] {
+        width: 100%;
+        margin-top: 0;
       }
-    
-      .btn-toggle-pass.active {
-          color: var(--info-color);
-      }
-     </style>
-
+    }
+    </style>
+  
 </head>
 
 <body class="homepage-v1 hidden-sn white-skin animated">
-
-  <header>
+  <!-- Navigation -->
+<header>
   <nav class="fixed-top navbar-expand-lg scrolling-navbar" style="height: 70px;">
       <div class="menu-icon">
         <span class="fas fa-bars"></span></div>
@@ -63,7 +64,7 @@
               Shop
             </a>
           </li>
-           <li class="nav-item ml-3">
+          <li class="nav-item ml-3">
             <a href="/cart">
               <span class="badge danger-color">{{carttotalq}}</span>
               <img src="../static/images/svg/shopping-cart.svg" 
@@ -76,6 +77,10 @@
               alt="cart_svg" style="height: 18px; width:20px; padding-bottom: 3px;">&nbsp; Contact
             </a>
           </li>
+
+          {% if request.session.name %}
+
+      
           <li class="nav-item dropdown-animating show" style="position: relative;">
 
             <a class="dropdown-toggle waves-effect"
@@ -87,7 +92,7 @@
             <div class="dropdown-menu dropdown-menu-right dropdown-cyan" aria-labelledby="navbarDropdownMenuLink-4">
 
               <a class="dropdown-item waves-effect waves-light" href="/myaccount">My account</a>
-              <a class="dropdown-item waves-effect waves-light" href="/myorder">My Order</a>
+              <a class="dropdown-item waves-effect waves-light" href="/myorder">My Orders</a>
 
               <a class="dropdown-item waves-effect waves-light" href="/logout">Log out</a>
 
@@ -95,25 +100,29 @@
 
             
           </li>
-          <li class="nav-item dropdown-animating show" style="position: relative;">
+          
+          {% else %}
+           <li class="nav-item ml-3">
 
-            <a class="dropdown-toggle waves-effect"
-              id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="tue">
-              <img src="https://img.icons8.com/ios-glyphs/30/000000/filter.png"
-              alt="cart_svg" style="height: 20px;padding-bottom: 3px;"/>&nbsp; Filter</a>
+            <a href="{% url 'login' %}">
+              <img src="../static/images/svg/lock.svg" alt="cart_svg" style="height: 20px;padding-bottom: 2px;">&nbsp; Log in
+            </a>
 
-            <div class="dropdown-menu dropdown-menu-center dropdown-cyan" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item waves-effect waves-light" href="/myorder">All Order</a>
-              <a class="dropdown-item waves-effect waves-light" href="/filter/1">Ordered</a>
-              <a class="dropdown-item waves-effect waves-light" href="/filter/2">Delivered</a>
-              <a class="dropdown-item waves-effect waves-light" href="/filter/3">Returned</a>
-              <a class="dropdown-item waves-effect waves-light" href="/filter/4">Canceled</a>
-            </div>
+          </li> 
+
+          <li class="nav-item ml-3">
+
+            <a href="{% url 'signup' %}">
+
+              <img src="../static/images/svg/edit-round.svg" alt="cart_svg" style="height: 20px;padding-bottom: 2px;">&nbsp; Sign up
+
+            </a>
 
           </li>
-          
-        </div>
-        <div class="search-icon">
+
+          {% endif %}
+         </div>
+          <div class="search-icon">
           <span class="fas fa-search"></span>
           </div>
           <div class="cancel-icon">
@@ -124,130 +133,112 @@
           <input type="search" name="searchq" class="search-data" placeholder="Search">
           <button type="submit" class="fas fa-search"></button>
         </form>
-      </nav>
+    </nav>
       
-    </header>
- 
-  <main>
-    
-  <!-- Main Container -->
+  
+</header>
+<main>
   <div class="container">
-    {% if messages %}
-    {% for message in messages %}
-    <div class=alert><span class=closebtn onclick="this.parentElement.style.display='none'">&times;</span>
-        <strong>{{ message }} </strong></div>
-    {% endfor %}
-    {% endif %}
-    <!-- Section cart -->
-    <section class="section my-4 pb-4">
-      {% if products %}
-      <div class="card card-ecommerce">
+    {% for product in products %}
+         
+            <form action="/ratingdata/{{product|index:0}}" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+          <section id="productDetails" class="pb-5">
 
-        <div class="card-body">
+      <!-- News card -->
+      <div class="card mt-5 hoverable">
 
-          <!-- Shopping Cart table -->
-          <div class="table-responsive">
+        <div class="row mt-1 pd-1">
 
-            <table class="table product-table table-cart-v-2">
+          <div class="col-lg-6">
 
-              <!-- Table head -->
-              <thead class="mdb-color lighten-5">
-
-                <tr>
-
-                  <th></th>
-
-                  <th class="font-weight-bold">
-
-                    <strong>Product</strong>
-
-                  </th>
-                  <th class="font-weight-bold">
-
-                    <strong>Date</strong>
-
-                  </th>
-
-                  <th class="font-weight-bold">
-
-                    <strong>Status</strong>
-
-                  </th>
-
-                  <th class="font-weight-bold">
-
-                    <strong>Price</strong>
-
-                  </th>
-
-                  <th class="font-weight-bold">
-
-                    <strong>QTY</strong>
-
-                  </th>
-
-                  <th class="font-weight-bold">
-
-                    <strong>Amount</strong>
-
-                  </th>
-                  <th></th>
-                </tr>
-
-              </thead>
-              <tbody>
-
-              {% for product in products %}
-
-                <!-- First row -->
-                <tr>
-                  <td scope="row">
-                  <a href="/rating/{{product|index:8}}">
-                  <div class="view overlay" style="height:150px;  overflow: hidden;">
-                      <img src="{{product|index:4}}" >
-                    </a>
-                  </div>
-                  </td>
-                    <td>
-                    <h6 class="mt-3">
-                      <strong>{{product|index:0}}</strong>
-                    </h6>
-                  </td>
-                  <td>{{product|index:9}}</td>
-                  <td class="font-weight-bold">{{product|index:6}}</td>
-              
-                  <td>{{product|index:1}}&#x20b9;</td>
-              
-                  <td>{{product|index:2}}</td>
-                  <td class="font-weight-bold">
-                    <strong>{{product|index:3}}&#x20b9;</strong>
-
-                  </td>
-                  <td>
-                        <a type="button" class="btn btn-sm btn-outline-primary waves-effect" style="color: white;" href="/returnproduct/{{product|index:7}}">{{product|index:10}}</a>
-                  </td>
-
-                </tr>
-                {% endfor %}
-                
-              </tbody>
-            </table>
+              <div class="p-5 text-center">
+                    <img src="{{product|index:3}}" style="height: 450px;overflow: hidden;"  alt="First slide" class="img-fluid">
+              </div>
+           
           </div>
-        </div>
-        {% else %}
-        <h1 class="text-center">
-          Nothing ordered yet!
 
-          <a href="/shop">
-          <button type="button" class="btn btn-primary btn-rounded">Countinue Shopping
-                <i class="fas fa-angle-right right"></i>
-          </button></a>
-        </h1> 
-    {% endif %}
+          <div class="col-lg-6 pr-5" style="padding: 75px 0;">
+
+            <h2 class="h2-responsive product-name font-weight-bold dark-grey-text mb-2 ml-xl-0 ml-4">
+                <strong>{{product|index:1}} </strong>
+            </h2>
+            
+            <h3 class="h3-responsive mb-5 ml-xl-0 ml-4">
+
+              <span class="font-weight-bold">
+
+                <strong>{{product|index:2}}&#x20b9;</strong>
+
+              </span>
+
+            </h3>
+            <span style="font-size: 17px;">
+              
+                  <p class="ml-xl-0 ml-4">
+                    <strong>Customer Name: </strong>  {{product|index:4}}</p>
+            
+                  <p class="ml-xl-0 ml-4">
+                    <strong>Payment Method: </strong>  {{product|index:5}}</p>
+
+                  <p class="ml-xl-0 ml-4">
+                    <strong>Date: </strong>  {{product|index:6}}</p>
+
+                  <p class="ml-xl-0 ml-4">
+                    <strong>Order Status: </strong>  {{product|index:7}}</p>
+                  <ul class="rating">
+                     <strong class="black-text">Your Rating: </strong>
+                          {% for star in product|index:8|times %}
+                            <li> 
+ 
+                              <i class="fas fa-star blue-text"></i>
+
+                            </li>
+                          {% endfor %}
+                          {% for star in product|index:8|times1 %}
+                            <li>
+
+                              <i class="fas fa-star grey-text"></i>
+
+                            </li>
+                          {% endfor %}
+
+                      </ul>
+
+                {% if rstatus %}
+                  {% if ratestatus %}
+                    <p class="ml-xl-0 ml-4">
+                    <strong>Rate the product: </strong>&nbsp; <input type="text" name="rating"/> out of 5</p>
+                    
+                <div class="row mt-4 mb-4">
+                  <div class="col-md-12 text-center">
+                      <div class="row" style="justify-content: center;padding-top: 20px;">
+                        <input type="submit" value="Submit">
+                      </div>
+                  </div>
+
+                </div>
+                {% endif %}
+                  {% endif %}
+
+                </h5>
+          </span>
+          </div>
+
+        </div>
+   
+      </div>
+      <!-- News card -->
+
     </section>
+          
+          </form>
+        </div>
+      </div>
+    {% endfor %}
   </div>
 </main>
- <footer class="page-footer text-center text-md-left stylish-color-dark pt-0">
+<footer class="page-footer text-center text-md-left stylish-color-dark pt-0">
     
     <!-- background-color: #4285f4 -->
     <div style=" background-image: linear-gradient(to right, purple , white);">
@@ -376,12 +367,25 @@
 
           <p>
 
-            <a href="/myaccount">Your Account</a>
+            <a href="#!">Your Account</a>
 
           </p>
+
           <p>
 
-            <a href="/contact">Help</a>
+            <a href="#!">Become an Affiliate</a>
+
+          </p>
+
+          <p>
+
+            <a href="#!">Shipping Rates</a>
+
+          </p>
+
+          <p>
+
+            <a href="#!">Help</a>
 
           </p>
 
@@ -435,11 +439,68 @@
     <!-- Copyright -->
 
   </footer>
+  <!-- Footer -->
+
+  <!-- SCRIPTS -->
+  <!-- JQuery -->
   <script type="text/javascript" src="../static/js/jquery-3.4.1.min.js"></script>
+  <!-- Bootstrap tooltips -->
   <script type="text/javascript" src="../static/js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
   <script type="text/javascript" src="../static/js/bootstrap.min.js">
   </script>
-  <script type="text/javascript" src="../static/js/mdb.min.js"></script>  
+
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="../static/js/mdb.min.js"></script>
+  
+  <script type="text/javascript">
+    /* WOW.js init */
+    new WOW().init();
+    // Tooltips Initialization
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
+
+    // Material Select Initialization
+    $(document).ready(function () {
+      $('.mdb-select').material_select();
+    });
+
+    // SideNav Initialization
+    $(".button-collapse").sideNav();
+
+  </script>
+
+  
+
+  <script>
+    const menuBtn = document.querySelector(".menu-icon span");
+    const searchBtn = document.querySelector(".search-icon");
+    const cancelBtn = document.querySelector(".cancel-icon");
+    const items = document.querySelector(".nav-items");
+    const form = document.querySelector("form");
+    menuBtn.onclick = ()=>{
+      items.classList.add("active");
+      menuBtn.classList.add("hide");
+      searchBtn.classList.add("hide");
+      cancelBtn.classList.add("show");
+    }
+    cancelBtn.onclick = ()=>{
+      items.classList.remove("active");
+      menuBtn.classList.remove("hide");
+      searchBtn.classList.remove("hide");
+      cancelBtn.classList.remove("show");
+      form.classList.remove("active");
+      cancelBtn.style.color = "#ff3d00";
+    }
+    searchBtn.onclick = ()=>{
+      form.classList.add("active");
+      searchBtn.classList.add("hide");
+      cancelBtn.classList.add("show");
+    }
+  </script>
+
 </body>
 
 </html>

@@ -140,7 +140,8 @@
                 {% for product in products %}
                   <!-- First row -->
                   <tr>
-                    <td scope="row"><img src="{{product.imageURL}}" ></td>
+                    <td scope="row">
+                    <a href="editproduct/{{product.id}}"> <img src="{{product.imageURL}}" ></a></td>
                     <td>{{product.name}}</td>
                     <td></td>
                     <td>{{product.price}}</td>

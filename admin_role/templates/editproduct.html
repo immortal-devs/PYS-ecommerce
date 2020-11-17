@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+{% load static %}
+{% load index %}
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>PYS | Edit Product</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+  <link href="{% static 'css/bootstrap.min.css' %}" type="text/css" rel="stylesheet">
+  <link href="{% static 'css/mdb.min.css' %}" type="text/css" rel="stylesheet">
+  <link href="{% static 'css/style.css' %}" rel="stylesheet" >
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    
+    input[type=text], input[type=file], select, textarea {
+      width: 90%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      resize: vertical;
+    }
+    
+    label {
+      padding: 12px 12px 12px 0;
+      display: inline-block;
+    }
+    
+    input[type=submit] {
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      float: right;
+    }
+    
+    input[type=submit]:hover {
+      background-color: #45a049;
+    }
+    
+    .container {
+      border-radius: 5px;
+      background-color: #f2f2f2;
+      padding: 20px 200px 20px 200px;
+    }
+    
+    .col-25 {
+      float: left;
+      width: 25%;
+      margin-top: 6px;
+    }
+    
+    .col-75 {
+      float: left;
+      width: 75%;
+      margin-top: 6px;
+    }
+    
+    /* Clear floats after the columns */
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+    
+    @media screen and (max-width: 600px) {
+      .col-25, .col-75, input[type=submit] {
+        width: 100%;
+        margin-top: 0;
+      }
+    }
+    </style>
+ 
+</head>
+
+<body class="homepage-v1 hidden-sn white-skin animated">
+<header>
+    <nav class="fixed-top navbar-expand-lg scrolling-navbar" style="height: 70px;">
+      <span style="font-size: 30px;justify-content: center;">Edit Product Details</span>
+        <div class="nav-items">
+        <li class="nav-item ml-3">
+          <a href="/admin_role/">
+            Home
+          </a>
+        </li>
+    </div>
+   </nav>    
+</header>
+
+<main>
+  <div class="container">
+        {% for product in products %}
+        <div class="row">
+          <div class="col-lg-6">
+            <img src="{{product|index:2}}" style="height: 450px;overflow: hidden;" >
+          </div>
+          <div class="col-lg-6">
+            <form action="/admin_role/editproductdata/{{product|index:10}}" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+            <div class="row">
+            <div class="col-25">
+              <label for="name">Name</label>
+            </div>
+            <div class="col-75">
+              <input type="text" name="name" value="{{product|index:0}}" required="required">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-25">
+              <label for="price">Price</label>
+            </div>
+            <div class="col-75">
+              <input type="text" name="price" value="{{product|index:1}}" required="required">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-25">
+              <label for="category">Category</label>
+            </div>
+            <div class="col-75">
+              <input type="text" name="category" value="{{product|index:3}}" required="required">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-25">
+              <label for="color">Product Color</label>
+            </div>
+            <div class="col-75">
+              <input type="text" name="color" value="{{product|index:5}}" >
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-25">
+              <label for="size">Size</label>
+            </div>
+            <div class="col-75">
+              <input type="text" name="size" value="{{product|index:6}}">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-25">
+              <label for="discount">Discount</label>
+            </div>
+            <div class="col-75">
+              <input type="text" name="discount" value="{{product|index:9}}" >
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-25">
+              <label for="stock">Stock</label>
+            </div>
+            <div class="col-75">
+              <input type="text" name="stock" value="{{product|index:4}}" required="required">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-25">
+              <label for="des">Description</label>
+            </div>
+            <div class="col-75">
+              <textarea type="text" value="{{product|index:8}}" name="description"></textarea>
+            </div>
+          </div>
+          
+          <div class="row" style="justify-content: center;padding-top: 20px;">
+            <input type="submit" value="Submit">
+          </div>
+        </form>
+      </div>
+    </div>
+      {% endfor %}
+</div>
+</main>
+  <script type="text/javascript" src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/popper.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}">
+  </script>
+  <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
+  <script type="text/javascript">
+    new WOW().init();
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
+    $(document).ready(function () {
+      $('.mdb-select').material_select();
+    });
+    $(".button-collapse").sideNav();
+
+  </script>
+
+</body>
+
+</html>

@@ -12,6 +12,8 @@ urlpatterns = [
     path('checkuser/', views.checkuser, name="checkuser"),
     path('addproduct/', views.addproduct, name="addproduct"),
     path('orders/', views.orders, name="orders"),
+    path('editproduct/<int:id>', views.editproduct, name="editproduct"),
+    path('editproductdata/<int:id>', views.editproductdata, name="editproductdata"),
     path('orders/orderstatus/<int:id>', views.orderstatus, name="orderstatus"),
     path('checkproductdata/', views.checkproductdata, name="checkproductdata"),
 ]

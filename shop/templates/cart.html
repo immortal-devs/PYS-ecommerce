@@ -10,7 +10,7 @@
     <div class="container">
 
       <!-- Section cart -->
-      <section class="section my-5 pb-5">
+      <section class="section my-4 pb-4">
         {% if products %}
 
         <div class="card card-ecommerce">
@@ -146,8 +146,13 @@
           </div>
         </div>
       {% else %}
-          <h1>
+          <h1 class="text-center">
             Your basket is empty!
+
+            <a href="/shop">
+            <button type="button" class="btn btn-primary btn-rounded">Countinue Shopping
+                    <i class="fas fa-angle-right right"></i>
+            </button></a>
           </h1> 
       {% endif %}
       </section>

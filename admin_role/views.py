@@ -54,6 +54,44 @@ def checkproductdata(request):
     s.save()
     return HttpResponseRedirect('/admin_role/')
 
+def editproduct(request,id):
+    context={}
+    product = Product.objects.get(id=id)
+    pname = product.name
+    price = product.price
+    image = product.imageURL
+    category = product.category
+    stock = product.stock
+    color = product.color
+    size = product.size
+    description = product.description
+    rating = product.rating
+    discount = product.discount
+    context.setdefault("products",[]).append([pname,price,image,category,stock,color,size,description,rating,discount,id])
+    return render(request, 'editproduct.html', context)
+
+def editproductdata(request,id):
+    name = request.POST.get("name")
+    price = request.POST.get("price")
+    category = request.POST.get("category")
+    stock = request.POST.get("stock")
+    color = request.POST.get('color')
+    size = request.POST.get('size')
+    desc = request.POST.get('description')
+    discount = request.POST.get('discount')
+
+    q = Product.objects.get(id=id)
+    q.name=name
+    q.price=price
+    q.category=category
+    q.stock=stock
+    q.color=color
+    q.size=size
+    q.description=desc
+    q.discount=discount
+    q.save()
+    return HttpResponseRedirect('/admin_role/')
+
 def orders(request):
     context={}
     if request.session.get('username'):

@@ -76,7 +76,7 @@ class Order(models.Model):
 		('Delivered','Delivered'),
 	)
 	customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=False, blank=True)
-	date_ordered = models.DateTimeField(auto_now_add=True)
+	date_ordered = models.DateTimeField()
 	status = models.CharField(max_length=40, null=True, choices=STATUS)
 	transaction_id = models.CharField(max_length=200,null=True,blank=True,default="00000000")
 	method = models.CharField(max_length=40, null=False, default="COD")
@@ -89,8 +89,9 @@ class OrderItem(models.Model):
 	customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=False, blank=True)
 	order = models.ForeignKey(Order, on_delete=models.CASCADE, null=False, blank=True)
 	quantity = models.IntegerField( default=1)
-	date_added = models.DateTimeField(auto_now_add=True)
+	date_added = models.DateTimeField()
 	delivered = models.CharField(max_length=50,default="Ordered")
+	rating = models.IntegerField(default=0)
 
 	def __str__(self):
 		return str(self.product.name+" "+self.order.customer.firstname)
