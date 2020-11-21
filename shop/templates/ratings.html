@@ -188,24 +188,17 @@
 
                   <p class="ml-xl-0 ml-4">
                     <strong>Order Status: </strong>  {{product|index:7}}</p>
-                  <ul class="rating">
+                  
+                  <p class="ml-xl-0 ml-4">
                      <strong class="black-text">Your Rating: </strong>
                           {% for star in product|index:8|times %}
-                            <li> 
- 
-                              <i class="fas fa-star blue-text"></i>
-
-                            </li>
+                            <i class="fas fa-star blue-text"></i>
                           {% endfor %}
                           {% for star in product|index:8|times1 %}
-                            <li>
-
-                              <i class="fas fa-star grey-text"></i>
-
-                            </li>
+                            <i class="fas fa-star grey-text"></i>
                           {% endfor %}
-
-                      </ul>
+                        </p>
+                     
 
                 {% if rstatus %}
                   {% if ratestatus %}
