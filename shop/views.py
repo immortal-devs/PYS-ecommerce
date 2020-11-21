@@ -706,6 +706,7 @@ def rating(request,id):
         if q.product.id == id:
             image = productq.imageURL
             pid = q.product.id
+            quantity = q.quantity
             pname = q.product.name
             customer = q.customer.firstname + " " + q.customer.lastname
             payment = q.order.method
@@ -718,7 +719,7 @@ def rating(request,id):
             rstatus=False
             if q.delivered=="Delivered" or q.delivered=="Returned":
                 context["rstatus"]=True
-            context.setdefault("products",[]).append([pid,pname,total,image,customer,payment,date,delivered,rating])
+            context.setdefault("products",[]).append([pid,pname,total,image,customer,payment,date,delivered,rating,quantity])
     return render(request, 'ratings.html', context)
 
 def ratingdata(request,id):

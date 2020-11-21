@@ -12,13 +12,17 @@ def adminlogin(request):
 def checkuser(request):
     username = request.POST.get("username")
     password = request.POST.get("pass")
-
-    for i in Admin_detail.objects.all():
-        if username == i.username and password == i.password:
-            request.session['username'] = username
-            return HttpResponseRedirect('/admin_role/')
-        else:
-            return render(request, 'adminlogin.html')
+    if Admin_detail.objects.all():
+        for i in Admin_detail.objects.all():
+            if username == i.username and password == i.password:
+                request.session['username'] = username
+                return HttpResponseRedirect('/admin_role/')
+            # else:
+            #     return render(request, 'adminlogin.html')
+        
+        return render(request, 'adminlogin.html',{'error': 'Email Or Password is incorrect.'})
+    else:
+        return render(request, 'adminlogin.html',{'error': 'Email not found.'})
 
 def admin(request):
     if request.session.get('username'):
