@@ -12,6 +12,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 import json
+from email.mime.image import MIMEImage
 import random
 from .models import Address, Admin_detail, Customer, Order, OrderItem, Product, shopping_cart, paymentdata
 from django.views.decorators.csrf import csrf_exempt
@@ -463,6 +464,17 @@ def receipt(request):
     request.session['total']=total
     return render(request, 'receipt.html', context)
 
+# from email.mime.image import MIMEImage
+# from django.contrib.staticfiles import finders
+
+# def logo_data(image):
+#     with open(finders.find('C:\\Users\\Yash Suhagiya\\Desktop\\SDP\\PYS-ecommerce\\shop\\static\\images\\products\\'+str(image)), 'rb') as f:
+#         logo_data = f.read()
+#     logo = MIMEImage(logo_data)
+#     logo.add_header('Content-ID', '<logo>')
+#     img.add_header('Content-Disposition', 'inline', filename=image)
+#     return logo
+
 def codpayment(request):
     invoiceno = request.session.get('invoiceno')
     cid = request.session.get('cid')
@@ -472,6 +484,7 @@ def codpayment(request):
     transaction_id = int(random.random() * 1000000000)
     s=Order(customer=q, status="Success", transaction_id=transaction_id, method="COD", date_ordered=str(x))
     s.save()
+    context={}
     for i in shopping_cart.objects.all():
         if i.customer_id==q.id:
             quantity=i.quantity
@@ -479,15 +492,29 @@ def codpayment(request):
                 product= i.product
                 product.stock -= i.quantity
                 product.save()
+            image = i.product.image
+            pname = i.product.name
             orderitem=OrderItem(product=i.product, customer=q, order=s, quantity=quantity, date_added=str(x))
             orderitem.save()
             total = i.product.price * quantity
             i.delete()
+    context["image"] = image
+    context["txnid"] = str(transaction_id)
+    context["pname"] = pname
+    context["qntity"] = str(quantity)
+    context["date"] = str(x)
+    context["total"] = str(total)
+    context["pstatus"] = s.status
+    context["pmethod"] = 'Cash on delivery'
+    html_content = render_to_string("orderemail.html", context) 
+    text_content = strip_tags(html_content)
     subject = 'Purchased product details'
-    message = 'Transaction id: ' + str(transaction_id) + '\n' + 'Product name: ' + i.product.name + '\n' + 'Quantity: ' + str(quantity) + '\n' + 'Date: ' + str(x) + '\n' + 'Total amount: '+ str(total) + 'Payment status: ' + s.status + '\n' + 'Payment method: Cash on delivery'
     from_email = settings.EMAIL_HOST_USER
     to_list = [email]
-    send_mail(subject, message, from_email, to_list, fail_silently=True)
+    mail = EmailMultiAlternatives(subject, text_content, from_email, to_list)
+    mail.attach_alternative(html_content,"text/html")
+    # mail.attach(logo_data(image))
+    mail.send()
     return redirect('/successful')
 
 def checkout(request):
