@@ -8,6 +8,9 @@ from django.db import IntegrityError
 from datetime import datetime, timedelta, date
 import math, random
 from django.contrib import messages
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 import json
 import random
 from .models import Address, Admin_detail, Customer, Order, OrderItem, Product, shopping_cart, paymentdata
@@ -96,7 +99,14 @@ def registrationdata(request):
         pass1 = hashlib.md5(pass1.encode())
         pass1 = pass1.hexdigest()
         s = Customer(firstname=firstname, lastname=lastname, email=email, password=pass1, mobile_no=mobileno)
-        s.save() 
+        s.save()
+        html_content = render_to_string("welcomemail.html") 
+        text_content = strip_tags(html_content)
+        from_email = settings.EMAIL_HOST_USER
+        to_list = [email]
+        mail = EmailMultiAlternatives("PYS | Thank you!", text_content, from_email, to_list)
+        mail.attach_alternative(html_content,"text/html")
+        mail.send()
         return HttpResponseRedirect('/login/')
     else:
         return render(request, 'signup.html', {'error': 'Re Enter same password!!'})
@@ -238,11 +248,14 @@ def newpassword(request):
         OTP += digits[math.floor(random.random() * 10)]
     for i in Customer.objects.all():
         if i.email == email:
+            html_content = render_to_string("otpemail.html",{'otp':OTP}) 
+            text_content = strip_tags(html_content)
             subject = 'Your confidential OTP'
-            message = 'Your OTP is ' + OTP
             from_email = settings.EMAIL_HOST_USER
             to_list = [i.email]
-            send_mail(subject, message, from_email, to_list, fail_silently=True)
+            mail = EmailMultiAlternatives(subject, text_content, from_email, to_list)
+            mail.attach_alternative(html_content,"text/html")
+            mail.send()
             request.session['otp'] = OTP
             return render(request, 'newpassword.html', c)
     else:
@@ -256,7 +269,9 @@ def addnewpassword(request):
             return render(request, 'newpassword.html', {'error': 'Can not change password. Your both Passwords are different'})
         else:
             target = Customer.objects.get(email=request.session['email2'])
-            target.password = password
+            pass1 = hashlib.md5(password.encode())
+            pass1 = pass1.hexdigest()
+            target.password = pass1
             target.save()
             del request.session['email2']
             return render(request, 'login.html', {'msg': 'Password successfully changed.'})
@@ -452,6 +467,7 @@ def codpayment(request):
     invoiceno = request.session.get('invoiceno')
     cid = request.session.get('cid')
     q = Customer.objects.get(id=cid)
+    email = q.email
     x=datetime.datetime.today()
     transaction_id = int(random.random() * 1000000000)
     s=Order(customer=q, status="Success", transaction_id=transaction_id, method="COD", date_ordered=str(x))
@@ -465,11 +481,12 @@ def codpayment(request):
                 product.save()
             orderitem=OrderItem(product=i.product, customer=q, order=s, quantity=quantity, date_added=str(x))
             orderitem.save()
+            total = i.product.price * quantity
             i.delete()
     subject = 'Purchased product details'
-    message = 'Transaction id: ' + str(transaction_id) + '\n' + 'Product name: ' + i.product.name + '\n' + 'Quantity: ' + str(quantity) + '\n' + 'Payment status: ' + s.status
+    message = 'Transaction id: ' + str(transaction_id) + '\n' + 'Product name: ' + i.product.name + '\n' + 'Quantity: ' + str(quantity) + '\n' + 'Date: ' + str(x) + '\n' + 'Total amount: '+ str(total) + 'Payment status: ' + s.status + '\n' + 'Payment method: Cash on delivery'
     from_email = settings.EMAIL_HOST_USER
-    to_list = [q.email]
+    to_list = [email]
     send_mail(subject, message, from_email, to_list, fail_silently=True)
     return redirect('/successful')
 
@@ -530,6 +547,7 @@ def order(request,response_dict):
         if i.orderid == orderid:
             cid=i.cid
     q=Customer.objects.get(id=cid)
+    email = q.email
     s=Order(customer=q, status=response_dict['STATUS'], date_ordered=response_dict['TXNDATE'], transaction_id=response_dict['TXNID'], method="PAYTM")
     s.save()
     for i in paymentdata.objects.all():
@@ -545,11 +563,12 @@ def order(request,response_dict):
                 product.save()
             orderitem=OrderItem(product=i.product, customer=q, order=s, quantity=quantity, date_added=response_dict['TXNDATE'])
             orderitem.save()
+            total = i.product.price * quantity
             i.delete()
     subject = 'Purchased product details'
-    message = 'Transaction id: ' + str(response_dict['TXNID']) + '\n' + 'Product name: ' + i.product.name + '\n' + 'Quantity: ' + str(quantity) + '\n' + 'Payment status: ' + s.status
+    message = 'Transaction id: ' + str(response_dict['TXNID']) + '\n' + 'Product name: ' + i.product.name + '\n' + 'Quantity: ' + str(quantity) + '\n' + 'Date: ' + s.date_ordered + '\n' + 'Total amount: '+ str(total) + '\n' + 'Payment status: ' + s.status
     from_email = settings.EMAIL_HOST_USER
-    to_list = [q.email]
+    to_list = [email]
     send_mail(subject, message, from_email, to_list, fail_silently=True)
     
 @csrf_exempt
