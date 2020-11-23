@@ -1,7 +1,143 @@
-{% extends 'base.html' %}
-{% load static %}
-<link rel="stylesheet" type="text/css" href="../static/css/style.css">
-{% block content %}
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>{{title}}</title>
+  <link rel="icon" href="../static/images/favicon.png" type="image/x-icon"/>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+  <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../static/css/mdb.min.css" rel="stylesheet">
+  <link href="../static/css/style.css" rel="stylesheet">
+  
+  <style>
+
+    .alert {
+        background-color: #f44336;
+        padding: .50rem,1.25rem;
+        color: white;
+    }
+    
+    .closebtn {
+        margin-left: 15px;
+        color: white;
+        font-weight: bold;
+        float: right;
+        font-size: 22px;
+        line-height: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    
+    .closebtn:hover {
+        color: white;
+    }
+      .btn-toggle-pass {
+          --info-color: #0099CC;
+          border: none;
+          position: absolute;
+          top: 11px;
+          background: transparent;
+          right: 0;
+      }
+    
+      .btn-toggle-pass.active {
+          color: var(--info-color);
+      }
+     </style>
+
+</head>
+
+<body class="homepage-v1 hidden-sn white-skin animated">
+
+
+  <header>
+  
+      <nav class="fixed-top navbar-expand-lg scrolling-navbar" style="height: 70px;">
+      <div class="menu-icon">
+        <span class="fas fa-bars"></span></div>
+      <div class="logo">PYS</div>
+        <div class="nav-items">
+          <li class="nav-item ml-3">
+            <a href="/shop">
+              Shop
+            </a>
+          </li>
+          <li class="nav-item ml-3">
+            <a href="/cart">
+              <span class="badge danger-color">{{carttotalq}}</span>
+              <img src="../static/images/svg/shopping-cart.svg" 
+              alt="cart_svg" style="height: 22px;padding-bottom: 3px;">&nbsp; Cart
+            </a>
+          </li>
+         <li class="nav-item ml-3">
+            <a href="/contact">
+              <img src="../static/images/svg/envelope.svg" 
+              alt="cart_svg" style="height: 18px; width:20px; padding-bottom: 3px;">&nbsp; Contact
+            </a>
+          </li>
+
+          {% if request.session.name %}
+
+      
+          <li class="nav-item dropdown-animating show" style="position: relative;">
+
+            <a class="dropdown-toggle waves-effect"
+              id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+              <img src="https://img.icons8.com/ios-glyphs/30/000000/user--v1.png"
+              alt="cart_svg" style="height: 20px;padding-bottom: 3px;">&nbsp; Hello, {{name}} </a>
+
+            <div class="dropdown-menu dropdown-menu-right dropdown-cyan" aria-labelledby="navbarDropdownMenuLink-4">
+
+              <a class="dropdown-item waves-effect waves-light" href="/myaccount">My account</a>
+              <a class="dropdown-item waves-effect waves-light" href="/myorder">My Orders</a>
+
+              <a class="dropdown-item waves-effect waves-light" href="/logout">Log out</a>
+
+            </div>
+
+            
+          </li>
+          
+          {% else %}
+           <li class="nav-item ml-3">
+
+            <a href="{% url 'login' %}">
+              <img src="../static/images/svg/lock.svg" alt="cart_svg" style="height: 20px;padding-bottom: 2px;">&nbsp; Log in
+            </a>
+
+          </li> 
+
+          <li class="nav-item ml-3">
+
+            <a href="{% url 'signup' %}">
+
+              <img src="../static/images/svg/edit-round.svg" alt="cart_svg" style="height: 20px;padding-bottom: 2px;">&nbsp; Sign up
+
+            </a>
+
+          </li>
+
+          {% endif %}
+         </div>
+          <div class="search-icon">
+          <span class="fas fa-search"></span>
+          </div>
+          <div class="cancel-icon">
+          <span class="fas fa-times"></span>
+          </div>
+        <form action="/search/" method="POST">
+        {% csrf_token %}
+          <input type="search" name="searchq" class="search-data" placeholder="Search">
+          <button type="submit" class="fas fa-search"></button>
+        </form>
+    </nav>
+      
+    </header>
 
 
   <!-- Main Layout -->
@@ -42,7 +178,7 @@
                         <div class="card-body form">
 
                           <!-- Header -->
-                          <h3 class="mt-4"><i class="fas fa-envelope pr-2"></i>Write to us:</h3>
+                          <h3 class="mt-4 text-center"><i class="fas fa-envelope pr-2"></i>Write to us</h3>
 
                           <!-- Grid row -->
                           <div class="row">
@@ -137,7 +273,7 @@
 
                           <h3 class="my-4 pb-2">Contact information</h3>
 
-                          <ul class="text-lg-left list-unstyled ml-4">
+                          <ul class="text-lg-left list-unstyled ml-3">
 
                             <li>
 
@@ -155,7 +291,8 @@
 
                             <li>
 
-                              <p><img src="https://img.icons8.com/ios-glyphs/30/ffffff/filled-message.png" alt="cart_svg" style="height: 20px;width:20px">&nbsp;  pysservices1305@gmail.com</p>
+                              <p>
+            <img src="https://img.icons8.com/ios-glyphs/30/ffffff/filled-message.png" alt="cart_svg" style="height: 20px;width: 20px;">&nbsp;  pysservices1305@gmail.com</p>
 
                             </li>
 
@@ -233,5 +370,248 @@
         return true;
      }
   </script>
+<footer class="page-footer text-center text-md-left stylish-color-dark pt-0">
+    
+    <!-- background-color: #4285f4 -->
+    <div style=" background-image: linear-gradient(to right, purple , white);">
 
- {% endblock  %}
+      <div class="container">
+
+        <!-- Grid row -->
+        <div class="row py-4 d-flex align-items-center">
+
+          <!-- Grid column -->
+          <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
+
+            <h6 class="mb-0 white-text">Get connected with us on social networks!</h6>
+
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-6 col-lg-7 text-center text-md-right">
+
+            <!-- Facebook -->
+            <a class="fb-ic ml-0 px-2" href="https://www.facebook.com/">
+
+              <img src="../static/images/svg/facebook-round-color.svg" alt="cart_svg" style="height: 30px;" >
+            </a>
+
+            <!-- Twitter -->
+            <a class="tw-ic px-2"href="https://www.twitter.com/">
+
+              <img src="../static/images/svg/twitter-round-color.svg" alt="cart_svg" style="height: 30px;" >
+            </a>
+
+            <!-- Linkedin-->
+            <a class="gplus-ic px-2"href="https://www.linkedin.com/">
+
+              <img src="../static/images/svg/linkedin-round-color.svg" alt="cart_svg" style="height: 30px;" >
+            </a>
+
+            <!-- Instagram -->
+            <a class="li-ic px-2"href="https://www.instagram.com/">
+
+
+              <img src="../static/images/svg/instagram-round-color.svg" alt="cart_svg" style="height: 30px;" >
+            </a>
+
+            <!-- Telegram -->
+            <a class="ins-ic px-2"href="https://www.google.com/">
+
+              <img src="../static/images/svg/icons8-google.svg" alt="cart_svg" style="height: 30px;" >
+            </a>
+
+          </div>
+          <!-- Grid column -->
+
+        </div>
+        <!-- Grid row -->
+
+      </div>
+
+    </div>
+
+    <!-- Footer Links -->
+    <div class="container mt-5 mb-4 text-center text-md-left">
+
+      <div class="row mt-3">
+
+        <!-- First column -->
+        <div class="col-md-3 col-lg-4 col-xl-3 mb-4">
+
+          <h6 class="text-uppercase font-weight-bold">
+
+            <strong>PYS</strong>
+
+          </h6>
+
+          <hr class="blue mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+
+          <p>Welcome to PYS clothes shopping website.Here you can 
+          find fancy, stylish and colorful clothes.We have clothes for Men, Women and Kids.</p>
+
+        </div>
+        <!-- First column -->
+
+        <!-- Second column -->
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+
+          <h6 class="text-uppercase font-weight-bold">
+
+            <strong>Products</strong>
+
+          </h6>
+
+          <hr class="blue mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+
+          <p>
+
+            <a href="#!">Shirts and Tshirts</a>
+
+          </p>
+
+          <p>
+
+            <a href="#!">Dresses</a>
+
+          </p>
+
+          <p>
+
+            <a href="#!">Jackets</a>
+
+          </p>
+
+        </div>
+        <!-- Second column -->
+
+        <!-- Third column -->
+        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+
+          <h6 class="text-uppercase font-weight-bold">
+
+            <strong>Useful links</strong>
+
+          </h6>
+
+          <hr class="blue mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+
+          <p>
+
+            <a href="/myaccount">Your Account</a>
+
+          </p>
+          <p>
+
+            <a href="/contact">Help</a>
+
+          </p>
+
+        </div>
+        <!-- Third column -->
+
+        <!-- Fourth column -->
+        <div class="col-md-4 col-lg-3 col-xl-3">
+
+          <h6 class="text-uppercase font-weight-bold">
+
+            <strong>Contact</strong>
+
+          </h6>
+
+          <hr class="blue mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+
+          <p>
+
+            <img src="../static/images/svg/icons8-home.svg" alt="cart_svg" style="height: 23px;">&nbsp;  Surat, Gujarat, India</p>
+
+          <p>
+
+            <img src="https://img.icons8.com/ios-glyphs/30/ffffff/filled-message.png" alt="cart_svg" style="height: 20px;width:20px">&nbsp;  pysservices1305@gmail.com</p>
+
+          <p>
+
+            <img src="https://img.icons8.com/ios-filled/30/ffffff/headset.png" alt="cart_svg" style="height: 22px;"/>&nbsp; +91 9033925646</p>
+
+          <p>
+
+            <img src="https://img.icons8.com/ios-filled/30/ffffff/headset.png" alt="cart_svg" style="height: 22px;"/>&nbsp; +91 8155961245</p>
+          
+        </div>
+
+      </div>
+
+    </div>
+    <!-- Footer Links -->
+
+    <!-- Copyright -->
+    <div class="footer-copyright py-3 text-center">
+
+      <div class="container-fluid">
+
+    &copy; <script>document.write(new Date().getFullYear());</script> Copyright: <a href="/shop" target="_blank"> PYS.com </a>
+
+      </div>
+
+    </div>
+    <!-- Copyright -->
+
+  </footer>
+  <script type="text/javascript" src="../static/js/jquery-3.4.1.min.js"></script>
+  <script type="text/javascript" src="../static/js/popper.min.js"></script>
+  <script type="text/javascript" src="../static/js/bootstrap.min.js">
+  </script>
+  <script type="text/javascript" src="../static/js/mdb.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js "></script>
+  <!-- <script type="text/javascript">
+    new WOW().init();
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
+
+    $(".button-collapse").sideNav();
+
+    $(function () {
+      $("#mdb-lightbox-ui").load("mdb-addons/mdb-lightbox-ui.html");
+    });
+    
+  </script> -->
+<script>
+$(document).ready(function() {
+    $('#example').DataTable();
+} );
+</script>
+  <script>
+    const menuBtn = document.querySelector(".menu-icon span");
+    const searchBtn = document.querySelector(".search-icon");
+    const cancelBtn = document.querySelector(".cancel-icon");
+    const items = document.querySelector(".nav-items");
+    const form = document.querySelector("form");
+    menuBtn.onclick = ()=>{
+      items.classList.add("active");
+      menuBtn.classList.add("hide");
+      searchBtn.classList.add("hide");
+      cancelBtn.classList.add("show");
+    }
+    cancelBtn.onclick = ()=>{
+      items.classList.remove("active");
+      menuBtn.classList.remove("hide");
+      searchBtn.classList.remove("hide");
+      cancelBtn.classList.remove("show");
+      form.classList.remove("active");
+      cancelBtn.style.color = "#ff3d00";
+    }
+    searchBtn.onclick = ()=>{
+      form.classList.add("active");
+      searchBtn.classList.add("hide");
+      cancelBtn.classList.add("show");
+    }
+  </script>
+
+</body>
+
+</html>
