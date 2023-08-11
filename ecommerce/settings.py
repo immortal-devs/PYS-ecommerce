@@ -16,8 +16,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'pysservices1305@gmail.com'
-EMAIL_HOST_PASSWORD = 'yash1305paras'
+EMAIL_HOST_USER = 'pysservic*******@gmail.com'
+EMAIL_HOST_PASSWORD = '*************'
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -28,7 +28,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'f4j&3gb*7dssd39e)k)b_h^p6ag5#0f%@q@(u!_w5nmt+7l=4#'
+SECRET_KEY = '*********'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -163,8 +163,8 @@ MEDIA_URL = '/images/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'shop/static/images/products')
 
-SOCIAL_AUTH_FACEBOOK_KEY = '1548243245346006'        # App ID
-SOCIAL_AUTH_FACEBOOK_SECRET = '09b9f99944c90b3741a2848c7e9d0ada'
+SOCIAL_AUTH_FACEBOOK_KEY = '****'        # App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = '*****0b3741a2848c7e9d0ada'
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'user_link'] # add this
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {       # add this
   'fields': 'id, name, email'
@@ -174,8 +174,8 @@ SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [                 # add this
     ('email', 'email'),
 ]
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '596490440146-ajf36s2eub7el9jid26ovrifmj0dhc5j.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'NCBUL2SkX7_AmSnjgJcsbPCJ'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '**-ajf36s2eub7el9jid26ovrifmj0dhc5j.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '**'
 
-SOCIAL_AUTH_INSTAGRAM_KEY = '963252650768423'        # App ID
-SOCIAL_AUTH_INSTAGRAM_SECRET = 'bb25d77866a69921a79417fc4c5d674b'
+SOCIAL_AUTH_INSTAGRAM_KEY = '**'        # App ID
+SOCIAL_AUTH_INSTAGRAM_SECRET = '**'
